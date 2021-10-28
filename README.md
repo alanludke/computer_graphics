@@ -36,9 +36,14 @@ Primeiramente você deve definir um ambiente virtual a partir do comando:
 virtualenv venv
 ```
 
-Ativa-lo com o seguinte comando:
+Ativa-lo com o seguinte comando(linux):
 ```
 source venv/bin/activate
+```
+
+Ativa-lo com o seguinte comando(linux):
+```
+activate.bat
 ```
 
 E instalar as libs(com suas determinadas versões) em seu venv
