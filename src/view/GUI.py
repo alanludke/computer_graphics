@@ -1,4 +1,5 @@
 import sys
+from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
 
 class Gui(QMainWindow):
@@ -47,6 +48,11 @@ class Gui(QMainWindow):
         self.show()
 
 
-aplicacao = QApplication(sys.argv)
-j = Gui()
-sys.exit(aplicacao.exec_())
+# app = QApplication(sys.argv)
+# j = Gui()
+# sys.exit(app.exec_())
+
+app = QtWidgets.QApplication([])
+window = uic.loadUi("gui.ui")
+window.show()
+app.exec()
