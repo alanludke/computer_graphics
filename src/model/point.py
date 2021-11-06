@@ -1,3 +1,5 @@
+import numpy as np
+
 class Point:
     def __init__(self, x, y, z = 0):
         self.coordinates = [[x, y, z]]
@@ -10,3 +12,21 @@ class Point:
 
     def get_z(self):
         return self.coordinates[0][2]
+
+    def set_x(self, x):
+        self.coordinates[0][0] = x
+
+    def set_y(self, y):
+        self.coordinates[0][1] = y
+
+    def set_z(self, z):
+        self.coordinates[0][2] = z
+
+    def asnumpy(self):
+        return self.coord
+ 
+    def transform(self, t):
+        if not isinstance(t, np.ndarray):
+          self.coord = np.dot(self.coord,np.array(t))
+        else:
+            self.coord = np.dot(self.coord,t)
