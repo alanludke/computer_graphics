@@ -46,13 +46,23 @@ from PyQt5.QtWidgets import *
     #     self.setGeometry(self.left, self.top, self.width, self.height)
     #     self.setWindowTitle(self.title)
     #     self.show()
+def callObjectScreen():
+    object_screen.show()
 
+def callPointScreen():
+    point_screen.show()
 
-# app = QApplication(sys.argv)
-# j = Gui()
-# sys.exit(app.exec_())
+def windowEvents():
+    window.addObject.clicked.connect(callObjectScreen)
+
+def objectScreenEvents():
+    object_screen.addPoint.clicked.connect(callPointScreen)
 
 app = QtWidgets.QApplication([])
 window = uic.loadUi("gui.ui")
+object_screen = uic.loadUi("NewObjectScreen.ui")
+point_screen = uic.loadUi("NewPointScreen.ui")
+windowEvents()
+objectScreenEvents()
 window.show()
 app.exec()
