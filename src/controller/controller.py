@@ -11,19 +11,6 @@ class Controller():
 
         self.main_gui = Main_GUI()
         self.main_gui.window()
-        # self.main_gui.show()
-        # self.main_gui.window()
-        # main_gui.get_window.addObject.clicked.connect(print("lele"))
-        
-
-        # object_gui = Object_GUI()
-        # object_gui.show()
-        # # point_screen = uic.loadUi("src/view/NewPointScreen.ui")
-
-        # windowEvents()
-        # main_gui.add_object()
-        # objectScreenEvents()
-        # app.exec()
 
     # def callObjectScreen():
     #     object_screen.show()
@@ -33,6 +20,5 @@ class Controller():
 
     # def objectScreenEvents():
     #     object_screen.addPoint.clicked.connect(callPointScreen)
-
     def start(self):
         self.app.exec()
