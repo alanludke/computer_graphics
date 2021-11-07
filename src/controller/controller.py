@@ -11,7 +11,5 @@ class Controller():
         self.main_gui = Main_GUI()
         self.main_gui.window()
 
-        self.add_object_gui = AddObject_GUI()
-
     def start(self):
         self.app.exec()
