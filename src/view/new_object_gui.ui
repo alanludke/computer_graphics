@@ -54,28 +54,12 @@
     <string>Nome do objeto:</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="ButtonCancel">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>170</y>
-     <width>101</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="cursor">
-    <cursorShape>PointingHandCursor</cursorShape>
-   </property>
-   <property name="text">
-    <string>Cancelar</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="btn_add">
    <property name="geometry">
     <rect>
      <x>80</x>
      <y>170</y>
-     <width>101</width>
+     <width>291</width>
      <height>31</height>
     </rect>
    </property>

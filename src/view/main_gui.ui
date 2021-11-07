@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>710</height>
+    <width>809</width>
+    <height>718</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -386,16 +386,6 @@
       <string>Viewport</string>
      </property>
     </widget>
-    <widget class="QGraphicsView" name="Viewport">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>30</y>
-       <width>500</width>
-       <height>500</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="Line" name="line">
      <property name="enabled">
       <bool>false</bool>
@@ -501,7 +491,7 @@
      <rect>
       <x>20</x>
       <y>580</y>
-      <width>761</width>
+      <width>771</width>
       <height>86</height>
      </rect>
     </property>
@@ -535,7 +525,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>809</width>
      <height>22</height>
     </rect>
    </property>
