@@ -20,10 +20,4 @@ class Main_GUI(QMainWindow):
         self.terminal_out.append("btn_add_object_clicked clicked!!!")
         print("btn_add_object_clicked clicked")
         self.object_gui = AddObject_GUI()
-        self.object_gui.window()
-
-def window():
-    app = QApplication(sys.argv)
-    win = Main_GUI()
-    win.show()
-    sys.exit(app.exec_())
+        self.object_gui.initUI()
