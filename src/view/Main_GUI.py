@@ -13,12 +13,14 @@ class Main_GUI(QMainWindow):
     def initUI(self):
         uic.loadUi("src/view/main_gui.ui", self)
         self.show()
-        viewport = Viewport()
-        viewport.setFixedWidth(500)
-        viewport.setFixedHeight(500)
-        viewport.setStyleSheet("rgb(239, 41, 41)")
-        viewport.setAutoFillBackground(True)
-        # viewport.paintEvent()
+        self.viewport = Viewport()
+        self.viewport_frame.setLayout(self.layout_viewport)
+        self.layout_viewport.addWidget(self.viewport)
+        # viewport.setFixedWidth(500)
+        # viewport.setFixedHeight(500)
+        # viewport.setStyleSheet("rgb(239, 41, 41)")
+        # viewport.setAutoFillBackground(True)
+        # self.viewport.paintEvent()
     
         # buttons
         self.btn_add_object.clicked.connect(self.btn_add_object_clicked)
