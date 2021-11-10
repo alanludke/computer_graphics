@@ -1,7 +1,7 @@
 from point import point
 
-class Line:
 
+class Line:
     def __init__(self, name, origin, destiny):
         self.name = name
         self.origin = origin

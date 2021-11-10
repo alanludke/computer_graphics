@@ -1,47 +1,63 @@
 import sys
+from typing import List
 from PyQt5 import QtGui
-from PyQt5.QtCore import QLine, QLineF, QRect
-
-from PyQt5.QtGui import QPainter, QPen
+from PyQt5.QtGui import QColor, QPainter, QPen
 from PyQt5.QtWidgets import QLabel, QWidget
+from src.model.point import Point
+
 
 class Viewport(QLabel):
     def __init__(self):
         super().__init__()
-        self.objects = []
-        # self.setFixedWidth(500)
-        # self.setFixedHeight(500)
-        self.setStyleSheet("QLabel {background-color: rgb(239, 41, 41)}")
-        # self.setAutoFillBackground(True)
 
-        self.canvas = QtGui.QPixmap(500,500)
-        self.setPixmap(self.canvas)
-        # self.paintEvent()
+        # set borders
+        self.stylesheet = """
+            QLabel {
+                background-color: white;
+                border: 2px solid black
+            }
+        """
+        self.width = 500
+        self.height = 500
 
-        # painter = QPainter(self.pixmap())
-        # pen = QPen()
-        # pen.setWidth(5)
-        # painter.setPen(pen)
-        # painter.drawEllipse(300, 300, 150, 150)
+        self.setStyleSheet(self.stylesheet)
+        self.setFixedWidth(self.width)
+        self.setFixedHeight(self.height)
 
-        painter = QtGui.QPainter(self.pixmap())
-        painter.drawLine(10, 10, 150, 100)
-        painter.end()
+    def draw_borders(self):
+        painter = QPainter(self)
+        pen = QPen()
 
+        pen.setWidth(2)
+        pen.setColor(QColor(255, 0, 1))
+        painter.setPen(pen)
 
+        b_r = Point(475, 475, 1).to_QPointF()
+        b_l = Point(25, 475, 1).to_QPointF()
+        t_l = Point(25, 25, 1).to_QPointF()
+        t_r = Point(475, 25, 1).to_QPointF()
 
-    # def paintEvent(self, event):
-    #     painter = QPainter(self.pixmap())
-    #     painter.drawLine(10,10,300,200)
-    #     painter.end()
+        painter.drawLine(t_r, t_l)
+        painter.drawLine(t_r, b_r)
+        painter.drawLine(b_l, b_r)
+        painter.drawLine(b_l, t_l)
 
-    #     # pen = QPen()
-    #     # pen.setWidth(5)
+    def draw_cross(self):
+        painter = QPainter(self)
+        pen = QPen()
 
-    #     painter = QPainter(self)
-    #     # line = QLine(10,10,300,200)
-    #     painter.drawPixmap(10,10,300,200, self.canvas)
-    #     # painter.setPen(pen)
-    #     # painter.drawEllipse(300, 300, 150, 150)
+        pen.setWidth(2)
+        pen.setColor(QColor(0, 255, 0))
+        painter.setPen(pen)
 
-    
+        m_t = Point(250, 25, 1).to_QPointF()
+        m_b = Point(250, 475, 1).to_QPointF()
+        m_l = Point(25, 250, 1).to_QPointF()
+        m_r = Point(475, 250, 1).to_QPointF()
+
+        painter.drawLine(m_t, m_b)
+        painter.drawLine(m_l, m_r)
+
+    def paintEvent(self, event):
+        self.draw_borders()
+        self.draw_cross()

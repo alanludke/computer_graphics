@@ -8,6 +8,7 @@ as this is generated UI code after making the UI using PyQt5 Designer.
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_Calculator(object):
     def setupUi(self, Calculator):
         Calculator.setObjectName("Calculator")
@@ -116,7 +117,7 @@ class Ui_Calculator(object):
 
         self.Zero = QtWidgets.QPushButton(Calculator)
         self.Zero.setGeometry(QtCore.QRect(10, 580, 101, 91))
-        
+
         font = QtGui.QFont()
         font.setFamily("STIX")
         font.setPointSize(18)
@@ -219,7 +220,7 @@ class Ui_Calculator(object):
         font.setFamily("STIX")
         font.setPointSize(36)
         self.Back.setFont(font)
-        
+
         self.Back.setObjectName("Back")
 
         self.retranslateUi(Calculator)
@@ -227,7 +228,9 @@ class Ui_Calculator(object):
 
     def retranslateUi(self, Calculator):
         _translate = QtCore.QCoreApplication.translate
-        Calculator.setWindowTitle(_translate("Calculator", "Jacob Hallberg\'s Calculator"))
+        Calculator.setWindowTitle(
+            _translate("Calculator", "Jacob Hallberg's Calculator")
+        )
         self.Five.setText(_translate("Calculator", "5"))
         self.Six.setText(_translate("Calculator", "6"))
         self.Seven.setText(_translate("Calculator", "7"))
@@ -252,6 +255,7 @@ class Ui_Calculator(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     Calculator = QtWidgets.QDialog()
     ui = Ui_Calculator()

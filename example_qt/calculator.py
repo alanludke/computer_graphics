@@ -61,17 +61,17 @@ class Calculator(QtWidgets.QMainWindow, Ui_Calculator):
         and then routed to other helper functions
         """
         sender = self.sender()
-        if sender.text() in {'+', '-', '÷', '*', '='}:
+        if sender.text() in {"+", "-", "÷", "*", "="}:
             self.operations()
-        elif sender.text() == 'C':
+        elif sender.text() == "C":
             self.clear()
-        elif sender.text() == '←':
+        elif sender.text() == "←":
             self.back_space()
-        elif sender.text() == '√':
+        elif sender.text() == "√":
             self.s_root()
-        elif sender.text() == '.':
+        elif sender.text() == ".":
             self.add_decimal()
-        elif sender.text() == '±':
+        elif sender.text() == "±":
             self.add_remove_minus()
         else:
             self.string_appender()
@@ -87,33 +87,41 @@ class Calculator(QtWidgets.QMainWindow, Ui_Calculator):
         sender = self.sender()
         self.repeat = 0
         self.which_string = 1
-        if sender.text() == '+':
-            self.operator = '+'
-        if sender.text() == '-':
-            self.operator = '-'
-        if sender.text() == '÷':
-            self.operator = '÷'
-        if sender.text() == '*':
-            self.operator = '*'
-        if sender.text() == '=':
+        if sender.text() == "+":
+            self.operator = "+"
+        if sender.text() == "-":
+            self.operator = "-"
+        if sender.text() == "÷":
+            self.operator = "÷"
+        if sender.text() == "*":
+            self.operator = "*"
+        if sender.text() == "=":
             if self.display_string2 == "":
                 self.clear()
-            else:    
-                if self.operator == '+':
+            else:
+                if self.operator == "+":
                     self.display_string = str(
-                        float(self.display_string) + float(self.display_string2))
-                if self.operator == '-':
+                        float(self.display_string) + float(self.display_string2)
+                    )
+                if self.operator == "-":
                     self.display_string = str(
-                        float(self.display_string) - float(self.display_string2))
-                if self.operator == '÷':
-                    if self.display_string2 == '0':
+                        float(self.display_string) - float(self.display_string2)
+                    )
+                if self.operator == "÷":
+                    if self.display_string2 == "0":
                         self.clear()
-                    else: 
+                    else:
                         self.display_string = str(
-                        format(float(self.display_string) / float(self.display_string2), '.2f'))
-                if self.operator == '*':
+                            format(
+                                float(self.display_string)
+                                / float(self.display_string2),
+                                ".2f",
+                            )
+                        )
+                if self.operator == "*":
                     self.display_string = str(
-                        float(self.display_string) * float(self.display_string2))
+                        float(self.display_string) * float(self.display_string2)
+                    )
 
                 self.display_string2 = ""
                 self.which_string = 0
@@ -132,14 +140,14 @@ class Calculator(QtWidgets.QMainWindow, Ui_Calculator):
             if len(self.display_string) >= 16:
                 # Need to add error msg here.
                 print("Calculator limited to 16 digits.")
-            else:    
+            else:
                 self.display_string = self.display_string + sender.text()
                 self.NumberField.display(self.display_string)
         elif self.which_string == 1 and self.repeat == 0:
             if len(self.display_string2) >= 16:
                 # Need to add error msg here.
                 print("Calculator limited to 16 digits.")
-            else:    
+            else:
                 self.display_string2 = self.display_string2 + sender.text()
                 self.NumberField.display(self.display_string2)
         else:
@@ -155,18 +163,18 @@ class Calculator(QtWidgets.QMainWindow, Ui_Calculator):
         the minus is removed. Otherwise, a minus is added.
         """
         if self.which_string == 0:
-            if '-' in self.display_string:
+            if "-" in self.display_string:
                 self.display_string = self.display_string[1:]
                 self.NumberField.display(self.display_string)
             else:
-                self.display_string = '-' + self.display_string
+                self.display_string = "-" + self.display_string
                 self.NumberField.display(self.display_string)
         if self.which_string == 1:
-            if '-' in self.display_string2:
+            if "-" in self.display_string2:
                 self.display_string2 = self.display_string2[1:]
                 self.NumberField.display(self.display_string2)
             else:
-                self.display_string2 = '-' + self.display_string2
+                self.display_string2 = "-" + self.display_string2
                 self.NumberField.display(self.display_string2)
 
     def add_decimal(self):
@@ -177,13 +185,13 @@ class Calculator(QtWidgets.QMainWindow, Ui_Calculator):
         """
         sender = self.sender()
         if self.which_string == 0:
-            if '.' in self.display_string:
+            if "." in self.display_string:
                 print("Uable to add Decimal")
             else:
                 self.display_string = self.display_string + sender.text()
                 self.NumberField.display(self.display_string)
         else:
-            if '.' in self.display_string2:
+            if "." in self.display_string2:
                 print("Uable to add Decimal")
             else:
                 self.display_string2 = self.display_string2 + sender.text()
@@ -215,12 +223,10 @@ class Calculator(QtWidgets.QMainWindow, Ui_Calculator):
         Performs a square root on current string.
         """
         if self.which_string == 0:
-            self.display_string = str(
-                format(sqrt(float(self.display_string)), '.2f'))
+            self.display_string = str(format(sqrt(float(self.display_string)), ".2f"))
             self.NumberField.display(self.display_string)
         if self.which_string == 1:
-            self.display_string2 = str(
-                format(sqrt(float(self.display_string2)), '.2f'))
+            self.display_string2 = str(format(sqrt(float(self.display_string2)), ".2f"))
             self.NumberField.display(self.display_string2)
 
     def clear(self):
@@ -234,11 +240,12 @@ class Calculator(QtWidgets.QMainWindow, Ui_Calculator):
         self.which_string = 0
         self.repeat = 0
         self.operator = ""
-        self.NumberField.display('0')
+        self.NumberField.display("0")
 
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     nextGui = Calculator()
     nextGui.show()
