@@ -7,6 +7,7 @@ from src.view.Viewport import Viewport
 
 
 class Main_GUI(QMainWindow):
+
     def __init__(self):
         super(Main_GUI, self).__init__()
         self.initUI()
@@ -27,6 +28,8 @@ class Main_GUI(QMainWindow):
         self.object_gui = AddObject_GUI(self)
         self.object_gui.show()
 
+    def addObjectDisplayFile(self, object):
+        self.display_file.append(object)
 
 def window():
     app = QApplication(sys.argv)
