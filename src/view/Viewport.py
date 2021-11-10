@@ -24,6 +24,11 @@ class Viewport(QLabel):
         self.setFixedWidth(self.width)
         self.setFixedHeight(self.height)
 
+        # self.t_l = [25, 25]
+        # self.t_r = [475, 25]
+        # self.b_l = [25, 475]
+        # self.b_r = [475, 475]
+
     def draw_borders(self):
         painter = QPainter(self)
         pen = QPen()
@@ -61,3 +66,6 @@ class Viewport(QLabel):
     def paintEvent(self, event):
         self.draw_borders()
         self.draw_cross()
+
+    # def viewportTransform(self):
+    #     pass

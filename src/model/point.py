@@ -3,7 +3,7 @@ import numpy as np
 
 
 class Point:
-    def __init__(self, x, y, z=0):
+    def __init__(self, x, y, z):
         self.coordinates = [[x, y, z]]
 
     def get_x(self):

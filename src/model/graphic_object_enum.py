@@ -3,6 +3,7 @@ from enum import Enum
 class GraphicObjectEnum(Enum):
     POINT = "Point"
     LINE = "Line"
+    POLYGON = "Polygon"
 
     def value(v: str):
         for goe in GraphicObjectEnum:

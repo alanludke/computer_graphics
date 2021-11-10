@@ -10,6 +10,7 @@ class Main_GUI(QMainWindow):
     def __init__(self):
         super(Main_GUI, self).__init__()
         self.initUI()
+        self.display_file = []
 
     def initUI(self):
         uic.loadUi("src/view/main_gui.ui", self)
