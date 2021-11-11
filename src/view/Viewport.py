@@ -12,7 +12,7 @@ class Viewport(QLabel):
         super(Viewport, self).__init__(parent)
         self.parent = parent
         self.objects = []
-        self.origin = Point(0, 0, 1)
+        self.origin = Point("origin", 0, 0, 1)
 
         # set borders
         self.stylesheet = """
@@ -29,16 +29,16 @@ class Viewport(QLabel):
         self.setFixedHeight(self.height)
 
         # Viewport limits
-        self.Vb_r = Point(self.width, self.height, 1)
-        self.Vb_l = Point(self.height, 0, 1)
-        self.Vt_l = self.origin
-        self.Vt_r = Point(0, self.width, 1)
+        self.Vb_r = Point("Vb_r", self.width, self.height, 1)
+        self.Vb_l = Point("Vb_l", self.height, 0, 1)
+        self.Vt_l = Point("Vt_l", self.origin.get_x(), self.origin.get_y(), 1)
+        self.Vt_r = Point("Vt_r", 0, self.width, 1)
 
         # Window limits
-        self.Wb_r = Point(475, 475, 1)
-        self.Wb_l = Point(25, 475, 1)
-        self.Wt_l = Point(25, 25, 1)
-        self.Wt_r = Point(475, 25, 1)
+        self.Wb_r = Point("Wb_r",475, 475, 1)
+        self.Wb_l = Point("Wb_l",25, 475, 1)
+        self.Wt_l = Point("Wt_l",25, 25, 1)
+        self.Wt_r = Point("Wt_r",475, 25, 1)
 
     def draw_borders(self):
         painter = QPainter(self)
@@ -61,10 +61,10 @@ class Viewport(QLabel):
         pen.setColor(QColor(0, 255, 0))
         painter.setPen(pen)
 
-        m_t = Point(250, 25, 1).to_QPointF()
-        m_b = Point(250, 475, 1).to_QPointF()
-        m_l = Point(25, 250, 1).to_QPointF()
-        m_r = Point(475, 250, 1).to_QPointF()
+        m_t = Point("m_t", 250, 25, 1).to_QPointF()
+        m_b = Point("m_b", 250, 475, 1).to_QPointF()
+        m_l = Point("m_l", 25, 250, 1).to_QPointF()
+        m_r = Point("m_r", 475, 250, 1).to_QPointF()
 
         painter.drawLine(m_t, m_b)
         painter.drawLine(m_l, m_r)
@@ -98,6 +98,7 @@ class Viewport(QLabel):
 
         # x_v = x_div * (x_v_max - x_v_min)
         x_vp = x_div * (viewport_max.get_x() - viewport_min.get_x())
+        print(f'x_vp={x_vp}')
 
         # y_div = (y_w - y_w_min) / (y_w_max - y_w_min)
         y_div = (point.get_y() - window_min.get_y()) / (
@@ -106,5 +107,6 @@ class Viewport(QLabel):
 
         # y_v = (1 - y_div) * (y_v_max - y_v_min)
         y_vp = (1 - y_div) * (viewport_max.get_y() - viewport_min.get_y())
+        print(f'y_vp={y_vp}')
 
-        return Point(x_vp + self.origin.get_x(), y_vp + self.origin.get_y(), 1)
+        return Point("point transformed", x_vp + self.origin.get_x(), y_vp + self.origin.get_y(), 1)

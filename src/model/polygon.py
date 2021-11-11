@@ -16,7 +16,7 @@ class Polygon(GraphicObject):
             countY += point.get_y()
         centerX = countX / len(points)
         centerY = countY / len(points)
-        center = Point(centerX, centerY, 1)
+        center = Point("name", centerX, centerY, 1)
         return center
 
     def getName(self):
@@ -35,11 +35,6 @@ class Polygon(GraphicObject):
         pen.setWidth(2)
         pen.setColor(QColor(0, 0, 255))
         painter.setPen(pen)
-        
-        # v_point_origin = self.origin.viewport_transformation(viewport)
-        # v_point_destiny = self.destiny.viewport_transformation(viewport)
-
-        # painter.drawLine(v_point_origin.to_QPointF(), v_point_destiny.to_QPointF())
         
         v_points = []
 

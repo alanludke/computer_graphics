@@ -4,8 +4,12 @@ import numpy as np
 
 
 class Point:
-    def __init__(self, x, y, z):
+    def __init__(self, name, x, y, z):
         self.coordinates = [[x, y, z]]
+        self.name = name
+
+    def getName(self):
+        return self.name
 
     def get_x(self):
         return self.coordinates[0][0]
@@ -52,4 +56,6 @@ class Point:
         pen.setColor(QColor(0, 0, 255))
         painter.setPen(pen)
 
-        painter.drawPoint(self.to_QPointF())
+        v_point = self.viewport_transformation(viewport)
+
+        painter.drawPoint(v_point.to_QPointF())

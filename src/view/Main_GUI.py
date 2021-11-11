@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import *
 
 from src.view.AddObject_GUI import AddObject_GUI
 from src.view.Viewport import Viewport
-
+from src.view.ListObject import ListObject
 
 class Main_GUI(QMainWindow):
     def __init__(self):
@@ -12,11 +12,15 @@ class Main_GUI(QMainWindow):
         self.initUI()
         self.display_file = []
 
+
     def initUI(self):
         uic.loadUi("src/view/main_gui.ui", self)
         self.show()
         self.viewport = Viewport(self)
         self.layout_viewport.addWidget(self.viewport)
+
+        self.list_objects= ListObject(self)
+        self.layout_list_objects.addWidget(self.list_objects)
 
         # buttons
         self.btn_add_object.clicked.connect(self.btn_add_object_clicked)
@@ -29,6 +33,7 @@ class Main_GUI(QMainWindow):
 
     def addObjectDisplayFile(self, object):
         self.display_file.append(object)
+        self.list_objects.add_object_view(object.getName())
 
     def getDisplayFile(self):
         return self.display_file

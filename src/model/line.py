@@ -13,7 +13,7 @@ class Line(GraphicObject):
     def Center(self, points):
         centerX = (points[0].get_x() + points[1].get_x()) / 2
         centerY = (points[0].get_y() + points[1].get_y()) / 2
-        center = Point(centerX, centerY, 1)
+        center = Point("point",centerX, centerY, 1)
         return center
 
     def getName(self):

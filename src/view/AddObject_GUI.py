@@ -27,8 +27,8 @@ class AddObject_GUI(QDialog):
 
         object = self.createObject(input_name, object_coord, len(num_coord))
         self.parent.addObjectDisplayFile(object)
-
         self.parent.terminal_out.append("btn_add clicked!!!")
+
         print("btn_add clicked")
         self.parent.viewport.draw_objects(self.parent.getDisplayFile())
 
@@ -37,7 +37,7 @@ class AddObject_GUI(QDialog):
         list_of_points = []
         for each in cleaned:
             nums = each.split(",")
-            point = Point(int(nums[0]), int(nums[1]), 1)
+            point = Point("point", int(nums[0]), int(nums[1]), 1)
             list_of_points.append(point)
 
         return list_of_points
@@ -45,7 +45,7 @@ class AddObject_GUI(QDialog):
     def createObject(self, name, coord, count_coord):
         object = None
         if count_coord == 1:
-            object = Point(100, 200, 1)
+            object = Point(name, 100, 200, 1)
         elif count_coord == 2:
             object = Line(name, coord)
         elif count_coord > 2:

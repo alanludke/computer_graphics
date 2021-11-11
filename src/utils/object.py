@@ -8,3 +8,6 @@ class GraphicObject:
     def __init__(self, name, points):
         self.name = name
         self.point = points
+
+    def getName(self):
+        return self.name
