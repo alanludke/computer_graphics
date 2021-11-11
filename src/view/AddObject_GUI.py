@@ -37,7 +37,6 @@ class AddObject_GUI(QDialog):
         list_of_points = []
         for each in cleaned:
             nums = each.split(",")
-            print(f"nums={nums}")
             point = Point(int(nums[0]), int(nums[1]), 1)
             list_of_points.append(point)
 
@@ -46,12 +45,9 @@ class AddObject_GUI(QDialog):
     def createObject(self, name, coord, count_coord):
         object = None
         if count_coord == 1:
-            print("PONTO")
             object = Point(100, 200, 1)
         elif count_coord == 2:
-            print("LINHA")
             object = Line(name, coord)
         elif count_coord > 2:
-            print("POLIGINO")
             object = Polygon(name, coord)
         return object

@@ -75,13 +75,10 @@ class Viewport(QLabel):
 
         for obj in self.objects:
             if isinstance(obj, Point):
-                print("point chris")
                 obj.draw(self)
             elif isinstance(obj, Line):
-                print("line drew")
                 obj.draw(self)
             elif isinstance(obj, Polygon):
-                print("poligon tonia")
                 obj.draw(self)
 
     def draw_objects(self, objects: List[GraphicObject]):
@@ -89,20 +86,23 @@ class Viewport(QLabel):
         self.update()
 
     def viewport_transform(self, point: Point) -> Point:
-
         window_min = self.Wb_l
         window_max = self.Wt_r
-        viewport_max = self.Vt_r
-        viewport_min = self.Vb_l
+        viewport_max = self.Vb_r
+        viewport_min = self.Vt_l
 
         # x_div = (x_w - x_w_min) / (x_w_max - x_w_min)
-        x_div = (point.get_x() - window_min.get_x()) / (window_max.get_x() - window_min.get_x())
+        x_div = (point.get_x() - window_min.get_x()) / (
+            window_max.get_x() - window_min.get_x()
+        )
 
         # x_v = x_div * (x_v_max - x_v_min)
         x_vp = x_div * (viewport_max.get_x() - viewport_min.get_x())
 
         # y_div = (y_w - y_w_min) / (y_w_max - y_w_min)
-        y_div = (point.get_y() - window_min.get_y()) / (window_max.get_y() - window_min.get_y())
+        y_div = (point.get_y() - window_min.get_y()) / (
+            window_max.get_y() - window_min.get_y()
+        )
 
         # y_v = (1 - y_div) * (y_v_max - y_v_min)
         y_vp = (1 - y_div) * (viewport_max.get_y() - viewport_min.get_y())

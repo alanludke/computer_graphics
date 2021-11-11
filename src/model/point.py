@@ -43,13 +43,13 @@ class Point:
     def viewport_transformation(self, viewport):
         v_point = viewport.viewport_transform(self)
         return v_point
-    
+
     def draw(self, viewport):
         painter = QPainter(viewport)
         pen = QPen()
 
         pen.setWidth(2)
-        pen.setColor(QColor(255, 0, 1))
+        pen.setColor(QColor(0, 0, 255))
         painter.setPen(pen)
 
         painter.drawPoint(self.to_QPointF())

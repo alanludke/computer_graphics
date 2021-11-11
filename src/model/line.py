@@ -2,6 +2,7 @@ from src.model.point import Point
 from src.utils.object import GraphicObject
 from PyQt5.QtGui import QColor, QPainter, QPen
 
+
 class Line(GraphicObject):
     def __init__(self, name, points):
         super().__init__(name, points)
@@ -32,12 +33,10 @@ class Line(GraphicObject):
         pen = QPen()
 
         pen.setWidth(2)
-        pen.setColor(QColor(255, 0, 1))
+        pen.setColor(QColor(0, 0, 255))
         painter.setPen(pen)
-        
+
         v_point_origin = self.origin.viewport_transformation(viewport)
         v_point_destiny = self.destiny.viewport_transformation(viewport)
 
-        # painter.drawLine(self.origin.to_QPointF(), self.destiny.to_QPointF())
         painter.drawLine(v_point_origin.to_QPointF(), v_point_destiny.to_QPointF())
-
