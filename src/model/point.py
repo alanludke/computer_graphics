@@ -1,10 +1,11 @@
 from PyQt5.QtCore import QPointF
+from PyQt5.QtGui import QColor, QPainter, QPen
 import numpy as np
 
 
 class Point:
     def __init__(self, x, y, z):
-        self.coordinates = [[x, y, z]]
+        self.coordinates = [x, y, z]
 
     def get_x(self):
         return self.coordinates[0][0]
@@ -38,3 +39,16 @@ class Point:
 
     def to_QPointF(self) -> QPointF:
         return QPointF(self.get_x(), self.get_y())
+        
+    def draw(self, viewport):
+        painter = QPainter(viewport)
+        pen = QPen()
+
+        pen.setWidth(50)
+        pen.setColor(QColor(255, 255, 255))
+        painter.setPen(pen)
+        
+        # painter.drawLine(self.origin.to_QPointF(), self.destiny.to_QPointF())
+        painter.drawPoint(self.to_QPointF())
+        painter.drawLine(self.to_QPointF(),self.to_QPointF())
+

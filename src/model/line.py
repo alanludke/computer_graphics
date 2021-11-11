@@ -1,9 +1,9 @@
 from src.model.point import Point
 from src.utils.object import GraphicObject
+from PyQt5.QtGui import QColor, QPainter, QPen
 # from model.graphic_object_enum import GraphicObjectEnum
 
 class Line(GraphicObject):
-    
     def __init__(self, name, points):
         super().__init__(name, points)
         self.origin = points[0]
@@ -27,3 +27,13 @@ class Line(GraphicObject):
     
     def getCenter(self):
         return self.center
+
+    def draw(self, viewport):
+        painter = QPainter(viewport)
+        pen = QPen()
+
+        pen.setWidth(2)
+        pen.setColor(QColor(255, 0, 1))
+        painter.setPen(pen)
+        
+        painter.drawLine(self.origin.to_QPointF(), self.destiny.to_QPointF())

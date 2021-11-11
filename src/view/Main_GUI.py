@@ -16,7 +16,7 @@ class Main_GUI(QMainWindow):
     def initUI(self):
         uic.loadUi("src/view/main_gui.ui", self)
         self.show()
-        self.viewport = Viewport()
+        self.viewport = Viewport(self)
         self.layout_viewport.addWidget(self.viewport)
 
         # buttons
@@ -30,6 +30,9 @@ class Main_GUI(QMainWindow):
 
     def addObjectDisplayFile(self, object):
         self.display_file.append(object)
+
+    def getDisplayFile(self):
+        return self.display_file
 
 def window():
     app = QApplication(sys.argv)

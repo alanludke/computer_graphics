@@ -1,15 +1,17 @@
-import sys
 from typing import List
-from PyQt5 import QtGui
 from PyQt5.QtGui import QColor, QPainter, QPen
-from PyQt5.QtWidgets import QLabel, QWidget
+from PyQt5.QtWidgets import QLabel
+from src.model.line import Line
+from src.model.polygon import Polygon
 from src.model.point import Point
-
+from src.utils.object import GraphicObject
 
 class Viewport(QLabel):
-    def __init__(self):
-        super().__init__()
-
+    def __init__(self, parent):
+        super(Viewport, self).__init__(parent)
+        self.parent = parent
+        self.objects = []
+        self.origin = Point(0,0,1)
         # set borders
         self.stylesheet = """
             QLabel {
@@ -23,11 +25,6 @@ class Viewport(QLabel):
         self.setStyleSheet(self.stylesheet)
         self.setFixedWidth(self.width)
         self.setFixedHeight(self.height)
-
-        # self.t_l = [25, 25]
-        # self.t_r = [475, 25]
-        # self.b_l = [25, 475]
-        # self.b_r = [475, 475]
 
     def draw_borders(self):
         painter = QPainter(self)
@@ -64,8 +61,24 @@ class Viewport(QLabel):
         painter.drawLine(m_l, m_r)
 
     def paintEvent(self, event):
-        self.draw_borders()
-        self.draw_cross()
+        painter = QPainter(self)
+        pen = QPen()
+        # self.draw_borders()
+        # self.draw_cross()
 
-    # def viewportTransform(self):
-    #     pass
+        for obj in self.objects:
+            print(f'type(obj)={type(obj)}')
+            if isinstance(obj, Point):
+                print('point chris')
+                obj.draw(self)
+            elif isinstance(obj, Line):
+                print('line drew')
+                obj.draw(self)
+            elif isinstance(obj, Polygon):
+                print('poligon tonia')
+                obj.draw(self)
+            # self.draw(painter, self.coordinates[0], self.coordinates[1], self.origin)
+
+    def draw_objects(self, objects: List[GraphicObject]):
+        self.objects = objects
+        self.update()
