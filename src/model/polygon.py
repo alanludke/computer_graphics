@@ -16,3 +16,12 @@ class Polygon(GraphicObject):
         centerY = countY / points.len()
         center = Point(centerX, centerY, 1)
         return center
+    
+    def getName(self):
+        return self.name
+
+    def getPoints(self):
+        return self.point
+    
+    def getCenter(self):
+        return self.center

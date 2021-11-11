@@ -15,3 +15,15 @@ class Line(GraphicObject):
         centerY = (points[0].get_y() + points[1].get_y()) / 2
         center = Point(centerX, centerY, 1)
         return center
+
+    def getName(self):
+        return self.name
+    
+    def getOrigin(self):
+        return self.origin
+    
+    def getDestiny(self):
+        return self.destiny
+    
+    def getCenter(self):
+        return self.center
