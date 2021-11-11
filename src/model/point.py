@@ -32,22 +32,19 @@ class Point:
     def asnumpy(self):
         return self.coord
 
-    def transform(self, t):
-        if not isinstance(t, np.ndarray):
-            self.coord = np.dot(self.coord, np.array(t))
-        else:
-            self.coord = np.dot(self.coord, t)
-
     def __str__(self) -> str:
         return f"({self.get_x()},{self.get_y()},{self.get_z()})"
 
+    # converte o objeto Point em um objeto QPointF do PyQt5
     def to_QPointF(self) -> QPointF:
         return QPointF(self.get_x(), self.get_y())
 
+    # Transforma a coordenada do ponto em coordenada de viewport
     def viewport_transformation(self, viewport):
         v_point = viewport.viewport_transform(self)
         return v_point
 
+    # Aplica a transformada de viewport nos pontos do objeto e depois desenha
     def draw(self, viewport):
         painter = QPainter(viewport)
         pen = QPen()

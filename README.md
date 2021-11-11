@@ -50,3 +50,9 @@ E instalar as libs(com suas determinadas versões) em seu venv
 ```
 pip install -r requirements.txt
 ```
+
+Para executar o sistema basta rodar (na fonte do projeto)
+
+```
+python run.py
+```

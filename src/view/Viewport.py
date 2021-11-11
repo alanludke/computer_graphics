@@ -39,7 +39,8 @@ class Viewport(QLabel):
         self.Wb_l = Point("Wb_l",25, 475, 1)
         self.Wt_l = Point("Wt_l",25, 25, 1)
         self.Wt_r = Point("Wt_r",475, 25, 1)
-
+    
+    # Desenha as bordas da Window
     def draw_borders(self):
         painter = QPainter(self)
         pen = QPen()
@@ -53,6 +54,7 @@ class Viewport(QLabel):
         painter.drawLine(self.Wb_l.to_QPointF(), self.Wb_r.to_QPointF())
         painter.drawLine(self.Wb_l.to_QPointF(), self.Wt_l.to_QPointF())
 
+    # Desenha as linhas verticais no centro da Window
     def draw_cross(self):
         painter = QPainter(self)
         pen = QPen()
@@ -69,6 +71,7 @@ class Viewport(QLabel):
         painter.drawLine(m_t, m_b)
         painter.drawLine(m_l, m_r)
 
+    # Desenha um novo objeto recém criado
     def paintEvent(self, event):
         self.draw_borders()
         self.draw_cross()
@@ -85,6 +88,7 @@ class Viewport(QLabel):
         self.objects = objects
         self.update()
 
+    # Realiza a transformada de Viewport sobre um ponto
     def viewport_transform(self, point: Point) -> Point:
         window_min = self.Wb_l
         window_max = self.Wt_r

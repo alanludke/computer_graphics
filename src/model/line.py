@@ -10,6 +10,7 @@ class Line(GraphicObject):
         self.destiny = points[1]
         self.center = self.Center(points)
 
+    # Calcula o centro do objeto
     def Center(self, points):
         centerX = (points[0].get_x() + points[1].get_x()) / 2
         centerY = (points[0].get_y() + points[1].get_y()) / 2
@@ -28,6 +29,7 @@ class Line(GraphicObject):
     def getCenter(self):
         return self.center
 
+    # Aplica a transformada de viewport nos pontos do objeto e depois desenha
     def draw(self, viewport):
         painter = QPainter(viewport)
         pen = QPen()

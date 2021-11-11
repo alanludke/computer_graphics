@@ -8,6 +8,7 @@ class Polygon(GraphicObject):
         self.center = self.Center(points)
         self.points = points
 
+    # Calcula o centro do objeto
     def Center(self, points):
         countX = 0
         countY = 0
@@ -28,6 +29,7 @@ class Polygon(GraphicObject):
     def getCenter(self):
         return self.center
 
+    # Aplica a transformada de viewport nos pontos do objeto e depois desenha
     def draw(self, viewport):
         painter = QPainter(viewport)
         pen = QPen()

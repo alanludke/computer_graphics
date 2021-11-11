@@ -6,13 +6,15 @@ from src.view.AddObject_GUI import AddObject_GUI
 from src.view.Viewport import Viewport
 from src.view.ListObject import ListObject
 
+# Classe responsável pela interface principal de interação 
 class Main_GUI(QMainWindow):
+    # Método construtor da interface principal
     def __init__(self):
         super(Main_GUI, self).__init__()
         self.initUI()
         self.display_file = []
 
-
+    # Inicializa componentes da interface, layouts e botões
     def initUI(self):
         uic.loadUi("src/view/main_gui.ui", self)
         self.show()
@@ -25,20 +27,23 @@ class Main_GUI(QMainWindow):
         # buttons
         self.btn_add_object.clicked.connect(self.btn_add_object_clicked)
 
+    # Método de gatilho para quando objeto "Add object" é apertado
     def btn_add_object_clicked(self):
         self.terminal_out.append("btn_add_object_clicked clicked!!!")
         print("btn_add_object_clicked clicked")
         self.object_gui = AddObject_GUI(self)
         self.object_gui.show()
 
+    # Método que objetos no display_file
     def addObjectDisplayFile(self, object):
         self.display_file.append(object)
         self.list_objects.add_object_view(object.getName())
 
+    # Getter do display_file
     def getDisplayFile(self):
         return self.display_file
 
-
+# Inicializa a Window
 def window():
     app = QApplication(sys.argv)
     win = Main_GUI()

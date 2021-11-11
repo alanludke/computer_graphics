@@ -5,19 +5,22 @@ from src.model.point import Point
 from src.model.polygon import Polygon
 from src.model.line import Line
 
-
+# Classe responsável pelo Frame onde são criados os objetos
 class AddObject_GUI(QDialog):
+    # Método construtor
     def __init__(self, parent):
         super(AddObject_GUI, self).__init__(parent)
         self.initUI()
         self.parent = parent
 
+    # Inicializa componentes da interface, layouts e botões
     def initUI(self):
         uic.loadUi("src/view/new_object_gui.ui", self)
         # buttons
-        self.txt_coord.setPlaceholderText("(x0,y0,z0),(xn,yn,zn)")
+        self.txt_coord.setPlaceholderText("(x0,y0),(xn,yn)")
         self.btn_add.clicked.connect(self.btn_add_clicked)
 
+    # Método de gatilho para quando objeto "Add object" é apertado
     def btn_add_clicked(self):
         input_name = self.txt_object_name.toPlainText()
         input_coord = self.txt_coord.toPlainText()
@@ -32,6 +35,7 @@ class AddObject_GUI(QDialog):
         print("btn_add clicked")
         self.parent.viewport.draw_objects(self.parent.getDisplayFile())
 
+    # Método que retorna as coordenadas limpas de uma lista de
     def getObjectCoord(self, num_coord):
         cleaned = list(map(lambda x: x.replace("(", "").replace(")", ""), num_coord))
         list_of_points = []
@@ -42,6 +46,7 @@ class AddObject_GUI(QDialog):
 
         return list_of_points
 
+    # Método responsável por criar um objeto dependendo de seu tipo
     def createObject(self, name, coord, count_coord):
         object = None
         if count_coord == 1:
