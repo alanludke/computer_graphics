@@ -7,7 +7,6 @@ from src.view.Viewport import Viewport
 
 
 class Main_GUI(QMainWindow):
-
     def __init__(self):
         super(Main_GUI, self).__init__()
         self.initUI()
@@ -33,6 +32,7 @@ class Main_GUI(QMainWindow):
 
     def getDisplayFile(self):
         return self.display_file
+
 
 def window():
     app = QApplication(sys.argv)

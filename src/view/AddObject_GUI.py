@@ -12,10 +12,8 @@ class AddObject_GUI(QDialog):
         self.initUI()
         self.parent = parent
 
-
     def initUI(self):
         uic.loadUi("src/view/new_object_gui.ui", self)
-        # self.txt_coord = 'afs'
         # buttons
         self.txt_coord.setPlaceholderText("(x0,y0,z0),(xn,yn,zn)")
         self.btn_add.clicked.connect(self.btn_add_clicked)
@@ -34,29 +32,26 @@ class AddObject_GUI(QDialog):
         print("btn_add clicked")
         self.parent.viewport.draw_objects(self.parent.getDisplayFile())
 
-
-#(0,1),(100,244),(200,300)
-
     def getObjectCoord(self, num_coord):
-        cleaned = list(map(lambda x: x.replace('(','').replace(')',''), num_coord))
+        cleaned = list(map(lambda x: x.replace("(", "").replace(")", ""), num_coord))
         list_of_points = []
         for each in cleaned:
-            nums=each.split(',')
-            print(f'nums={nums}')
-            point= Point(int(nums[0]), int(nums[1]), 1)
+            nums = each.split(",")
+            print(f"nums={nums}")
+            point = Point(int(nums[0]), int(nums[1]), 1)
             list_of_points.append(point)
-        
+
         return list_of_points
 
     def createObject(self, name, coord, count_coord):
         object = None
-        if(count_coord == 1):
-            print('PONTO')
+        if count_coord == 1:
+            print("PONTO")
             object = Point(100, 200, 1)
-        elif(count_coord == 2):
-            print('LINHA')
+        elif count_coord == 2:
+            print("LINHA")
             object = Line(name, coord)
-        elif(count_coord > 2):
-            print('POLIGINO')
+        elif count_coord > 2:
+            print("POLIGINO")
             object = Polygon(name, coord)
         return object

@@ -5,7 +5,7 @@ import numpy as np
 
 class Point:
     def __init__(self, x, y, z):
-        self.coordinates = [x, y, z]
+        self.coordinates = [[x, y, z]]
 
     def get_x(self):
         return self.coordinates[0][0]
@@ -39,16 +39,17 @@ class Point:
 
     def to_QPointF(self) -> QPointF:
         return QPointF(self.get_x(), self.get_y())
-        
+
+    def viewport_transformation(self, viewport):
+        v_point = viewport.viewport_transform(self)
+        return v_point
+    
     def draw(self, viewport):
         painter = QPainter(viewport)
         pen = QPen()
 
-        pen.setWidth(50)
-        pen.setColor(QColor(255, 255, 255))
+        pen.setWidth(2)
+        pen.setColor(QColor(255, 0, 1))
         painter.setPen(pen)
-        
-        # painter.drawLine(self.origin.to_QPointF(), self.destiny.to_QPointF())
-        painter.drawPoint(self.to_QPointF())
-        painter.drawLine(self.to_QPointF(),self.to_QPointF())
 
+        painter.drawPoint(self.to_QPointF())

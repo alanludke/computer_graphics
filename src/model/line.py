@@ -1,7 +1,6 @@
 from src.model.point import Point
 from src.utils.object import GraphicObject
 from PyQt5.QtGui import QColor, QPainter, QPen
-# from model.graphic_object_enum import GraphicObjectEnum
 
 class Line(GraphicObject):
     def __init__(self, name, points):
@@ -18,13 +17,13 @@ class Line(GraphicObject):
 
     def getName(self):
         return self.name
-    
+
     def getOrigin(self):
         return self.origin
-    
+
     def getDestiny(self):
         return self.destiny
-    
+
     def getCenter(self):
         return self.center
 
@@ -36,4 +35,9 @@ class Line(GraphicObject):
         pen.setColor(QColor(255, 0, 1))
         painter.setPen(pen)
         
-        painter.drawLine(self.origin.to_QPointF(), self.destiny.to_QPointF())
+        v_point_origin = self.origin.viewport_transformation(viewport)
+        v_point_destiny = self.destiny.viewport_transformation(viewport)
+
+        # painter.drawLine(self.origin.to_QPointF(), self.destiny.to_QPointF())
+        painter.drawLine(v_point_origin.to_QPointF(), v_point_destiny.to_QPointF())
+
