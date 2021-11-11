@@ -1,8 +1,9 @@
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
-from model.polygon import Polygon
-from model.line import Line
+from src.model.point import Point
+from src.model.polygon import Polygon
+from src.model.line import Line
 
 
 class AddObject_GUI(QDialog):
@@ -21,8 +22,19 @@ class AddObject_GUI(QDialog):
     def btn_add_clicked(self):
         input_name = self.txt_object_name.toPlainText()
         input_coord = self.txt_coord.toPlainText()
-        num_coord = input_coord.spli(",")
-        count_coord = num_coord.len()
+        num_coord = input_coord.split("),(")
+        #(1,2),(3,4) ---> ['(1,2','3,4)']
+        cleaned = list(map(lambda x: x.replace('(','').replace(')',''), num_coord))
+        print(f'cleaned={cleaned}')
+        list_of_points = []
+        for each in cleaned:
+            nums=each.split(',')
+            #(1,2)
+            print(f'nums={nums}')
+            point= Point(int(nums[0]), int(nums[1]), 1)
+            list_of_points.append(point)
+
+        count_coord = len(num_coord)
         object_coord = self.getObjectCoord(num_coord)
 
         object = self.createObject(input_name, object_coord, count_coord)
@@ -45,8 +57,10 @@ class AddObject_GUI(QDialog):
     def createObject(self, name, coord, count_coord):
         object = None
         if(count_coord == 2):
+            print('LINHA')
             object = Line(name, coord)
         elif(count_coord > 2):
+            print('POLIGINO')
             object = Polygon(name, coord)
-        
         return object
+#(0,1),(100,244)

@@ -1,5 +1,5 @@
-from model.point import Point
-from utils.object import GraphicObject
+from src.model.point import Point
+from src.utils.object import GraphicObject
 
 class Polygon(GraphicObject):
     def __init__(self, name, points):

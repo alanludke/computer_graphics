@@ -1,6 +1,5 @@
-from model.point import Point
-from point import Point
-from utils.object import GraphicObject
+from src.model.point import Point
+from src.utils.object import GraphicObject
 # from model.graphic_object_enum import GraphicObjectEnum
 
 class Line(GraphicObject):

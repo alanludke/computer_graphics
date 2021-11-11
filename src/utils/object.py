@@ -1,5 +1,5 @@
 from typing import List
-from model.point import Point
+from src.model.point import Point
 # from model.graphic_object_enum import GraphicObjectEnum
 
 
