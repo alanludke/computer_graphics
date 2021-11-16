@@ -1,6 +1,7 @@
 from src.model.point import Point
 from src.utils.object import GraphicObject
 from PyQt5.QtGui import QColor, QPainter, QPen
+import numpy as np
 
 
 class Line(GraphicObject):
@@ -9,7 +10,7 @@ class Line(GraphicObject):
         self.origin = points[0]
         self.destiny = points[1]
         self.center = self.set_center(points)
-    #(10,20),(40,40)
+    #(10,20),(40,40) 
     #(280,285),(300,320)
     #(2,2),(4,4)
     # Calcula o centro do objeto
@@ -32,6 +33,9 @@ class Line(GraphicObject):
 
     def get_center(self):
         return self.center
+    
+    def get_points(self):
+        return [self.origin, self.destiny]
 
     # Aplica a transformada de viewport nos pontos do objeto e depois desenha
     def draw(self, viewport):
@@ -56,4 +60,9 @@ class Line(GraphicObject):
         print(f'destiny={self.destiny}')
         self.center = self.set_center([self.origin, self.destiny])
 
-    
+    # def translation_center_viewport(self):
+    #     # matrix_origin = np.array([ [1,0,0], [0,1,0], [-self.origin.get_x(), -self.origin.get_y(), 1] ])
+    #     # matrix_destiny = np.array([ [1,0,0], [0,1,0], [-self.destiny.get_x(), -self.destiny.get_y(), 1] ])
+    #     matrix = np.array([ [1,0,0], [0,1,0], [-self.get_center().get_x(), -self.get_center().get_x(), 1] ])
+        
+    # # def translation_original_point(self, origin, destiny): 

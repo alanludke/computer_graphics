@@ -17,7 +17,7 @@ class Transformation:
         else:
             self.action = action
             self.reference_point = x
-            self.angle = y
+            self.angle = y / 57.3            # divisão para consertar a rotação
         self.matrix = self.generate_matrix()
 
     def get_action(self):

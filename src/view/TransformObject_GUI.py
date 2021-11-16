@@ -38,8 +38,9 @@ class TransformObject_GUI(QDialog):
     # Método de gatilho para quando objeto "Transform object(Escalonar/Transladar)" é apertado
     def btn_transform_object_clicked(self):
         object = self.create_transformation()
+        for transformation in object:
+            self.add_object_display_file(transformation)
 
-        self.add_object_display_file(object)
         self.parent.terminal_out.append("btn_transform_object clicked!!!")
 
         print("btn_transform_object clicked")
@@ -47,8 +48,9 @@ class TransformObject_GUI(QDialog):
     # Método de gatilho para quando objeto "Transform object(Escalonar/Transladar)" é apertado
     def btn_add_rotacao_clicked(self):
         object = self.create_transformation()
+        for transformation in object:
+            self.add_object_display_file(transformation)
 
-        self.add_object_display_file(object)
         self.parent.terminal_out.append("btn_add_rotacao_clicked clicked!!!")
 
         print("btn_transform_object clicked")
@@ -84,8 +86,15 @@ class TransformObject_GUI(QDialog):
             coord_x = float(self.txt_coord_x.toPlainText())
             coord_y = float(self.txt_coord_y.toPlainText())
             coord_z = 1
-            # translation_center = Transformation("Transladar", -self.selected_object.)
+            
+            object_name = self.selected_object.text()
+            object_center = self.get_selected_object(object_name).get_center()
+            
+            translation_center = Transformation("Transladar", -object_center.get_x(), -object_center.get_y())
             transformation = Transformation("Escalonar", coord_x, coord_y)
+            translation_original = Transformation("Transladar", object_center.get_x(), object_center.get_y())
+            
+            return [translation_center, transformation, translation_original]
 
         elif self.btn_transladar.isChecked():
             print(f"btn_transladar marcado!")
@@ -93,12 +102,17 @@ class TransformObject_GUI(QDialog):
             coord_y = float(self.txt_coord_y.toPlainText())
             coord_z = 1
             transformation = Transformation("Transladar", coord_x, coord_y)
+            
+            return [transformation]
 
         elif self.rbtn_rotacao_centro_mundo.isChecked():
             print(f"rbtn_rotacao_centro_mundo marcado!")
             point = Point("centro", 0, 0, 1)
             angle = float(self.txt_angulo_rotacao.toPlainText())
+
             transformation = Transformation("Rotacionar_centro_mundo", point, angle)
+
+            return [transformation]
             
         elif self.rbtn_rotacao_centro_objeto.isChecked():
             print(f"rbtn_rotacao_centro_objeto marcado!")
@@ -106,9 +120,15 @@ class TransformObject_GUI(QDialog):
             object_name = self.selected_object.text()
             object_center = self.get_selected_object(object_name).get_center()
             angle = float(self.txt_angulo_rotacao.toPlainText())
+
+            translation_center = Transformation("Transladar", -object_center.get_x(), -object_center.get_y())
             transformation = Transformation(
                 "Rotacionar_centro_objeto", object_center, angle
             )
+            translation_original = Transformation("Transladar", object_center.get_x(), object_center.get_y())
+
+            return [translation_center, transformation, translation_original]
+
         elif self.rbtn_rotacao_ponto.isChecked():
             print(f"rbtn_rotacao_ponto marcado!")
             raw_point = self.txt_point.toPlainText().split(",")
@@ -119,10 +139,14 @@ class TransformObject_GUI(QDialog):
                 1,
             )
             angle = float(self.txt_angulo_rotacao.toPlainText())
+
+            translation_center = Transformation("Transladar", -point.get_x(), -point.get_y())
             transformation = Transformation("Rotacionar_centro_objeto", point, angle)
+            translation_original = Transformation("Transladar", point.get_x(), point.get_y())
+
+            return [translation_center, transformation, translation_original]
         else:
             print(f"nenhum marcado!")
-        return transformation
 
     def get_selected_object(self, object_name):
         for each in self.parent.get_display_file():
