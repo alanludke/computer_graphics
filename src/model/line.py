@@ -14,7 +14,7 @@ class Line(GraphicObject):
     def Center(self, points):
         centerX = (points[0].get_x() + points[1].get_x()) / 2
         centerY = (points[0].get_y() + points[1].get_y()) / 2
-        center = Point("point",centerX, centerY, 1)
+        center = Point("point", centerX, centerY, 1)
         return center
 
     def getName(self):
@@ -35,7 +35,7 @@ class Line(GraphicObject):
         pen = QPen()
 
         pen.setWidth(2)
-        pen.setColor(QColor(0, 0, 255))
+        pen.setColor(QColor(255, 113, 0))
         painter.setPen(pen)
 
         v_point_origin = self.origin.viewport_transformation(viewport)

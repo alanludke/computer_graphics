@@ -1,6 +1,7 @@
 from PyQt5.QtCore import QPointF
 from PyQt5.QtGui import QColor, QPainter, QPen
 import numpy as np
+import math as mt
 
 
 class Point:
@@ -19,6 +20,9 @@ class Point:
 
     def get_z(self):
         return self.coordinates[0][2]
+
+    def getCenter(self):
+        return self
 
     def set_x(self, x):
         self.coordinates[0][0] = x
@@ -50,9 +54,46 @@ class Point:
         pen = QPen()
 
         pen.setWidth(2)
-        pen.setColor(QColor(0, 0, 255))
+        pen.setColor(QColor(63, 145, 0))
         painter.setPen(pen)
 
         v_point = self.viewport_transformation(viewport)
 
         painter.drawPoint(v_point.to_QPointF())
+
+    # Aplica uma matriz de translação no ponto
+    def translation(self, matrix):
+        current_point = np.array([self.get_x(), self.get_y(), self.get_z()])
+        new_point = current_point.dot(matrix)
+        # self.set_x(new_point[0])
+        # self.set_y(new_point[1])
+        # self.set_z(new_point[2])
+        return Point("new_point", new_point[0], new_point[1], new_point[2])
+
+    # Aplica uma matriz de escala no ponto
+    def scale(self, matrix):
+        current_point = np.array([self.get_x(), self.get_y(), self.get_z()])
+        new_point = current_point.dot(matrix)
+        self.set_x(new_point[0])
+        self.set_y(new_point[1])
+        self.set_z(new_point[2])
+
+    # Aplica uma matriz de rotação no ponto
+    def rotation(self, matrix):
+        current_point = np.array([self.get_x(), self.get_y(), self.get_z()])
+        new_point = current_point.dot(matrix)
+        self.set_x(new_point[0])
+        self.set_y(new_point[1])
+        self.set_z(new_point[2])
+
+    def apply_transformation(self, list_transformation):
+        matrix = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+        for i in list_transformation:
+            matrix = matrix.dot(i.getMatrix())
+        current_point = np.array([self.get_x(), self.get_y(), self.get_z()])
+        new_point = current_point.dot(matrix)
+
+        self.set_x(new_point[0])
+        self.set_y(new_point[1])
+        self.set_z(new_point[2])
+        # return Point("new_point", new_point[0], new_point[1], new_point[2])

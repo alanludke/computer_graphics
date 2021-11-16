@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>809</width>
-    <height>718</height>
+    <height>717</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -440,7 +440,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="btn_add_object">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>120</x>
       <y>40</y>
       <width>21</width>
       <height>20</height>
@@ -460,6 +460,19 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
     <layout class="QVBoxLayout" name="layout_list_objects"/>
+   </widget>
+   <widget class="QPushButton" name="btn_transform_object">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>40</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Transformar</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

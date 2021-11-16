@@ -15,7 +15,7 @@ class AddObject_GUI(QDialog):
 
     # Inicializa componentes da interface, layouts e botões
     def initUI(self):
-        uic.loadUi("src/view/new_object_gui.ui", self)
+        uic.loadUi("src/view/add_object_gui.ui", self)
         # buttons
         self.txt_coord.setPlaceholderText("(x0,y0),(xn,yn)")
         self.btn_add.clicked.connect(self.btn_add_clicked)
