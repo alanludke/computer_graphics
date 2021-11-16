@@ -21,6 +21,7 @@ class Polygon(GraphicObject):
         centerX = countX / len(points)
         centerY = countY / len(points)
         center = Point("center", centerX, centerY, 1)
+        print(f'center={center}')
         return center
 
     def get_name(self):
@@ -54,8 +55,11 @@ class Polygon(GraphicObject):
 
         origin = v_points[0].viewport_transformation(viewport).to_QPointF()
         destiny = v_points[-1].viewport_transformation(viewport).to_QPointF()
+
+        v_point_center = self.get_center().viewport_transformation(viewport)
         painter.drawLine(origin, destiny)
-        painter.drawPoint(self.get_center().to_QPointF())
+
+        painter.drawPoint(v_point_center.to_QPointF())
 
     # def apply_transformation(self, list_transformation):
     #     self.origin.apply_transformation(list_transformation)

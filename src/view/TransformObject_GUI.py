@@ -84,6 +84,7 @@ class TransformObject_GUI(QDialog):
             coord_x = float(self.txt_coord_x.toPlainText())
             coord_y = float(self.txt_coord_y.toPlainText())
             coord_z = 1
+            # translation_center = Transformation("Transladar", -self.selected_object.)
             transformation = Transformation("Escalonar", coord_x, coord_y)
 
         elif self.btn_transladar.isChecked():

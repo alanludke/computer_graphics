@@ -9,12 +9,16 @@ class Line(GraphicObject):
         self.origin = points[0]
         self.destiny = points[1]
         self.center = self.set_center(points)
-
+    #(10,20),(40,40)
+    #(280,285),(300,320)
+    #(2,2),(4,4)
     # Calcula o centro do objeto
     def set_center(self, points):
         centerX = (points[0].get_x() + points[1].get_x()) / 2
         centerY = (points[0].get_y() + points[1].get_y()) / 2
         center = Point("point", centerX, centerY, 1)
+        print(f'center={center}')
+
         return center
 
     def get_name(self):
@@ -40,11 +44,16 @@ class Line(GraphicObject):
 
         v_point_origin = self.origin.viewport_transformation(viewport)
         v_point_destiny = self.destiny.viewport_transformation(viewport)
+        v_point_center = self.get_center().viewport_transformation(viewport)
 
         painter.drawLine(v_point_origin.to_QPointF(), v_point_destiny.to_QPointF())
-        painter.drawPoint(self.get_center().to_QPointF())
+        painter.drawPoint(v_point_center.to_QPointF())
 
     def apply_transformation(self, list_transformation):
         self.origin.apply_transformation(list_transformation)
         self.destiny.apply_transformation(list_transformation)
+        print(f'origin={self.origin}')
+        print(f'destiny={self.destiny}')
         self.center = self.set_center([self.origin, self.destiny])
+
+    
