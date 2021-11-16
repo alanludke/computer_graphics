@@ -42,7 +42,7 @@ class Line(GraphicObject):
         v_point_destiny = self.destiny.viewport_transformation(viewport)
 
         painter.drawLine(v_point_origin.to_QPointF(), v_point_destiny.to_QPointF())
-        painter.drawPoint(self.get_center())
+        painter.drawPoint(self.get_center().to_QPointF())
 
     def apply_transformation(self, list_transformation):
         self.origin.apply_transformation(list_transformation)

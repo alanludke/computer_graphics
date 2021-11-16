@@ -66,9 +66,11 @@ class Point:
         matrix = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
         for i in list_transformation:
             matrix = matrix.dot(i.generate_matrix())
+            print(matrix)
         current_point = np.array([self.get_x(), self.get_y(), self.get_z()])
         new_point = current_point.dot(matrix)
 
         self.set_x(new_point[0])
         self.set_y(new_point[1])
         self.set_z(new_point[2])
+        print(f'x: {self.get_x()} y: {self.get_y()}')

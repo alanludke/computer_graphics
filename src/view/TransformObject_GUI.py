@@ -85,17 +85,20 @@ class TransformObject_GUI(QDialog):
             coord_y = float(self.txt_coord_y.toPlainText())
             coord_z = 1
             transformation = Transformation("Escalonar", coord_x, coord_y)
+
         elif self.btn_transladar.isChecked():
             print(f"btn_transladar marcado!")
             coord_x = float(self.txt_coord_x.toPlainText())
             coord_y = float(self.txt_coord_y.toPlainText())
             coord_z = 1
             transformation = Transformation("Transladar", coord_x, coord_y)
+
         elif self.rbtn_rotacao_centro_mundo.isChecked():
             print(f"rbtn_rotacao_centro_mundo marcado!")
             point = Point("centro", 0, 0, 1)
             angle = float(self.txt_angulo_rotacao.toPlainText())
             transformation = Transformation("Rotacionar_centro_mundo", point, angle)
+            
         elif self.rbtn_rotacao_centro_objeto.isChecked():
             print(f"rbtn_rotacao_centro_objeto marcado!")
 
