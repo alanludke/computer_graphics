@@ -13,13 +13,13 @@ class TransformObject_GUI(QDialog):
     # Método construtor
     def __init__(self, parent):
         super(TransformObject_GUI, self).__init__(parent)
-        self.initUI()
+        self.init_ui()
         self.parent = parent
         self.selected_object = parent.list_objects.selectedItems()[0]
-        self.display_file = []
+        self.display_file_transformations = []
 
     # Inicializa componentes da interface, layouts e botões
-    def initUI(self):
+    def init_ui(self):
         uic.loadUi("src/view/transform_object_gui.ui", self)
 
         # Lista de objetos
@@ -37,44 +37,46 @@ class TransformObject_GUI(QDialog):
 
     # Método de gatilho para quando objeto "Transform object(Escalonar/Transladar)" é apertado
     def btn_transform_object_clicked(self):
-        object = self.createTransformation()
+        object = self.create_transformation()
 
-        self.transformObjectDisplayFile(object)
+        self.add_object_display_file(object)
         self.parent.terminal_out.append("btn_transform_object clicked!!!")
 
         print("btn_transform_object clicked")
 
     # Método de gatilho para quando objeto "Transform object(Escalonar/Transladar)" é apertado
     def btn_add_rotacao_clicked(self):
-        object = self.createTransformation()
+        object = self.create_transformation()
 
-        self.transformObjectDisplayFile(object)
+        self.add_object_display_file(object)
         self.parent.terminal_out.append("btn_add_rotacao_clicked clicked!!!")
 
         print("btn_transform_object clicked")
 
-    # pegar o objeto
-    # pegar a lista de objetos transformações
-    # gerar uma lista com as matrizes as transformações
-    # chamar um metodo apply_transformation() do objeto
-    # 
+    # Método de gatilho para quando objeto "Transform object(Escalonar/Transladar)" é apertado
     def btn_apply_transformations_clicked(self):
         object_name = self.selected_object.text()
-        object = self.getSelectedObject(object_name)
+        object = self.get_selected_object(object_name)
+        print(f"object {object_name} = {object}")
+        print(f"type(object) = {type(object)}")
 
-        object.apply_transformation()
+        object.apply_transformation(self.display_file_transformations)
+        self.parent.viewport.draw_objects(self.parent.get_display_file())
+
+        print(self.display_file_transformations[0])
+
+        # object.apply_transformation()
         self.parent.terminal_out.append("btn_apply_transformations_clicked clicked!!!")
 
-
-    # Método que objetos no display_file
-    def transformObjectDisplayFile(self, transformation):
-        self.display_file.append(transformation)
+    # Método que objetos nodisplay_file_transformations
+    def add_object_display_file(self, transformation):
+        self.display_file_transformations.append(transformation)
         self.list_transformations.add_transform_object_view(
             f"Ação de {transformation.action}"
         )
 
     # Método responsável por criar uma transformacao dependendo de seu tipo
-    def createTransformation(self):
+    def create_transformation(self):
         transformation = None
 
         if self.rbtn_escalonar.isChecked():
@@ -98,7 +100,7 @@ class TransformObject_GUI(QDialog):
             print(f"rbtn_rotacao_centro_objeto marcado!")
 
             object_name = self.selected_object.text()
-            object_center = self.getSelectedObject(object_name).getCenter()
+            object_center = self.get_selected_object(object_name).get_center()
             angle = float(self.txt_angulo_rotacao.toPlainText())
             transformation = Transformation(
                 "Rotacionar_centro_objeto", object_center, angle
@@ -118,7 +120,7 @@ class TransformObject_GUI(QDialog):
             print(f"nenhum marcado!")
         return transformation
 
-    def getSelectedObject(self, object_name):
-        for each in self.parent.getDisplayFile():
-            if each.getName() == object_name:
+    def get_selected_object(self, object_name):
+        for each in self.parent.get_display_file():
+            if each.get_name() == object_name:
                 return each

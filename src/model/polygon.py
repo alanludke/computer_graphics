@@ -6,11 +6,13 @@ from PyQt5.QtGui import QColor, QPainter, QPen
 class Polygon(GraphicObject):
     def __init__(self, name, points):
         super().__init__(name, points)
-        self.center = self.Center(points)
+        self.center = self.set_center(points)
         self.points = points
 
+    # (280,285),(300,320),(350,355)
+
     # Calcula o centro do objeto
-    def Center(self, points):
+    def set_center(self, points):
         countX = 0
         countY = 0
         for point in points:
@@ -18,16 +20,16 @@ class Polygon(GraphicObject):
             countY += point.get_y()
         centerX = countX / len(points)
         centerY = countY / len(points)
-        center = Point("name", centerX, centerY, 1)
+        center = Point("center", centerX, centerY, 1)
         return center
 
-    def getName(self):
+    def get_name(self):
         return self.name
 
-    def getPoints(self):
+    def get_points(self):
         return self.point
 
-    def getCenter(self):
+    def get_center(self):
         return self.center
 
     # Aplica a transformada de viewport nos pontos do objeto e depois desenha
@@ -53,6 +55,14 @@ class Polygon(GraphicObject):
         origin = v_points[0].viewport_transformation(viewport).to_QPointF()
         destiny = v_points[-1].viewport_transformation(viewport).to_QPointF()
         painter.drawLine(origin, destiny)
+        painter.drawPoint(self.get_center().to_QPointF())
 
+    # def apply_transformation(self, list_transformation):
+    #     self.origin.apply_transformation(list_transformation)
+    #     self.destiny.apply_transformation(list_transformation)
+    #     self.center = self.set_center([self.origin, self.destiny])
 
-# (50,50),(50,425),(425,425)
+    def apply_transformation(self, list_transformation):
+        for point in self.points:
+            point.apply_transformation(list_transformation)
+        self.center = self.set_center(self.points)

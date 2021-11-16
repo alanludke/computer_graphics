@@ -12,11 +12,11 @@ class Main_GUI(QMainWindow):
     # Método construtor da interface principal
     def __init__(self):
         super(Main_GUI, self).__init__()
-        self.initUI()
+        self.init_ui()
         self.display_file = []
 
     # Inicializa componentes da interface, layouts e botões
-    def initUI(self):
+    def init_ui(self):
         uic.loadUi("src/view/main_gui.ui", self)
         self.show()
         self.viewport = Viewport(self)
@@ -48,13 +48,14 @@ class Main_GUI(QMainWindow):
         self.object_gui.show()
 
     # Método que objetos no display_file
-    def addObjectDisplayFile(self, object):
+    def add_object_display_file(self, object):
         self.display_file.append(object)
-        self.list_objects.add_object_view(object.getName())
+        self.list_objects.add_object_view(object.get_name())
 
     # Getter do display_file
-    def getDisplayFile(self):
+    def get_display_file(self):
         return self.display_file
+
 
 # Inicializa a Window
 def window():

@@ -9,7 +9,7 @@ class Point:
         self.coordinates = [[x, y, z]]
         self.name = name
 
-    def getName(self):
+    def get_name(self):
         return self.name
 
     def get_x(self):
@@ -21,7 +21,7 @@ class Point:
     def get_z(self):
         return self.coordinates[0][2]
 
-    def getCenter(self):
+    def get_center(self):
         return self
 
     def set_x(self, x):
@@ -61,39 +61,14 @@ class Point:
 
         painter.drawPoint(v_point.to_QPointF())
 
-    # Aplica uma matriz de translação no ponto
-    def translation(self, matrix):
-        current_point = np.array([self.get_x(), self.get_y(), self.get_z()])
-        new_point = current_point.dot(matrix)
-        # self.set_x(new_point[0])
-        # self.set_y(new_point[1])
-        # self.set_z(new_point[2])
-        return Point("new_point", new_point[0], new_point[1], new_point[2])
-
-    # Aplica uma matriz de escala no ponto
-    def scale(self, matrix):
-        current_point = np.array([self.get_x(), self.get_y(), self.get_z()])
-        new_point = current_point.dot(matrix)
-        self.set_x(new_point[0])
-        self.set_y(new_point[1])
-        self.set_z(new_point[2])
-
-    # Aplica uma matriz de rotação no ponto
-    def rotation(self, matrix):
-        current_point = np.array([self.get_x(), self.get_y(), self.get_z()])
-        new_point = current_point.dot(matrix)
-        self.set_x(new_point[0])
-        self.set_y(new_point[1])
-        self.set_z(new_point[2])
-
+    # Aplica as trasnformações no ponto
     def apply_transformation(self, list_transformation):
         matrix = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
         for i in list_transformation:
-            matrix = matrix.dot(i.getMatrix())
+            matrix = matrix.dot(i.generate_matrix())
         current_point = np.array([self.get_x(), self.get_y(), self.get_z()])
         new_point = current_point.dot(matrix)
 
         self.set_x(new_point[0])
         self.set_y(new_point[1])
         self.set_z(new_point[2])
-        # return Point("new_point", new_point[0], new_point[1], new_point[2])

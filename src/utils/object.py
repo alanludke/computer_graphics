@@ -10,5 +10,5 @@ class GraphicObject:
         self.name = name
         self.point = points
 
-    def getName(self):
+    def get_name(self):
         return self.name
