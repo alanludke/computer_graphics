@@ -21,6 +21,9 @@ class Point:
     def get_z(self):
         return self.coordinates[0][2]
 
+    def get_points(self):
+        return [self]
+    
     def get_center(self):
         return self
 

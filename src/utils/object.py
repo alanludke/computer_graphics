@@ -12,3 +12,6 @@ class GraphicObject:
 
     def get_name(self):
         return self.name
+
+    def get_points(self):
+        return self.point
