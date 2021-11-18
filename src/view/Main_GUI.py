@@ -33,6 +33,8 @@ class Main_GUI(QMainWindow):
         self.btd_frame_down.clicked.connect(self.btd_frame_down_clicked)
         self.btd_frame_right.clicked.connect(self.btd_frame_right_clicked)
         self.btd_frame_left.clicked.connect(self.btd_frame_left_clicked)
+        self.btd_frame_in.clicked.connect(self.btd_frame_in_clicked)
+        self.btd_frame_out.clicked.connect(self.btd_frame_out_clicked)
 
     # Método que calcula o passo de movimentação da window
     def calculate_step(self, input):
@@ -77,6 +79,28 @@ class Main_GUI(QMainWindow):
             points = object.get_points()
             for point in points:
                 point.set_x(point.get_x() - step)
+        self.viewport.update()
+    
+    # Método de gatilho para quando objeto "Left" é apertado - não funfa
+    def btd_frame_out_clicked(self):
+        input = int(self.txt_step.text())
+        step = self.calculate_step(input)
+        for object in self.display_file:
+            points = object.get_points()
+            for point in points:
+                point.set_x(point.get_x() / step)
+                point.set_y(point.get_y() / step)
+        self.viewport.update()
+    #(250,250),(300,350)
+    # Método de gatilho para quando objeto "Left" é apertado - não funfa
+    def btd_frame_in_clicked(self):
+        input = float(self.txt_step.text())
+        step = self.calculate_step(input)
+        for object in self.display_file:
+            points = object.get_points()
+            for point in points:
+                point.set_x(point.get_x() * step)
+                point.set_y(point.get_y() * step)
         self.viewport.update()
 
     # Método de gatilho para quando objeto "Add object" é apertado

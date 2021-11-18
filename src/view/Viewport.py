@@ -1,6 +1,6 @@
 from typing import List
-from PyQt5.QtGui import QColor, QPainter, QPen
-from PyQt5.QtWidgets import QLabel
+from PyQt5.QtGui import QColor, QPainter, QPen, QWheelEvent
+from PyQt5.QtWidgets import QAction, QLabel
 from src.model.line import Line
 from src.model.polygon import Polygon
 from src.model.point import Point
@@ -39,7 +39,7 @@ class Viewport(QLabel):
         self.Wb_l = Point("Wb_l", 25, 475, 1)
         self.Wt_l = Point("Wt_l", 25, 25, 1)
         self.Wt_r = Point("Wt_r", 475, 25, 1)
-
+    
     # Desenha as bordas da Window
     def draw_borders(self):
         painter = QPainter(self)

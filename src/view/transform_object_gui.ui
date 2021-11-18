@@ -370,6 +370,19 @@
     <string>Adicionar</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="btn_clear_list_transformation">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>520</y>
+     <width>231</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Limpar Lista</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

@@ -34,6 +34,7 @@ class TransformObject_GUI(QDialog):
         self.btn_apply_transformations.clicked.connect(
             self.btn_apply_transformations_clicked
         )
+        self.btn_clear_list_transformation.clicked.connect(self.clear_list_trasnformation)
 
     # Método de gatilho para quando objeto "Transform object(Escalonar/Transladar)" é apertado
     def btn_transform_object_clicked(self):
@@ -69,6 +70,10 @@ class TransformObject_GUI(QDialog):
 
         # object.apply_transformation()
         self.parent.terminal_out.append("btn_apply_transformations_clicked clicked!!!")
+
+    # Método que limpa a lista de transformações a serem aplicadas
+    def clear_list_trasnformation(self):
+        self.list_transformations.clear()
 
     # Método que objetos nodisplay_file_transformations
     def add_object_display_file(self, transformation):
