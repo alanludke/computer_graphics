@@ -74,6 +74,7 @@ class TransformObject_GUI(QDialog):
     # Método que limpa a lista de transformações a serem aplicadas
     def clear_list_trasnformation(self):
         self.list_transformations.clear()
+        self.display_file_transformations.clear()
 
     # Método que objetos nodisplay_file_transformations
     def add_object_display_file(self, transformation):

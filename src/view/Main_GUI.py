@@ -49,64 +49,64 @@ class Main_GUI(QMainWindow):
     def btd_frame_up_clicked(self):
         input = int(self.txt_step.text())
         step = self.calculate_step(input)
+        transformation = Transformation("Transladar", 0, step)
         for object in self.display_file:
-            points = object.get_points()
-            for point in points:
-                point.set_y(point.get_y() - step)
+            object.apply_transformation([transformation])
         self.viewport.update()
     
     # Método de gatilho para quando objeto "Down" é apertado
     def btd_frame_down_clicked(self):
         input = int(self.txt_step.text())
         step = self.calculate_step(input)
+        transformation = Transformation("Transladar", 0, -step)
         for object in self.display_file:
-            points = object.get_points()
-            for point in points:
-                point.set_y(point.get_y() + step)
+            object.apply_transformation([transformation])
         self.viewport.update()
     
     # Método de gatilho para quando objeto "Right" é apertado
     def btd_frame_right_clicked(self):
         input = int(self.txt_step.text())
         step = self.calculate_step(input)
+        transformation = Transformation("Transladar", step, 0)
         for object in self.display_file:
-            points = object.get_points()
-            for point in points:
-                point.set_x(point.get_x() + step)
+            object.apply_transformation([transformation])
         self.viewport.update()
 
     # Método de gatilho para quando objeto "Left" é apertado
     def btd_frame_left_clicked(self):
         input = int(self.txt_step.text())
         step = self.calculate_step(input)
+        transformation = Transformation("Transladar", -step, 0)
         for object in self.display_file:
-            points = object.get_points()
-            for point in points:
-                point.set_x(point.get_x() - step)
+            object.apply_transformation([transformation])
         self.viewport.update()
     
     # Método de gatilho para quando objeto "Left" é apertado - não funfa
     def btd_frame_out_clicked(self):
         input = int(self.txt_step.text())
-        step = self.calculate_step(input)
+        step = self.calculate_step(input) / 2
         for object in self.display_file:
-            points = object.get_points()
-            for point in points:
-                point.set_x(point.get_x() / step)
-                point.set_y(point.get_y() / step)
+            object_center = object.get_center()
+            translation_center = Transformation("Transladar", -object_center.get_x(), -object_center.get_y())
+            transformation = Transformation("Escalonar", 1 / step, 1 / step)
+            translation_original = Transformation("Transladar", object_center.get_x(), object_center.get_y())  
+            object.apply_transformation([translation_center, transformation, translation_original])
         self.viewport.update()
     #(250,250),(300,350)
+
     # Método de gatilho para quando objeto "Left" é apertado - não funfa
     def btd_frame_in_clicked(self):
-        input = float(self.txt_step.text())
+        input = int(self.txt_step.text())
         step = self.calculate_step(input)
         for object in self.display_file:
-            points = object.get_points()
-            for point in points:
-                point.set_x(point.get_x() * step)
-                point.set_y(point.get_y() * step)
+            object_center = object.get_center()
+            translation_center = Transformation("Transladar", -object_center.get_x(), -object_center.get_y())
+            transformation = Transformation("Escalonar", step, step)
+            translation_original = Transformation("Transladar", object_center.get_x(), object_center.get_y())  
+            object.apply_transformation([translation_center, transformation, translation_original])
         self.viewport.update()
 
+    # Método gatilho para a rotação da window em sentido horário
     def btn_horario_clicked(self):
         print('horario')
         degreeAngle = float(self.txt_grau.text())
@@ -119,6 +119,7 @@ class Main_GUI(QMainWindow):
             object.apply_transformation([translation_center, transformation, translation_original])
         self.viewport.update()
 
+    # Método gatilho para a rotação da window em sentido anti-horário
     def btn_antihorario_clicked(self):
         print('antihorario')
         degreeAngle = float(self.txt_grau.text())
