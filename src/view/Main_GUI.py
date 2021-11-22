@@ -41,15 +41,15 @@ class Main_GUI(QMainWindow):
         self.btn_antihorario.clicked.connect(self.btn_antihorario_clicked)
 
     # Método que calcula o passo de movimentação da window
-    def calculate_step(self, input):
-        step = (self.viewport.width * input) / 100
-        return step
+    # def calculate_step(self, input):
+    #     step = (self.viewport.width * input) / 100
+    #     return step
 
     # Método de gatilho para quando objeto "Up" é apertado    
     def btd_frame_up_clicked(self):
         input = int(self.txt_step.text())
-        step = self.calculate_step(input)
-        transformation = Transformation("Transladar", 0, step)
+        # step = self.calculate_step(input)
+        transformation = Transformation("Transladar", 0, input)
         for object in self.display_file:
             object.apply_transformation([transformation])
         self.viewport.update()
@@ -57,8 +57,8 @@ class Main_GUI(QMainWindow):
     # Método de gatilho para quando objeto "Down" é apertado
     def btd_frame_down_clicked(self):
         input = int(self.txt_step.text())
-        step = self.calculate_step(input)
-        transformation = Transformation("Transladar", 0, -step)
+        # step = self.calculate_step(input)
+        transformation = Transformation("Transladar", 0, -input)
         for object in self.display_file:
             object.apply_transformation([transformation])
         self.viewport.update()
@@ -66,8 +66,8 @@ class Main_GUI(QMainWindow):
     # Método de gatilho para quando objeto "Right" é apertado
     def btd_frame_right_clicked(self):
         input = int(self.txt_step.text())
-        step = self.calculate_step(input)
-        transformation = Transformation("Transladar", step, 0)
+        # step = self.calculate_step(input)
+        transformation = Transformation("Transladar", input, 0)
         for object in self.display_file:
             object.apply_transformation([transformation])
         self.viewport.update()
@@ -75,8 +75,8 @@ class Main_GUI(QMainWindow):
     # Método de gatilho para quando objeto "Left" é apertado
     def btd_frame_left_clicked(self):
         input = int(self.txt_step.text())
-        step = self.calculate_step(input)
-        transformation = Transformation("Transladar", -step, 0)
+        # step = self.calculate_step(input)
+        transformation = Transformation("Transladar", -input, 0)
         for object in self.display_file:
             object.apply_transformation([transformation])
         self.viewport.update()
@@ -84,11 +84,11 @@ class Main_GUI(QMainWindow):
     # Método de gatilho para quando objeto "Left" é apertado - não funfa
     def btd_frame_out_clicked(self):
         input = int(self.txt_step.text())
-        step = self.calculate_step(input) / 2
+        # step = self.calculate_step(input)
         for object in self.display_file:
             object_center = object.get_center()
             translation_center = Transformation("Transladar", -object_center.get_x(), -object_center.get_y())
-            transformation = Transformation("Escalonar", 1 / step, 1 / step)
+            transformation = Transformation("Escalonar", 1 / input, 1 / input)
             translation_original = Transformation("Transladar", object_center.get_x(), object_center.get_y())  
             object.apply_transformation([translation_center, transformation, translation_original])
         self.viewport.update()
@@ -101,7 +101,7 @@ class Main_GUI(QMainWindow):
         for object in self.display_file:
             object_center = object.get_center()
             translation_center = Transformation("Transladar", -object_center.get_x(), -object_center.get_y())
-            transformation = Transformation("Escalonar", step, step)
+            transformation = Transformation("Escalonar", input, input)
             translation_original = Transformation("Transladar", object_center.get_x(), object_center.get_y())  
             object.apply_transformation([translation_center, transformation, translation_original])
         self.viewport.update()
