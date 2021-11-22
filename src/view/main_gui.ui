@@ -263,43 +263,30 @@
       <string>º</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_x">
+    <widget class="QPushButton" name="btn_antihorario">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>40</x>
        <y>60</y>
        <width>50</width>
        <height>25</height>
       </rect>
      </property>
      <property name="text">
-      <string>X</string>
+      <string>&lt;</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_y">
+    <widget class="QPushButton" name="btn_horario">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>120</x>
        <y>60</y>
        <width>50</width>
        <height>25</height>
       </rect>
      </property>
      <property name="text">
-      <string>Y</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="btn_z">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>60</y>
-       <width>50</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Z</string>
+      <string>&gt;</string>
      </property>
     </widget>
    </widget>

@@ -6,6 +6,7 @@ from src.view.AddObject_GUI import AddObject_GUI
 from src.view.TransformObject_GUI import TransformObject_GUI
 from src.view.Viewport import Viewport
 from src.view.ListObject import ListObject
+from src.utils.transformation import Transformation
 
 # Classe responsável pela interface principal de interação
 class Main_GUI(QMainWindow):
@@ -35,6 +36,9 @@ class Main_GUI(QMainWindow):
         self.btd_frame_left.clicked.connect(self.btd_frame_left_clicked)
         self.btd_frame_in.clicked.connect(self.btd_frame_in_clicked)
         self.btd_frame_out.clicked.connect(self.btd_frame_out_clicked)
+
+        self.btn_horario.clicked.connect(self.btn_horario_clicked)
+        self.btn_antihorario.clicked.connect(self.btn_antihorario_clicked)
 
     # Método que calcula o passo de movimentação da window
     def calculate_step(self, input):
@@ -101,6 +105,31 @@ class Main_GUI(QMainWindow):
             for point in points:
                 point.set_x(point.get_x() * step)
                 point.set_y(point.get_y() * step)
+        self.viewport.update()
+
+    def btn_horario_clicked(self):
+        print('horario')
+        degreeAngle = float(self.txt_grau.text())
+        viewport_center = self.viewport.get_center()
+        #rotação
+        translation_center = Transformation("Transladar", -viewport_center.get_x(), -viewport_center.get_y())
+        transformation = Transformation("Rotacionar_window", viewport_center, -degreeAngle)
+        translation_original = Transformation("Transladar", viewport_center.get_x(), viewport_center.get_y())
+        for object in self.display_file:
+            object.apply_transformation([translation_center, transformation, translation_original])
+        self.viewport.update()
+
+    def btn_antihorario_clicked(self):
+        print('antihorario')
+        degreeAngle = float(self.txt_grau.text())
+        viewport_center = self.viewport.get_center()
+        #rotação
+        translation_center = Transformation("Transladar", -viewport_center.get_x(), -viewport_center.get_y())
+        transformation = Transformation(
+            "Rotacionar_window", viewport_center, degreeAngle)
+        translation_original = Transformation("Transladar", viewport_center.get_x(), viewport_center.get_y())
+        for object in self.display_file:
+            object.apply_transformation([translation_center, transformation, translation_original])
         self.viewport.update()
 
     # Método de gatilho para quando objeto "Add object" é apertado

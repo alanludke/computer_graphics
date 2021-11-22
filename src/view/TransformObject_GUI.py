@@ -60,8 +60,8 @@ class TransformObject_GUI(QDialog):
     def btn_apply_transformations_clicked(self):
         object_name = self.selected_object.text()
         object = self.get_selected_object(object_name)
-        print(f"object {object_name} = {object}")
-        print(f"type(object) = {type(object)}")
+        # print(f"object {object_name} = {object}")
+        # print(f"type(object) = {type(object)}")
 
         object.apply_transformation(self.display_file_transformations)
         self.parent.viewport.draw_objects(self.parent.get_display_file())

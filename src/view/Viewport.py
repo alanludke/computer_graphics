@@ -40,6 +40,9 @@ class Viewport(QLabel):
         self.Wt_l = Point("Wt_l", 25, 25, 1)
         self.Wt_r = Point("Wt_r", 475, 25, 1)
     
+    def get_center(self):
+        return Point("Window_Center", self.width / 2, self.height / 2, 1)
+    
     # Desenha as bordas da Window
     def draw_borders(self):
         painter = QPainter(self)
@@ -71,10 +74,22 @@ class Viewport(QLabel):
         painter.drawLine(m_t, m_b)
         painter.drawLine(m_l, m_r)
 
+    # Desenha as linhas verticais no centro da Window
+    def draw_center(self):
+        painter = QPainter(self)
+        pen = QPen()
+
+        pen.setWidth(2)
+        pen.setColor(QColor(115, 93, 13))
+        painter.setPen(pen)
+
+        painter.drawLine(self.get_center().to_QPointF(), self.get_center().to_QPointF())
+
     # Desenha um novo objeto recém criado
     def paintEvent(self, event):
         self.draw_borders()
         self.draw_cross()
+        self.draw_center()
 
         for obj in self.objects:
             if isinstance(obj, Point):

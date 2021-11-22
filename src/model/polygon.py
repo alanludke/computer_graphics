@@ -61,11 +61,6 @@ class Polygon(GraphicObject):
 
         painter.drawPoint(v_point_center.to_QPointF())
 
-    # def apply_transformation(self, list_transformation):
-    #     self.origin.apply_transformation(list_transformation)
-    #     self.destiny.apply_transformation(list_transformation)
-    #     self.center = self.set_center([self.origin, self.destiny])
-
     def apply_transformation(self, list_transformation):
         for point in self.points:
             point.apply_transformation(list_transformation)
