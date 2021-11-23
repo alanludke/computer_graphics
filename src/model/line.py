@@ -48,21 +48,14 @@ class Line(GraphicObject):
 
         v_point_origin = self.origin.viewport_transformation(viewport)
         v_point_destiny = self.destiny.viewport_transformation(viewport)
-        v_point_center = self.get_center().viewport_transformation(viewport)
-
         painter.drawLine(v_point_origin.to_QPointF(), v_point_destiny.to_QPointF())
+
+        pen.setColor(QColor(0, 0, 255))
+        painter.setPen(pen)
+        v_point_center = self.get_center().viewport_transformation(viewport)
         painter.drawPoint(v_point_center.to_QPointF())
 
     def apply_transformation(self, list_transformation):
         self.origin.apply_transformation(list_transformation)
         self.destiny.apply_transformation(list_transformation)
-        print(f'origin={self.origin}')
-        print(f'destiny={self.destiny}')
         self.center = self.set_center([self.origin, self.destiny])
-
-    # def translation_center_viewport(self):
-    #     # matrix_origin = np.array([ [1,0,0], [0,1,0], [-self.origin.get_x(), -self.origin.get_y(), 1] ])
-    #     # matrix_destiny = np.array([ [1,0,0], [0,1,0], [-self.destiny.get_x(), -self.destiny.get_y(), 1] ])
-    #     matrix = np.array([ [1,0,0], [0,1,0], [-self.get_center().get_x(), -self.get_center().get_x(), 1] ])
-        
-    # # def translation_original_point(self, origin, destiny): 

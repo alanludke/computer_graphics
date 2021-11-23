@@ -59,7 +59,7 @@ class Polygon(GraphicObject):
         v_point_center = self.get_center().viewport_transformation(viewport)
         painter.drawLine(origin, destiny)
 
-        painter.drawPoint(v_point_center.to_QPointF())
+        # painter.drawPoint(v_point_center.to_QPointF())
 
     def apply_transformation(self, list_transformation):
         for point in self.points:

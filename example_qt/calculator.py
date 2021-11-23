@@ -139,14 +139,14 @@ class Calculator(QtWidgets.QMainWindow, Ui_Calculator):
         if self.which_string == 0 and self.repeat == 0:
             if len(self.display_string) >= 16:
                 # Need to add error msg here.
-                print("Calculator limited to 16 digits.")
+                #print("Calculator limited to 16 digits.")
             else:
                 self.display_string = self.display_string + sender.text()
                 self.NumberField.display(self.display_string)
         elif self.which_string == 1 and self.repeat == 0:
             if len(self.display_string2) >= 16:
                 # Need to add error msg here.
-                print("Calculator limited to 16 digits.")
+                #print("Calculator limited to 16 digits.")
             else:
                 self.display_string2 = self.display_string2 + sender.text()
                 self.NumberField.display(self.display_string2)
@@ -186,13 +186,13 @@ class Calculator(QtWidgets.QMainWindow, Ui_Calculator):
         sender = self.sender()
         if self.which_string == 0:
             if "." in self.display_string:
-                print("Uable to add Decimal")
+                #print("Uable to add Decimal")
             else:
                 self.display_string = self.display_string + sender.text()
                 self.NumberField.display(self.display_string)
         else:
             if "." in self.display_string2:
-                print("Uable to add Decimal")
+                #print("Uable to add Decimal")
             else:
                 self.display_string2 = self.display_string2 + sender.text()
                 self.NumberField.display(self.display_string2)

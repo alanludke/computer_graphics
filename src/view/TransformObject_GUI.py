@@ -44,7 +44,7 @@ class TransformObject_GUI(QDialog):
 
         self.parent.terminal_out.append("btn_transform_object clicked!!!")
 
-        print("btn_transform_object clicked")
+        #print("btn_transform_object clicked")
 
     # Método de gatilho para quando objeto "Transform object(Escalonar/Transladar)" é apertado
     def btn_add_rotacao_clicked(self):
@@ -54,19 +54,19 @@ class TransformObject_GUI(QDialog):
 
         self.parent.terminal_out.append("btn_add_rotacao_clicked clicked!!!")
 
-        print("btn_transform_object clicked")
+        #print("btn_transform_object clicked")
 
     # Método de gatilho para quando objeto "Transform object(Escalonar/Transladar)" é apertado
     def btn_apply_transformations_clicked(self):
         object_name = self.selected_object.text()
         object = self.get_selected_object(object_name)
-        # print(f"object {object_name} = {object}")
-        # print(f"type(object) = {type(object)}")
+        # #print(f"object {object_name} = {object}")
+        # #print(f"type(object) = {type(object)}")
 
         object.apply_transformation(self.display_file_transformations)
         self.parent.viewport.draw_objects(self.parent.get_display_file())
 
-        print(self.display_file_transformations[0])
+        #print(self.display_file_transformations[0])
 
         # object.apply_transformation()
         self.parent.terminal_out.append("btn_apply_transformations_clicked clicked!!!")
@@ -88,7 +88,7 @@ class TransformObject_GUI(QDialog):
         transformation = None
 
         if self.rbtn_escalonar.isChecked():
-            print(f"rbtn_escalonar marcado!")
+            #print(f"rbtn_escalonar marcado!")
             coord_x = float(self.txt_coord_x.toPlainText())
             coord_y = float(self.txt_coord_y.toPlainText())
             coord_z = 1
@@ -103,7 +103,7 @@ class TransformObject_GUI(QDialog):
             return [translation_center, transformation, translation_original]
 
         elif self.btn_transladar.isChecked():
-            print(f"btn_transladar marcado!")
+            #print(f"btn_transladar marcado!")
             coord_x = float(self.txt_coord_x.toPlainText())
             coord_y = float(self.txt_coord_y.toPlainText())
             coord_z = 1
@@ -112,7 +112,7 @@ class TransformObject_GUI(QDialog):
             return [transformation]
 
         elif self.rbtn_rotacao_centro_mundo.isChecked():
-            print(f"rbtn_rotacao_centro_mundo marcado!")
+            #print(f"rbtn_rotacao_centro_mundo marcado!")
             point = Point("centro", 0, 0, 1)
             angle = float(self.txt_angulo_rotacao.toPlainText())
 
@@ -121,7 +121,7 @@ class TransformObject_GUI(QDialog):
             return [transformation]
             
         elif self.rbtn_rotacao_centro_objeto.isChecked():
-            print(f"rbtn_rotacao_centro_objeto marcado!")
+            #print(f"rbtn_rotacao_centro_objeto marcado!")
 
             object_name = self.selected_object.text()
             object_center = self.get_selected_object(object_name).get_center()
@@ -136,7 +136,7 @@ class TransformObject_GUI(QDialog):
             return [translation_center, transformation, translation_original]
 
         elif self.rbtn_rotacao_ponto.isChecked():
-            print(f"rbtn_rotacao_ponto marcado!")
+            #print(f"rbtn_rotacao_ponto marcado!")
             raw_point = self.txt_point.toPlainText().split(",")
             point = Point(
                 "centro",
@@ -152,7 +152,8 @@ class TransformObject_GUI(QDialog):
 
             return [translation_center, transformation, translation_original]
         else:
-            print(f"nenhum marcado!")
+            pass
+            #print(f"nenhum marcado!")
 
     def get_selected_object(self, object_name):
         for each in self.parent.get_display_file():

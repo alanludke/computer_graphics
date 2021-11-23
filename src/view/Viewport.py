@@ -117,7 +117,7 @@ class Viewport(QLabel):
 
         # x_v = x_div * (x_v_max - x_v_min)
         x_vp = x_div * (viewport_max.get_x() - viewport_min.get_x())
-        # print(f'x_vp={x_vp}')
+        # #print(f'x_vp={x_vp}')
 
         # y_div = (y_w - y_w_min) / (y_w_max - y_w_min)
         y_div = (point.get_y() - window_min.get_y()) / (
@@ -126,7 +126,7 @@ class Viewport(QLabel):
 
         # y_v = (1 - y_div) * (y_v_max - y_v_min)
         y_vp = (1 - y_div) * (viewport_max.get_y() - viewport_min.get_y())
-        # print(f'y_vp={y_vp}')
+        # #print(f'y_vp={y_vp}')
 
         return Point(
             "point transformed",

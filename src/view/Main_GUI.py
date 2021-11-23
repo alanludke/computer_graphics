@@ -108,7 +108,7 @@ class Main_GUI(QMainWindow):
 
     # Método gatilho para a rotação da window em sentido horário
     def btn_horario_clicked(self):
-        print('horario')
+        #print('horario')
         degreeAngle = float(self.txt_grau.text())
         viewport_center = self.viewport.get_center()
         #rotação
@@ -121,7 +121,7 @@ class Main_GUI(QMainWindow):
 
     # Método gatilho para a rotação da window em sentido anti-horário
     def btn_antihorario_clicked(self):
-        print('antihorario')
+        #print('antihorario')
         degreeAngle = float(self.txt_grau.text())
         viewport_center = self.viewport.get_center()
         #rotação
@@ -136,14 +136,14 @@ class Main_GUI(QMainWindow):
     # Método de gatilho para quando objeto "Add object" é apertado
     def btn_add_object_clicked(self):
         self.terminal_out.append("btn_add_object_clicked clicked!!!")
-        print("btn_add_object_clicked clicked")
+        #print("btn_add_object_clicked clicked")
         self.object_gui = AddObject_GUI(self)
         self.object_gui.show()
 
     # Método de gatilho para quando objeto "Transform object" é apertado
     def btn_transform_object_clicked(self):
         self.terminal_out.append("btn_transform_object_clicked clicked!!!")
-        print("btn_transform_object_clicked clicked")
+        #print("btn_transform_object_clicked clicked")
         
         self.object_gui = TransformObject_GUI(self)
         self.object_gui.show()

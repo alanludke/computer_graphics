@@ -32,7 +32,7 @@ class AddObject_GUI(QDialog):
         self.parent.add_object_display_file(object)
         self.parent.terminal_out.append("btn_add clicked!!!")
 
-        print("btn_add clicked")
+        #print("btn_add clicked")
         self.parent.viewport.draw_objects(self.parent.get_display_file())
 
     # Método que retorna as coordenadas limpas de uma lista de
