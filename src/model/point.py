@@ -6,20 +6,20 @@ import math as mt
 
 class Point:
     def __init__(self, name, x, y, z):
-        self.coordinates = [[x, y, z]]
+        self.coordinates = [x, y, z]
         self.name = name
 
     def get_name(self):
         return self.name
 
     def get_x(self):
-        return self.coordinates[0][0]
+        return self.coordinates[0]
 
     def get_y(self):
-        return self.coordinates[0][1]
+        return self.coordinates[1]
 
     def get_z(self):
-        return self.coordinates[0][2]
+        return self.coordinates[2]
 
     def get_points(self):
         return [self]
@@ -28,13 +28,13 @@ class Point:
         return self
 
     def set_x(self, x):
-        self.coordinates[0][0] = x
+        self.coordinates[0] = x
 
     def set_y(self, y):
-        self.coordinates[0][1] = y
+        self.coordinates[1] = y
 
     def set_z(self, z):
-        self.coordinates[0][2] = z
+        self.coordinates[2] = z
 
     def asnumpy(self):
         return self.coord
