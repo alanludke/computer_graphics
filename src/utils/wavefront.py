@@ -1,4 +1,5 @@
 from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QFileDialog
 from typing import List
 
@@ -92,7 +93,69 @@ class WavefrontOBJ:
                 elif toks[0] == 'usemtl':
                     self.usemtl.append(toks[1])
   
+    def export_obj(self, objects_list, window):
+        try:
+            points = []
+            colors_list = []
+            filename = QFileDialog.getSaveFileName()
+            if filename[0] == '':
+                return
+            url = QUrl.fromLocalFile(filename[0])
+            print(url)
+            with open(filename[0] + '.obj', 'w' ) as file:
+                for obj in objects_list:
+                    for pt in obj.get_points():
+                        # escrevendo os vertices 
+                        file.write(f'v {pt.get_x()} {pt.get_y()}\n')
+                        points.append(pt)
+                
+                # escrevendo infos da window
+                w_center = window.get_center()
+                w_dimension = Point("Dimension", window.width, window.height, 1)
+                file.write(f'v {w_center.get_x()} {w_center.get_y()}\n')
+                file.write(f'v {w_dimension.get_x()} {w_dimension.get_y()}\n')
+                points.append(w_center)
+                points.append(w_dimension)
 
+                file.write(f'mtllib {url.fileName()}.mtl\n')
+                file.write('o window\n')
+                file.write(f'w {points.index(w_center) + 1} {points.index(w_dimension) + 1}\n')
+
+                # escrevendo os objetos
+                for obj in objects_list:                
+                    # Nome
+                    file.write(f'o {obj.get_name()}\n')
+
+                    # Cor
+                    if obj.get_color() not in colors_list:
+                        colors_list.append(obj.get_color())
+                    file.write(f'usemtl color{colors_list.index(obj.get_color())}\n')
+
+                    # Tipo
+                    if obj.get_type() == "point":
+                        for pt in obj.get_points():
+                            file.write(f'p {points.index(pt) + 1}\n')
+                    elif obj.get_type() == "line":
+                        text_line = ""
+                        for pt in obj.get_points():
+                            text_line += (f'{points.index(pt) + 1} ')
+                        file.write(f'l {text_line}\n')
+                    elif obj.get_type() == "polygon":
+                        text_line = ""
+                        for pt in obj.get_points():
+                            text_line += (f'{points.index(pt) + 1} ')
+                        file.write(f'f {text_line}\n')
+
+            # escreve arquivo mtl
+            with open(filename[0] + '.mtl', 'w' ) as file:
+                for c in colors_list:
+                    file.write(f'newmtl color{colors_list.index(c)}\n')
+                    color = c.redF()
+                    print(color)
+                    file.write(f'Kd {c.redF()} {c.greenF()} {c.blueF()}''\n')
+
+        except:
+            pass
     # def save_obj(objects_list: List[GraphicObject], w_center: Point, w_dimensions: Point):
     #     try:
     #         temp : List[Point] = []

@@ -41,7 +41,7 @@ class AddObject_GUI(QDialog):
         list_of_points = []
         for each in cleaned:
             nums = each.split(",")
-            point = Point("point", int(nums[0]), int(nums[1]), 1)
+            point = Point("point", float(nums[0]), float(nums[1]), 1)
             list_of_points.append(point)
 
         return list_of_points
@@ -50,7 +50,7 @@ class AddObject_GUI(QDialog):
     def create_object(self, name, coord, count_coord):
         object = None
         if count_coord == 1:
-            object = Point(name, 100, 200, 1)
+            object = Point(name, coord[0].get_x(), coord[0].get_y(), 1)
         elif count_coord == 2:
             object = Line(name, coord)
         elif count_coord > 2:

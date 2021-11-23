@@ -8,6 +8,8 @@ class Point:
     def __init__(self, name, x, y, z):
         self.coordinates = [x, y, z]
         self.name = name
+        self.type = "point"
+        self.color = QColor(63, 145, 0)
 
     def get_name(self):
         return self.name
@@ -27,6 +29,12 @@ class Point:
     def get_center(self):
         return self
 
+    def get_type(self):
+        return self.type
+        
+    def get_color(self):
+        return self.color
+        
     def set_x(self, x):
         self.coordinates[0] = x
 
@@ -57,7 +65,7 @@ class Point:
         pen = QPen()
 
         pen.setWidth(2)
-        pen.setColor(QColor(63, 145, 0))
+        pen.setColor(self.color)
         painter.setPen(pen)
 
         v_point = self.viewport_transformation(viewport)

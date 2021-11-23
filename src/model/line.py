@@ -10,6 +10,8 @@ class Line(GraphicObject):
         self.origin = points[0]
         self.destiny = points[1]
         self.center = self.set_center(points)
+        self.type = "line"
+        self.color = QColor(255, 113, 0)
     #(10,20),(40,40) 
     #(280,285),(300,320)
     #(2,2),(4,4)
@@ -37,13 +39,19 @@ class Line(GraphicObject):
     def get_points(self):
         return [self.origin, self.destiny]
 
+    def get_type(self):
+        return self.type
+    
+    def get_color(self):
+        return self.color
+        
     # Aplica a transformada de viewport nos pontos do objeto e depois desenha
     def draw(self, viewport):
         painter = QPainter(viewport)
         pen = QPen()
 
         pen.setWidth(2)
-        pen.setColor(QColor(255, 113, 0))
+        pen.setColor(self.color)
         painter.setPen(pen)
 
         v_point_origin = self.origin.viewport_transformation(viewport)

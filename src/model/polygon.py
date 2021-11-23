@@ -8,6 +8,8 @@ class Polygon(GraphicObject):
         super().__init__(name, points)
         self.center = self.set_center(points)
         self.points = points
+        self.type = "polygon"
+        self.color = QColor(0, 0, 255)
 
     # (280,285),(300,320),(350,355)
 
@@ -24,6 +26,9 @@ class Polygon(GraphicObject):
         print(f'center={center}')
         return center
 
+    def get_type(self):
+        return self.type
+
     def get_name(self):
         return self.name
 
@@ -33,13 +38,16 @@ class Polygon(GraphicObject):
     def get_center(self):
         return self.center
 
+    def get_color(self):
+        return self.color
+
     # Aplica a transformada de viewport nos pontos do objeto e depois desenha
     def draw(self, viewport):
         painter = QPainter(viewport)
         pen = QPen()
 
         pen.setWidth(2)
-        pen.setColor(QColor(0, 0, 255))
+        pen.setColor(self.color)
         painter.setPen(pen)
 
         v_points = []
