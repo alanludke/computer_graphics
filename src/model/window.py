@@ -18,7 +18,7 @@ class Window():
         centerX = countX / len(points)
         centerY = countY / len(points)
         center = Point("center", centerX, centerY, 1)
-        print(f'center={center}')
+        # print(f'center={center}')
         return center
 
     def get_name(self):

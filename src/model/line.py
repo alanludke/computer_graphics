@@ -12,15 +12,13 @@ class Line(GraphicObject):
         self.center = self.set_center(points)
         self.type = "line"
         self.color = QColor(255, 113, 0)
-    #(10,20),(40,40) 
-    #(280,285),(300,320)
-    #(2,2),(4,4)
+
     # Calcula o centro do objeto
     def set_center(self, points):
         centerX = (points[0].get_x() + points[1].get_x()) / 2
         centerY = (points[0].get_y() + points[1].get_y()) / 2
         center = Point("point", centerX, centerY, 1)
-        print(f'center={center}')
+        # print(f'center={center}')
 
         return center
 

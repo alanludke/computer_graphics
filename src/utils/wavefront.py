@@ -101,7 +101,7 @@ class WavefrontOBJ:
             if filename[0] == '':
                 return
             url = QUrl.fromLocalFile(filename[0])
-            print(url)
+            # print(url)
             with open(filename[0] + '.obj', 'w' ) as file:
                 for obj in objects_list:
                     for pt in obj.get_points():
@@ -151,7 +151,7 @@ class WavefrontOBJ:
                 for c in colors_list:
                     file.write(f'newmtl color{colors_list.index(c)}\n')
                     color = c.redF()
-                    print(color)
+                    # print(color)
                     file.write(f'Kd {c.redF()} {c.greenF()} {c.blueF()}''\n')
 
         except:

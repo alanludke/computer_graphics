@@ -2,9 +2,10 @@ import os
 import sys
 from typing import Dict, List
 from PyQt5 import uic
-from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import *
 
+from src.model.line import Line
+from src.model.polygon import Polygon
 from src.model.point import Point
 from src.view.AddObject_GUI import AddObject_GUI
 from src.view.TransformObject_GUI import TransformObject_GUI
@@ -49,7 +50,8 @@ class Main_GUI(QMainWindow):
         self.btn_export.clicked.connect(self.btn_export_clicked)
         self.btn_import.clicked.connect(self.open_file_dialog)
 
-        # open_file.triggered.connect(self.open_file_dialog)
+        self.add_new_obj_action = QAction('Adicionar novos objetos', self)
+        self.add_new_obj_action.triggered.connect(lambda: self.import_handler())
 
 
     def open_file_dialog(self):
@@ -230,7 +232,7 @@ class Main_GUI(QMainWindow):
         return self.display_file
 
     def import_handler(self):
-        objs : Dict[str, List[Point]]= self.main_window.new_objs
+        objs : Dict[str, List[Point]]= self.new_objs
         i = 0
 
         
@@ -244,29 +246,48 @@ class Main_GUI(QMainWindow):
             else:
                 rgb = [0,0,0] 
 
-            if len(value) == 1:
-                self.add_new_object(key, value, "PONTO", QColor(rgb[0],rgb[1],rgb[2]),objs.filled[i]) 
-            elif len(value) == 2:
-                self.add_new_object(key, value, "LINHA", QColor(rgb[0],rgb[1],rgb[2]), objs.filled[i])
-            else:
-                self.add_new_object(key, value, "POLIGONO", QColor(rgb[0],rgb[1],rgb[2]), objs.filled[i])
+
+            # print(key,value)
+            self.add_new_object(key, value, len(value))
+
             i += 1
     
-        if objs.faces:
-            rgb = [0,0,0]
+        # if objs.faces:
+        #     rgb = [0,0,0]
 
-            self.add_new_object("Wavefront_obj_3D", objs.vertices, Point, QColor(rgb[0],rgb[1],rgb[2]), edges = objs.edges, faces = objs.faces, from_wavefront=True)      
+        #     self.add_new_object("Wavefront_obj_3D", objs.vertices, Point, QColor(rgb[0],rgb[1],rgb[2]), edges = objs.edges, faces = objs.faces, from_wavefront=True)      
 
-        if objs.window:
-            coords = []
-            for c in objs.window:
-                coords.append([c.x(),c.y(),c.z()])
-            self.update_window_values(coords)
+        # if objs.window:
+        #     coords = []
+        #     for c in objs.window:
+        #         coords.append([c.x(),c.y(),c.z()])
+        #     self.update_window_values(coords)
 
-        self.calculate_scn_coordinates()
+    def add_new_object(self, name, coord, count_coord):
+        object = None
+        if count_coord == 1:
+            object = Point(name, coord[0].get_x(), coord[0].get_y(), 1)
+        elif count_coord == 2:
+            object = Line(name, coord)
+        elif count_coord > 2:
+            object = Polygon(name, coord)
+        print(f'object={object}')
+        if object != None:
+            print('adiciona')
+            self.add_object_display_file(object)
+            self.terminal_out.append("btn_add clicked!!!")
 
+            #print("btn_add clicked")
+            self.viewport.draw_objects(self.get_display_file())
+            # self.add_object_to_display_file(object)
+            # self.main_window.functions_menu.object_list.add_object(object)
+            # self.main_window.log.add_item(f'[INFO] Objeto {object.name} do tipo {object.type.value}, cujas coordenadas são {[str(c) for c in object.coordinates]}, foi criado com sucesso!')
 
+        # self.calculate_scn_coordinates()
 
+    # def add_new_object(self, name: str, coordinates: list, type, color: QColor, is_filled: bool = False, is_clipped: bool = False, curve_option: CurveEnum = None, edges : List[tuple] = None, faces : List[tuple] = None, from_wavefront: bool = False):
+    #     graphic_obj : GraphicObject = create_graphic_object(type, name, coordinates, color, is_filled, is_clipped, curve_option, edges, faces, from_wavefront, self.main_window.log.add_item)
+    
 # Inicializa a Window
 def window():
     app = QApplication(sys.argv)
