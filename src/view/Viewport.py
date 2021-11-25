@@ -75,7 +75,7 @@ class Viewport(QLabel):
         painter.drawLine(m_l, m_r)
 
     # Desenha as linhas verticais no centro da Window
-    def draw_center(self):
+    def draw_center(self):  # da pra apagar?
         painter = QPainter(self)
         pen = QPen()
 
@@ -99,7 +99,7 @@ class Viewport(QLabel):
             elif isinstance(obj, Polygon):
                 obj.draw(self)
 
-    def draw_objects(self, objects: List[GraphicObject]):
+    def draw_objects(self, objects: List[GraphicObject]): # Usamos isso???
         self.objects = objects
         self.update()
 
@@ -134,3 +134,18 @@ class Viewport(QLabel):
             y_vp + self.origin.get_y(),
             1,
         )
+
+    def generate_viewport_coords(self, points):
+        x = (500 - 0) / (1 + 1) * (points.get_x() - (-1))
+        y = (500 - 0) / (1 + 1) * (points.get_y() - (-1))
+        v_point = Point(points.get_name(), x, y, 1)
+        return v_point
+        # viewport_coords = []
+        # for point in points:
+        #     # formula para desnormalização x = xwmin + ((xwmax - xwmin) / (xvmax-xvmin))*xv - xvmin
+        #     x = (500 - 0) / (1 + 1) * (point.get_x() - (-1))
+        #     y = (500 - 0) / (1 + 1) * (point.get_y() - (-1))
+        #     v_point = Point(point.get_name(), x, y, 1)
+        #     viewport_coords.append(v_point)
+        
+        # return viewport_coords

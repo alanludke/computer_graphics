@@ -20,10 +20,5 @@ class GraphicObject:
     def get_points(self):
         return self.point
 
-
     def get_normalized_points(self):
         return self.normalized_points
-
-    def set_normalized_points(self, points):
-        pass
-    

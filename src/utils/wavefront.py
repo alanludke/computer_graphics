@@ -155,7 +155,7 @@ class WavefrontOBJ:
                     file.write(f'Kd {c.redF()} {c.greenF()} {c.blueF()}''\n')
 
         except:
-            pass
+            print("Não foi possível exportar o arquivo!")
     # def save_obj(objects_list: List[GraphicObject], w_center: Point, w_dimensions: Point):
     #     try:
     #         temp : List[Point] = []

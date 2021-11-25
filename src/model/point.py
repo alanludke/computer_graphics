@@ -85,3 +85,6 @@ class Point:
         self.set_y(new_point[1])
         self.set_z(new_point[2])
         #print(f'x: {self.get_x()} y: {self.get_y()}')
+    
+    def set_normalized_coords(self, window):
+        self.normalized_points = window.generate_window_coords(self.get_points())

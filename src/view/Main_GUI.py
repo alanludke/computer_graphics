@@ -4,6 +4,7 @@ from typing import Dict, List
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
 
+from src.model.window import Window
 from src.model.line import Line
 from src.model.polygon import Polygon
 from src.model.point import Point
@@ -22,6 +23,7 @@ class Main_GUI(QMainWindow):
         self.init_ui()
         self.display_file = []
         self.new_objs = WavefrontOBJ()
+        self.display_window = Window([250, 250])
 
     # Inicializa componentes da interface, layouts e botões
     def init_ui(self):
@@ -53,7 +55,6 @@ class Main_GUI(QMainWindow):
         self.add_new_obj_action = QAction('Adicionar novos objetos', self)
         self.add_new_obj_action.triggered.connect(lambda: self.import_handler())
 
-
     def open_file_dialog(self):
         filename = QFileDialog().getOpenFileName()
 
@@ -72,7 +73,7 @@ class Main_GUI(QMainWindow):
             self.add_new_obj_action.trigger()
             
         except FileNotFoundError:
-            pass
+            print("Nenhum arquivo com esse nome foi encontrado!")
 
     # Método de gatilho para quando objeto "Up" é apertado    
     def btd_frame_up_clicked(self):
@@ -106,12 +107,12 @@ class Main_GUI(QMainWindow):
     def btd_frame_right_clicked(self):
         input = self.txt_step.text()
         if(input == ""):
-            transformation = Transformation("Transladar", 10, 0)
+            transformation = Transformation("Transladar", -10, 0)
             for object in self.display_file:
                 object.apply_transformation([transformation])
         else:
             step = self.calculate_step(input)
-            transformation = Transformation("Transladar", step, 0)
+            transformation = Transformation("Transladar", -step, 0)
             for object in self.display_file:
                 object.apply_transformation([transformation])
         self.viewport.update()
@@ -120,12 +121,12 @@ class Main_GUI(QMainWindow):
     def btd_frame_left_clicked(self):
         input = self.txt_step.text()
         if(input == ""):
-            transformation = Transformation("Transladar", -10, 0)
+            transformation = Transformation("Transladar", 10, 0)
             for object in self.display_file:
                 object.apply_transformation([transformation])
         else:
             step = self.calculate_step(input)
-            transformation = Transformation("Transladar", -step, 0)
+            transformation = Transformation("Transladar", step, 0)
             for object in self.display_file:
                 object.apply_transformation([transformation])
         self.viewport.update()
@@ -207,7 +208,6 @@ class Main_GUI(QMainWindow):
     # Método de gatilho para quando objeto "Transform object" é apertado
     def btn_transform_object_clicked(self):
         self.terminal_out.append("btn_transform_object_clicked clicked!!!")
-        #print("btn_transform_object_clicked clicked")
         
         self.object_gui = TransformObject_GUI(self)
         self.object_gui.show()
@@ -220,8 +220,7 @@ class Main_GUI(QMainWindow):
     # Método que objetos no display_file
     def btn_import_clicked(self):
         print('btn import clicked!!')
-        
-
+    
     # Método que objetos no display_file
     def btn_export_clicked(self):
         print('btn export clicked!!')
@@ -231,11 +230,10 @@ class Main_GUI(QMainWindow):
     def get_display_file(self):
         return self.display_file
 
-    def import_handler(self):
+    def import_handler(self): # a gente usa??
         objs : Dict[str, List[Point]]= self.new_objs
         i = 0
 
-        
         for key, value in objs.objects.items():
 
             if objs.mtls:
@@ -274,21 +272,13 @@ class Main_GUI(QMainWindow):
         print(f'object={object}')
         if object != None:
             print('adiciona')
+            # object.set_normalized_coords(self.display_window)
             self.add_object_display_file(object)
             self.terminal_out.append("btn_add clicked!!!")
 
-            #print("btn_add clicked")
             self.viewport.draw_objects(self.get_display_file())
-            # self.add_object_to_display_file(object)
-            # self.main_window.functions_menu.object_list.add_object(object)
-            # self.main_window.log.add_item(f'[INFO] Objeto {object.name} do tipo {object.type.value}, cujas coordenadas são {[str(c) for c in object.coordinates]}, foi criado com sucesso!')
-
-        # self.calculate_scn_coordinates()
-
-    # def add_new_object(self, name: str, coordinates: list, type, color: QColor, is_filled: bool = False, is_clipped: bool = False, curve_option: CurveEnum = None, edges : List[tuple] = None, faces : List[tuple] = None, from_wavefront: bool = False):
-    #     graphic_obj : GraphicObject = create_graphic_object(type, name, coordinates, color, is_filled, is_clipped, curve_option, edges, faces, from_wavefront, self.main_window.log.add_item)
     
-# Inicializa a Window
+# Inicializa a Main_GUI
 def window():
     app = QApplication(sys.argv)
     win = Main_GUI()

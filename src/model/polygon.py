@@ -73,3 +73,6 @@ class Polygon(GraphicObject):
         for point in self.points:
             point.apply_transformation(list_transformation)
         self.center = self.set_center(self.points)
+
+    def set_normalized_coords(self, window):
+        self.normalized_points = window.generate_window_coords(self.get_points())

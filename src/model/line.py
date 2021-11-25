@@ -3,6 +3,7 @@ from src.utils.object import GraphicObject
 from PyQt5.QtGui import QColor, QPainter, QPen
 import numpy as np
 
+#(100,100),(100,200)
 
 class Line(GraphicObject):
     def __init__(self, name, points):
@@ -18,7 +19,6 @@ class Line(GraphicObject):
         centerX = (points[0].get_x() + points[1].get_x()) / 2
         centerY = (points[0].get_y() + points[1].get_y()) / 2
         center = Point("point", centerX, centerY, 1)
-        # print(f'center={center}')
 
         return center
 
@@ -54,7 +54,12 @@ class Line(GraphicObject):
 
         v_point_origin = self.origin.viewport_transformation(viewport)
         v_point_destiny = self.destiny.viewport_transformation(viewport)
+        # print(len(self.normalized_points))
+        # v_point_origin = self.get_normalized_points()[0].viewport_transformation(viewport)
+        # v_point_destiny = self.get_normalized_points()[1].viewport_transformation(viewport)
+        
         painter.drawLine(v_point_origin.to_QPointF(), v_point_destiny.to_QPointF())
+        # painter.drawLine(viewport.generate_viewport_coords(v_point_origin).to_QPointF(), viewport.generate_viewport_coords(v_point_destiny).to_QPointF())
 
         pen.setColor(QColor(0, 0, 255))
         painter.setPen(pen)
@@ -65,3 +70,6 @@ class Line(GraphicObject):
         self.origin.apply_transformation(list_transformation)
         self.destiny.apply_transformation(list_transformation)
         self.center = self.set_center([self.origin, self.destiny])
+    
+    def set_normalized_coords(self, window):
+        self.normalized_points = window.generate_window_coords(self.get_points())

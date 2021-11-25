@@ -1,0 +1,24 @@
+v 100.0 100.0
+v 100.0 200.0
+v 200.0 200.0
+v 100.0 200.0
+v 200.0 100.0
+v 250.0 250.0
+v 500.0 500.0
+v 0.0 0.0
+v 200.0 100.0
+v 200.0 100.0
+v 250.0 250.0
+v 500 500
+mtllib sample2.mtl
+o window
+w 11 12
+o meu_ponto
+usemtl color0
+p 1
+o minha_linha
+usemtl color1
+f 2 3 2 
+o meu_poligono
+usemtl color1
+f 5 6 7 8 5 5 
