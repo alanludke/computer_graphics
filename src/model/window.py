@@ -43,6 +43,8 @@ class Window():
             # formula para normalização x = xwmin + ((xwmax - xwmin) / (xvmax-xvmin))*xv - xvmin
             x = self.minimum.get_x() + ((self.maximum.get_x() - self.minimum.get_x()) / (500 - 0)) * (point.get_x() - 0)
             y = self.minimum.get_y() + ((self.maximum.get_y() - self.minimum.get_y()) / (500 - 0)) * (point.get_y() - 0)
+            # x = ( point.get_x() * self.maximum.get_x() ) / 500
+            # y = ( point.get_y() * self.maximum.get_y() ) / 500
             n_point = Point(point.get_name(), x, y, 1)
             normalized_points.append(n_point)
 

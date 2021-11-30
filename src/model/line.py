@@ -54,13 +54,21 @@ class Line(GraphicObject):
 
         v_point_origin = self.origin.viewport_transformation(viewport)
         v_point_destiny = self.destiny.viewport_transformation(viewport)
-        # print(len(self.normalized_points))
+        print(f'{self.get_normalized_points()[0].get_x()}, {self.get_normalized_points()[0].get_y()}')
+        print(f'{self.get_normalized_points()[1].get_x()}, {self.get_normalized_points()[1].get_y()}')
+        
         # v_point_origin = self.get_normalized_points()[0].viewport_transformation(viewport)
         # v_point_destiny = self.get_normalized_points()[1].viewport_transformation(viewport)
+        print(f'{v_point_origin.get_x()}, {v_point_origin.get_y()}')
+        print(f'{v_point_destiny.get_x()}, {v_point_destiny.get_y()}')
+
+        print(f'{viewport.generate_viewport_coords(v_point_origin).get_x()}, {viewport.generate_viewport_coords(v_point_origin).get_y()}')
+        print(f'{viewport.generate_viewport_coords(v_point_destiny).get_x()}, {viewport.generate_viewport_coords(v_point_destiny).get_y()}')
         
         painter.drawLine(v_point_origin.to_QPointF(), v_point_destiny.to_QPointF())
         # painter.drawLine(viewport.generate_viewport_coords(v_point_origin).to_QPointF(), viewport.generate_viewport_coords(v_point_destiny).to_QPointF())
 
+        # Desenha ponto central da reta
         pen.setColor(QColor(0, 0, 255))
         painter.setPen(pen)
         v_point_center = self.get_center().viewport_transformation(viewport)

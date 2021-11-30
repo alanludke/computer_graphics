@@ -39,6 +39,11 @@ class Viewport(QLabel):
         self.Wb_l = Point("Wb_l", 25, 475, 1)
         self.Wt_l = Point("Wt_l", 25, 25, 1)
         self.Wt_r = Point("Wt_r", 475, 25, 1)
+
+        # self.Wb_r = Point("Wb_r", 500, 500, 1)
+        # self.Wb_l = Point("Wb_l", 0, 500, 1)
+        # self.Wt_l = Point("Wt_l", 0, 0, 1)
+        # self.Wt_r = Point("Wt_r", 500, 0, 1)
     
     def get_center(self):
         return Point("Window_Center", self.width / 2, self.height / 2, 1)
@@ -99,6 +104,7 @@ class Viewport(QLabel):
             elif isinstance(obj, Polygon):
                 obj.draw(self)
 
+    # Atualiza a Viewport
     def draw_objects(self, objects: List[GraphicObject]):
         self.objects = objects
         self.update()
@@ -110,6 +116,13 @@ class Viewport(QLabel):
         viewport_max = self.Vb_r
         viewport_min = self.Vt_l
 
+        # window_min = self.Wt_l
+        # window_max = self.Wb_r
+        # viewport_max = self.Vb_r
+        # viewport_min = self.Vt_l
+
+        print(f'point.get_x()={point.get_x()}\n  point.get_y()={ point.get_y()}')
+
         # x_div = (x_w - x_w_min) / (x_w_max - x_w_min)
         x_div = (point.get_x() - window_min.get_x()) / (
             window_max.get_x() - window_min.get_x()
@@ -117,7 +130,7 @@ class Viewport(QLabel):
 
         # x_v = x_div * (x_v_max - x_v_min)
         x_vp = x_div * (viewport_max.get_x() - viewport_min.get_x())
-        # #print(f'x_vp={x_vp}')
+        # x_vp = (point.get_x() * window_max.get_x()) / viewport_max.get_x()
 
         # y_div = (y_w - y_w_min) / (y_w_max - y_w_min)
         y_div = (point.get_y() - window_min.get_y()) / (
@@ -126,26 +139,21 @@ class Viewport(QLabel):
 
         # y_v = (1 - y_div) * (y_v_max - y_v_min)
         y_vp = (1 - y_div) * (viewport_max.get_y() - viewport_min.get_y())
-        # #print(f'y_vp={y_vp}')
+        # y_vp = ( point.get_y() * (-window_max.get_y()/viewport_max.get_y()) ) + window_max.get_y()
 
+        print(f'x_transformada: {x_vp + self.origin.get_x()}, y_transformada: {y_vp + self.origin.get_y()}')
         return Point(
             "point transformed",
             x_vp + self.origin.get_x(),
             y_vp + self.origin.get_y(),
             1,
         )
-
-    def generate_viewport_coords(self, points):
-        x = (500 - 0) / (1 + 1) * (points.get_x() - (-1))
-        y = (500 - 0) / (1 + 1) * (points.get_y() - (-1))
-        v_point = Point(points.get_name(), x, y, 1)
-        return v_point
-        # viewport_coords = []
-        # for point in points:
-        #     # formula para desnormalização x = xwmin + ((xwmax - xwmin) / (xvmax-xvmin))*xv - xvmin
-        #     x = (500 - 0) / (1 + 1) * (point.get_x() - (-1))
-        #     y = (500 - 0) / (1 + 1) * (point.get_y() - (-1))
-        #     v_point = Point(point.get_name(), x, y, 1)
-        #     viewport_coords.append(v_point)
         
-        # return viewport_coords
+
+    def generate_viewport_coords(self, point):
+        x = ((500 - 0) / (1 + 1)) * (point.get_x() - (-1))
+        y = ((500 - 0) / (1 + 1)) * (point.get_y() - (-1))
+        # x = (point.get_x() * (500)) / 1
+        # y = (point.get_y() * (500)) / 1
+        v_point = Point(point.get_name(), x, y, 1)
+        return v_point
