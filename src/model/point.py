@@ -3,6 +3,7 @@ from PyQt5.QtGui import QColor, QPainter, QPen
 import numpy as np
 import math as mt
 
+# (300,350)
 
 class Point:
     def __init__(self, name, x, y, z):
@@ -10,6 +11,7 @@ class Point:
         self.name = name
         self.type_object = "point"
         self.color = QColor(63, 145, 0)
+        self.normalized_points = []
 
     def get_name(self):
         return self.name
@@ -64,27 +66,35 @@ class Point:
         painter = QPainter(viewport)
         pen = QPen()
 
-        pen.setWidth(2)
+        pen.setWidth(5)
         pen.setColor(self.color)
         painter.setPen(pen)
 
-        v_point = self.viewport_transformation(viewport)
+        # v_point = self.viewport_transformation(viewport)
+        v_point = self.normalized_points[0].viewport_transformation(viewport)
 
         painter.drawPoint(v_point.to_QPointF())
 
     # Aplica as trasnformações no ponto
-    def apply_transformation(self, list_transformation):
-        matrix = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
-        for i in list_transformation:
-            matrix = matrix.dot(i.generate_matrix())
-            #print(matrix)
+    def apply_transformation_point(self, matrix):
+        # ----- colocar essa parte no apply_transformation dos objetos, questão de eficiencia -------
+        # matrix = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+        # for i in list_transformation:
+        #     matrix = matrix.dot(i.generate_matrix())
+        # -------------------------------------------------------------------------------------------
         current_point = np.array([self.get_x(), self.get_y(), self.get_z()])
         new_point = current_point.dot(matrix)
 
         self.set_x(new_point[0])
         self.set_y(new_point[1])
         self.set_z(new_point[2])
-        #print(f'x: {self.get_x()} y: {self.get_y()}')
     
+    def apply_transformation(self, list_transformation):
+        matrix = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+        for i in list_transformation:
+            matrix = matrix.dot(i.generate_matrix())
+        
+        self.apply_transformation_point(matrix)
+
     def set_normalized_coords(self, window):
         self.normalized_points = window.generate_window_coords(self.get_points())

@@ -98,7 +98,6 @@ class WavefrontOBJ:
             if filename[0] == '':
                 return
             url = QUrl.fromLocalFile(filename[0])
-            # print(url)
             with open(filename[0] + '.obj', 'w' ) as file:
                 for obj in objects_list:
                     for pt in obj.get_points():

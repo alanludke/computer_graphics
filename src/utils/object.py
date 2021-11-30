@@ -22,3 +22,6 @@ class GraphicObject:
 
     def get_normalized_points(self):
         return self.normalized_points
+
+    def set_normalized_coords(self, window):
+        self.normalized_points = window.generate_window_coords(self.get_points())
