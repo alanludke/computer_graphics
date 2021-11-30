@@ -5,6 +5,7 @@ from PyQt5.QtGui import QColor, QPainter, QPen
 
 class Window():
     def __init__(self, w_center, width, height):
+        self.type_object = "window"
         self.origin = Point("origin", 0, 0, 1)
         self.w_center_position = Point("w_center_position", w_center[0], w_center[1], 1)
         self.minimum = Point("w_minimum", -1, -1, 1)
@@ -34,7 +35,7 @@ class Window():
         return self.point
 
     def get_center(self):
-        return self.center
+        return self.w_center_position
 
     def generate_window_coords(self, points):
         normalized_points = []

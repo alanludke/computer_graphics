@@ -237,20 +237,15 @@ class Main_GUI(QMainWindow):
                 rgb = [round(int(float(i) * 255)) for i in objs.kd_params[newmtl]] 
             else:
                 rgb = [0,0,0] 
-            # print(key,value)
+            print(f'key = {key}\nvalue={value}')
             self.add_new_object(key, value, len(value))
             i += 1
+        print(f'objs = {objs}')
+        print(f'objs.window = {objs.window}')
+        self.display_window = Window( [objs.window[0].get_x(), objs.window[0].get_y()] , objs.window[1].get_x(), objs.window[1].get_y())
+        print([objs.window[0].get_x(), objs.window[0].get_y()] , objs.window[1].get_x(), objs.window[1].get_y())
 
-        # if objs.faces:
-        #     rgb = [0,0,0]
-
-        #     self.add_new_object("Wavefront_obj_3D", objs.vertices, Point, QColor(rgb[0],rgb[1],rgb[2]), edges = objs.edges, faces = objs.faces, from_wavefront=True)      
-
-        # if objs.window:
-        #     coords = []
-        #     for c in objs.window:
-        #         coords.append([c.x(),c.y(),c.z()])
-        #     self.update_window_values(coords)
+        self.centralize_window()
 
     # Adiciona novos objetos, importados de arquivo obj
     def add_new_object(self, name, coord, count_coord):
@@ -271,6 +266,14 @@ class Main_GUI(QMainWindow):
             self.terminal_out.append("btn_add clicked!!!")
 
             self.viewport.draw_objects(self.get_display_file())
+
+    def centralize_window(self):
+        w_center = self.display_window.get_center()
+        transformation = Transformation("Transladar", -w_center.get_x(), -w_center.get_y())
+        for object in self.display_file:
+            object.apply_transformation([transformation])
+        
+        self.viewport.update()
     
 # Inicializa a Main_GUI
 def window():

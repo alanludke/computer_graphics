@@ -8,7 +8,7 @@ class Polygon(GraphicObject):
         super().__init__(name, points)
         self.center = self.set_center(points)
         self.points = points
-        self.type = "polygon"
+        self.type_object = "polygon"
         self.color = QColor(0, 0, 255)
 
     # (280,285),(300,320),(350,355)
@@ -26,8 +26,8 @@ class Polygon(GraphicObject):
         # print(f'center={center}')
         return center
 
-    def get_type(self):
-        return self.type
+    def get_type_object(self):
+        return self.type_object
 
     def get_name(self):
         return self.name

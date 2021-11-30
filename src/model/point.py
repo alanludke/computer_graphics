@@ -8,7 +8,7 @@ class Point:
     def __init__(self, name, x, y, z):
         self.coordinates = [x, y, z]
         self.name = name
-        self.type = "point"
+        self.type_object = "point"
         self.color = QColor(63, 145, 0)
 
     def get_name(self):
@@ -29,8 +29,8 @@ class Point:
     def get_center(self):
         return self
 
-    def get_type(self):
-        return self.type
+    def get_type_object(self):
+        return self.type_object
         
     def get_color(self):
         return self.color

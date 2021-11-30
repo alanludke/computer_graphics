@@ -49,7 +49,7 @@ class WavefrontOBJ:
                 if toks[0] == 'mtllib':
                     self.mtls = True
                     filename_mtl += f'/{toks[1]}'
-                    self.parse_mtl(filename_mtl) 
+                    self.parse_mtl(filename_mtl)
 
                 #Vértice
                 if toks[0] == 'v':

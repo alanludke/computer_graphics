@@ -11,7 +11,7 @@ class Line(GraphicObject):
         self.origin = points[0]
         self.destiny = points[1]
         self.center = self.set_center(points)
-        self.type = "line"
+        self.type_object = "line"
         self.color = QColor(255, 113, 0)
 
     # Calcula o centro do objeto
@@ -37,8 +37,8 @@ class Line(GraphicObject):
     def get_points(self):
         return [self.origin, self.destiny]
 
-    def get_type(self):
-        return self.type
+    def get_type_object(self):
+        return self.type_object
     
     def get_color(self):
         return self.color
