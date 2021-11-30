@@ -4,12 +4,15 @@ from PyQt5.QtGui import QColor, QPainter, QPen
 
 
 class Window():
-    def __init__(self, w_center):
+    def __init__(self, w_center, width, height):
         self.origin = Point("origin", 0, 0, 1)
         self.w_center_position = Point("w_center_position", w_center[0], w_center[1], 1)
-        self.v_up_vector = 1
         self.minimum = Point("w_minimum", -1, -1, 1)
         self.maximum = Point("w_maximum", 1, 1, 1)
+        self.width = width
+        self.height = height
+        self.v_up_vector = 1
+        
 
     # Calcula o centro do objeto
     def set_center(self, points):
@@ -41,7 +44,6 @@ class Window():
             y = self.minimum.get_y() + ((self.maximum.get_y() - self.minimum.get_y()) / (500 - 0)) * (point.get_y() - 0)
             n_point = Point(point.get_name(), x, y, 1)
             normalized_points.append(n_point)
-            print(f'tamnho de normalized points: {len(normalized_points)}')
 
         return normalized_points  
     
@@ -60,3 +62,5 @@ class Window():
         # escalonamento do mundo;
 
         # 5. Armazene as coordenadas SCN de cada objeto.
+
+        # TRANSLADAR MUNDO ATÉ O CENTRO DA WINDOW

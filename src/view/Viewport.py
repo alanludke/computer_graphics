@@ -99,7 +99,7 @@ class Viewport(QLabel):
             elif isinstance(obj, Polygon):
                 obj.draw(self)
 
-    def draw_objects(self, objects: List[GraphicObject]): # Usamos isso???
+    def draw_objects(self, objects: List[GraphicObject]):
         self.objects = objects
         self.update()
 

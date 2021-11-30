@@ -2,10 +2,7 @@ from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QFileDialog
 from typing import List
-
 from src.model.point import Point
-# from src.model.graphic_object import GraphicObject, get_rgb
-# from src.model.enum.graphic_object_enum import GraphicObjectEnum
 import os.path
 
 class WavefrontOBJ:

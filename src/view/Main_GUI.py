@@ -23,7 +23,7 @@ class Main_GUI(QMainWindow):
         self.init_ui()
         self.display_file = []
         self.new_objs = WavefrontOBJ()
-        self.display_window = Window([250, 250])
+        self.display_window = Window([250, 250], 500, 500)
 
     # Inicializa componentes da interface, layouts e botões
     def init_ui(self):
@@ -217,39 +217,30 @@ class Main_GUI(QMainWindow):
         self.display_file.append(object)
         self.list_objects.add_object_view(object.get_name())
     
-    # Método que objetos no display_file
-    def btn_import_clicked(self):
-        print('btn import clicked!!')
-    
-    # Método que objetos no display_file
+    # Método que exporta objetos do display_file para arquivo obj
     def btn_export_clicked(self):
         print('btn export clicked!!')
-        self.new_objs.export_obj(self.display_file, self.viewport)
+        self.new_objs.export_obj(self.display_file, self.display_window)
 
     # Getter do display_file
     def get_display_file(self):
         return self.display_file
 
-    def import_handler(self): # a gente usa??
+    ## Método que importa objetos, de arquivo obj, no display_file
+    def import_handler(self): 
         objs : Dict[str, List[Point]]= self.new_objs
         i = 0
-
         for key, value in objs.objects.items():
-
             if objs.mtls:
                 usemtl = objs.usemtl[i]
                 newmtl = objs.new_mtl.index(usemtl)
-
                 rgb = [round(int(float(i) * 255)) for i in objs.kd_params[newmtl]] 
             else:
                 rgb = [0,0,0] 
-
-
             # print(key,value)
             self.add_new_object(key, value, len(value))
-
             i += 1
-    
+
         # if objs.faces:
         #     rgb = [0,0,0]
 
@@ -261,6 +252,7 @@ class Main_GUI(QMainWindow):
         #         coords.append([c.x(),c.y(),c.z()])
         #     self.update_window_values(coords)
 
+    # Adiciona novos objetos, importados de arquivo obj
     def add_new_object(self, name, coord, count_coord):
         object = None
         if count_coord == 1:
@@ -272,7 +264,9 @@ class Main_GUI(QMainWindow):
         print(f'object={object}')
         if object != None:
             print('adiciona')
-            # object.set_normalized_coords(self.display_window)
+
+            object.set_normalized_coords(self.display_window)
+                
             self.add_object_display_file(object)
             self.terminal_out.append("btn_add clicked!!!")
 

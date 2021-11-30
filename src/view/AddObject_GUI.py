@@ -55,4 +55,9 @@ class AddObject_GUI(QDialog):
             object = Line(name, coord)
         elif count_coord > 2:
             object = Polygon(name, coord)
+
+        object.set_normalized_coords(self.parent.display_window)
+        for i in object.get_normalized_points():
+            print(f'x: {i.get_x()}, y: {i.get_y()}')
+    
         return object
