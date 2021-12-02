@@ -2,6 +2,7 @@ import os
 import sys
 from typing import Dict, List
 from PyQt5 import uic
+from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import *
 
 from src.model.window import Window
@@ -238,29 +239,33 @@ class Main_GUI(QMainWindow):
             if objs.mtls:
                 usemtl = objs.usemtl[i]
                 newmtl = objs.new_mtl.index(usemtl)
-                rgb = [round(int(float(i) * 255)) for i in objs.kd_params[newmtl]] 
+                rgb = [round(int(float(i) * 255)) for i in objs.kd_params[newmtl]]
+                color = QColor(rgb[0], rgb[1], rgb[2]) 
             else:
-                rgb = [0,0,0] 
+                color = QColor(0, 0, 0)
             print(f'key = {key}\nvalue={value}')
             # print(f'{value[0].get_x()}, {value[0].get_y()}, {value[1].get_x()}, {value[1].get_y()}, {value[2].get_x()}, {value[2].get_y()}')
-            self.add_new_object(key, value, len(value))
+            self.add_new_object(key, value, len(value), color)
             i += 1
         # print(f'objs = {objs}')
         # print(f'objs.window = {objs.window}')
         self.display_window = Window( [objs.window[0].get_x(), objs.window[0].get_y()] , objs.window[1].get_x(), objs.window[1].get_y())
-        print([objs.window[0].get_x(), objs.window[0].get_y()] , objs.window[1].get_x(), objs.window[1].get_y())
+        # print([objs.window[0].get_x(), objs.window[0].get_y()] , objs.window[1].get_x(), objs.window[1].get_y())
 
         self.centralize_window()
 
     # Adiciona novos objetos, importados de arquivo obj
-    def add_new_object(self, name, coord, count_coord):
+    def add_new_object(self, name, coord, count_coord, color):
         object = None
         if count_coord == 1:
             object = Point(name, coord[0].get_x(), coord[0].get_y(), 1)
+            object.set_color(color)
         elif count_coord == 2:
             object = Line(name, coord)
+            object.set_color(color)
         elif count_coord > 2:
             object = Polygon(name, coord)
+            object.set_color(color)
         print(f'object={object}')
         if object != None:
             object.set_normalized_coords(self.display_window)

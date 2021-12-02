@@ -44,6 +44,9 @@ class Line(GraphicObject):
     
     def get_color(self):
         return self.color
+    
+    def set_color(self, color):
+        self.color = color
         
     # Aplica a transformada de viewport nos pontos do objeto e depois desenha
     def draw(self, viewport):

@@ -46,6 +46,9 @@ class Point:
     def set_z(self, z):
         self.coordinates[2] = z
 
+    def set_color(self, color):
+        self.color = color
+
     def asnumpy(self):
         return self.coord
 
