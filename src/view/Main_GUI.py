@@ -242,10 +242,11 @@ class Main_GUI(QMainWindow):
             else:
                 rgb = [0,0,0] 
             print(f'key = {key}\nvalue={value}')
+            # print(f'{value[0].get_x()}, {value[0].get_y()}, {value[1].get_x()}, {value[1].get_y()}, {value[2].get_x()}, {value[2].get_y()}')
             self.add_new_object(key, value, len(value))
             i += 1
-        print(f'objs = {objs}')
-        print(f'objs.window = {objs.window}')
+        # print(f'objs = {objs}')
+        # print(f'objs.window = {objs.window}')
         self.display_window = Window( [objs.window[0].get_x(), objs.window[0].get_y()] , objs.window[1].get_x(), objs.window[1].get_y())
         print([objs.window[0].get_x(), objs.window[0].get_y()] , objs.window[1].get_x(), objs.window[1].get_y())
 
@@ -262,8 +263,6 @@ class Main_GUI(QMainWindow):
             object = Polygon(name, coord)
         print(f'object={object}')
         if object != None:
-            print('adiciona')
-
             object.set_normalized_coords(self.display_window)
                 
             self.add_object_display_file(object)

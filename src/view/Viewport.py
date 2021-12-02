@@ -126,7 +126,7 @@ class Viewport(QLabel):
         viewport_max = self.Vb_r
         viewport_min = self.Vt_l
 
-        print(f'point.get_x()={point.get_x()}\n  point.get_y()={ point.get_y()}')
+        # print(f'point.get_x()={point.get_x()}\npoint.get_y()={ point.get_y()}')
 
         # x_div = (x_w - x_w_min) / (x_w_max - x_w_min)
         x_div = (point.get_x() - window_min.get_x()) / (
@@ -135,7 +135,6 @@ class Viewport(QLabel):
 
         # x_v = x_div * (x_v_max - x_v_min)
         x_vp = x_div * (viewport_max.get_x() - viewport_min.get_x())
-        # x_vp = (point.get_x() * window_max.get_x()) / viewport_max.get_x()
 
         # y_div = (y_w - y_w_min) / (y_w_max - y_w_min)
         y_div = (point.get_y() - window_min.get_y()) / (
@@ -144,9 +143,8 @@ class Viewport(QLabel):
 
         # y_v = (1 - y_div) * (y_v_max - y_v_min)
         y_vp = (1 - y_div) * (viewport_max.get_y() - viewport_min.get_y())
-        # y_vp = ( point.get_y() * (-window_max.get_y()/viewport_max.get_y()) ) + window_max.get_y()
 
-        print(f'x_transformada: {x_vp + self.origin.get_x()}, y_transformada: {y_vp + self.origin.get_y()}')
+        # sprint(f'x_transformada: {x_vp + self.origin.get_x()}, y_transformada: {y_vp + self.origin.get_y()}')
         return Point(
             "point transformed",
             x_vp + self.origin.get_x(),
@@ -154,7 +152,7 @@ class Viewport(QLabel):
             1,
         )
         
-
+    #não usado
     def generate_viewport_coords(self, point):
         x = ((500 - 0) / (1 + 1)) * (point.get_x() - (-1))
         y = ((500 - 0) / (1 + 1)) * (point.get_y() - (-1))

@@ -61,14 +61,10 @@ class Line(GraphicObject):
         
         v_point_origin = self.get_normalized_points()[0].viewport_transformation(viewport)
         v_point_destiny = self.get_normalized_points()[1].viewport_transformation(viewport)
-        print(f'{v_point_origin.get_x()}, {v_point_origin.get_y()}')
-        print(f'{v_point_destiny.get_x()}, {v_point_destiny.get_y()}')
-
-        # print(f'{viewport.generate_viewport_coords(v_point_origin).get_x()}, {viewport.generate_viewport_coords(v_point_origin).get_y()}')
-        # print(f'{viewport.generate_viewport_coords(v_point_destiny).get_x()}, {viewport.generate_viewport_coords(v_point_destiny).get_y()}')
+        # print(f'{v_point_origin.get_x()}, {v_point_origin.get_y()}')
+        # print(f'{v_point_destiny.get_x()}, {v_point_destiny.get_y()}')
         
         painter.drawLine(v_point_origin.to_QPointF(), v_point_destiny.to_QPointF())
-        # painter.drawLine(viewport.generate_viewport_coords(v_point_origin).to_QPointF(), viewport.generate_viewport_coords(v_point_destiny).to_QPointF())
 
     def apply_transformation(self, list_transformation):
         matrix = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])

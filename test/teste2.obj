@@ -1,0 +1,10 @@
+v -40.0 -40.0
+v -50.0 -50.0
+v -40.0 -40.0
+v 0.0 0.0
+v 600.0 400.0
+mtllib teste2.mtl
+o window
+w 4 5
+o minha_reta_negativa
+usemtl color0

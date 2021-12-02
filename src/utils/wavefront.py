@@ -86,7 +86,9 @@ class WavefrontOBJ:
                         temp.append( self.vertices[int(i)])                             
                     self.objects[self.objects_name[-1]] = temp
                     self.filled.append(False)
- 
+                # Polygon
+                elif toks[0] == 'f':
+                    pass
                 elif toks[0] == 'usemtl':
                     self.usemtl.append(toks[1])
   
@@ -131,22 +133,31 @@ class WavefrontOBJ:
                     if obj.get_type() == "point":
                         for pt in obj.get_points():
                             file.write(f'p {points.index(pt) + 1}\n')
+
+                            print(f'ponto: p {points.index(pt) + 1}\n')
+                    
                     elif obj.get_type() == "line":
                         text_line = ""
                         for pt in obj.get_points():
                             text_line += (f'{points.index(pt) + 1} ')
+                        
+                        print(f'linha: {text_line}')
+                        
                         file.write(f'l {text_line}\n')
                     elif obj.get_type() == "polygon":
                         text_line = ""
                         for pt in obj.get_points():
                             text_line += (f'{points.index(pt) + 1} ')
+                        
+                        print(f'poligono: {text_line}')
+                        
                         file.write(f'f {text_line}\n')
 
             # escreve arquivo mtl
             with open(filename[0] + '.mtl', 'w' ) as file:
                 for c in colors_list:
                     file.write(f'newmtl color{colors_list.index(c)}\n')
-                    color = c.redF()
+                    # color = c.redF()
                     # print(color)
                     file.write(f'Kd {c.redF()} {c.greenF()} {c.blueF()}''\n')
 

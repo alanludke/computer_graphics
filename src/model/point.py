@@ -77,11 +77,6 @@ class Point:
 
     # Aplica as trasnformações no ponto
     def apply_transformation_point(self, matrix):
-        # ----- colocar essa parte no apply_transformation dos objetos, questão de eficiencia -------
-        # matrix = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
-        # for i in list_transformation:
-        #     matrix = matrix.dot(i.generate_matrix())
-        # -------------------------------------------------------------------------------------------
         current_point = np.array([self.get_x(), self.get_y(), self.get_z()])
         new_point = current_point.dot(matrix)
 

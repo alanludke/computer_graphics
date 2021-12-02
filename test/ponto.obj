@@ -1,0 +1,8 @@
+v 300.0 350.0
+v 250 250
+v 500 500
+mtllib ponto.mtl
+o window
+w 2 3
+o ponto
+usemtl color0
