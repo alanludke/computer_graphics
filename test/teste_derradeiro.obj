@@ -6,7 +6,7 @@ v 250.0 250.0
 v 300.0 350.0
 v 250 250
 v 500 500
-mtllib teste derradeiro.mtl
+mtllib teste_derradeiro.mtl
 o window
 w 7 8
 o (300,350)

@@ -112,7 +112,7 @@ class Main_GUI(QMainWindow):
         if(input == ""):
             transformation = Transformation("Transladar", -10, 0)
         else:
-            step = self.calculate_step(input)
+            step = int(input)
             transformation = Transformation("Transladar", -step, 0)
         for object in self.display_file:
             object.apply_transformation([transformation])
@@ -126,7 +126,7 @@ class Main_GUI(QMainWindow):
         if(input == ""):
             transformation = Transformation("Transladar", 10, 0)
         else:
-            step = self.calculate_step(input)
+            step = int(input)
             transformation = Transformation("Transladar", step, 0)
         for object in self.display_file:
             object.apply_transformation([transformation])
@@ -240,40 +240,34 @@ class Main_GUI(QMainWindow):
                 usemtl = objs.usemtl[i]
                 newmtl = objs.new_mtl.index(usemtl)
                 rgb = [round(int(float(i) * 255)) for i in objs.kd_params[newmtl]]
-                color = QColor(rgb[0], rgb[1], rgb[2]) 
+                color = QColor(rgb[0], rgb[1], rgb[2])
             else:
                 color = QColor(0, 0, 0)
-            print(f'key = {key}\nvalue={value}')
-            # print(f'{value[0].get_x()}, {value[0].get_y()}, {value[1].get_x()}, {value[1].get_y()}, {value[2].get_x()}, {value[2].get_y()}')
-            self.add_new_object(key, value, len(value), color)
+            self.add_new_object(key, value, color)
             i += 1
-        # print(f'objs = {objs}')
-        # print(f'objs.window = {objs.window}')
         self.display_window = Window( [objs.window[0].get_x(), objs.window[0].get_y()] , objs.window[1].get_x(), objs.window[1].get_y())
-        # print([objs.window[0].get_x(), objs.window[0].get_y()] , objs.window[1].get_x(), objs.window[1].get_y())
-
         self.centralize_window()
+        self.terminal_out.append("btn_add clicked!!!")
 
     # Adiciona novos objetos, importados de arquivo obj
-    def add_new_object(self, name, coord, count_coord, color):
+    def add_new_object(self, name, coord, color):
         object = None
-        if count_coord == 1:
-            object = Point(name, coord[0].get_x(), coord[0].get_y(), 1)
+        if coord[0] == 'p':
+            object = Point(name, coord[1].get_x(), coord[1].get_y(), 1)
             object.set_color(color)
-        elif count_coord == 2:
+        elif coord[0] == 'l':
+            coord.pop(0)
             object = Line(name, coord)
             object.set_color(color)
-        elif count_coord > 2:
+        elif coord[0] == 'f':
+            coord.pop(0)
             object = Polygon(name, coord)
             object.set_color(color)
-        print(f'object={object}')
+        
         if object != None:
-            object.set_normalized_coords(self.display_window)
-                
+            object.set_normalized_coords(self.display_window)    
             self.add_object_display_file(object)
-            self.terminal_out.append("btn_add clicked!!!")
-
-            self.viewport.draw_objects(self.get_display_file())
+        self.viewport.draw_objects(self.display_file)
 
     def centralize_window(self):
         w_center = self.display_window.get_center()

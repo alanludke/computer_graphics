@@ -3,6 +3,8 @@ from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QFileDialog
 from typing import List
 from src.model.point import Point
+from src.model.line import Line
+from src.model.polygon import Polygon
 import os.path
 
 class WavefrontOBJ:
@@ -25,6 +27,7 @@ class WavefrontOBJ:
     def parse_mtl(self, filename_mtl ):
         if not os.path.exists(filename_mtl):
             self.mtls = False 
+            print(f'filename_mtl {filename_mtl}, não foi encontrado')
             return
 
         with open( filename_mtl, 'r' ) as objm:
@@ -67,8 +70,7 @@ class WavefrontOBJ:
                 
                 #Point
                 elif toks[0] == 'p':
-
-                    self.objects[self.objects_name[-1]] = [self.vertices[int(toks[1]) - 1]]
+                    self.objects[self.objects_name[-1]] = ['p', self.vertices[int(toks[1]) - 1]]
                     self.filled.append(False)
                 
                 #Window
@@ -78,17 +80,25 @@ class WavefrontOBJ:
                         self.window.append( self.vertices[int(i)] )
 
                 #Line
-                elif toks[0] == 'l' or toks[0] == 'f':
+                elif toks[0] == 'l':
                     indices = [ float(v)-1 for v in toks[1:]]
                     indices.append(indices[0])
-                    temp = []
+                    temp = ['l']
                     for i in indices:
                         temp.append( self.vertices[int(i)])                             
                     self.objects[self.objects_name[-1]] = temp
                     self.filled.append(False)
+                
                 # Polygon
-                # elif toks[0] == 'f':
-                #     pass
+                elif toks[0] == 'f':
+                    indices = [ float(v)-1 for v in toks[1:]]
+                    indices.append(indices[0])
+                    temp = ['f']
+                    for i in indices:
+                        temp.append( self.vertices[int(i)])                             
+                    self.objects[self.objects_name[-1]] = temp
+                    self.filled.append(False)
+
                 elif toks[0] == 'usemtl':
                     self.usemtl.append(toks[1])
   
