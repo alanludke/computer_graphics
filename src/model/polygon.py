@@ -23,7 +23,6 @@ class Polygon(GraphicObject):
         centerX = countX / len(points)
         centerY = countY / len(points)
         center = Point("center", centerX, centerY, 1)
-        # print(f'center={center}')
         return center
 
     def get_type(self):
@@ -59,7 +58,9 @@ class Polygon(GraphicObject):
             v_point_origin = v_points[i].viewport_transformation(viewport)
             v_point_destiny = v_points[i + 1].viewport_transformation(viewport)
 
-            painter.drawLine(v_point_origin.to_QPointF(), v_point_destiny.to_QPointF())
+            painter.drawLine(
+                v_point_origin.to_QPointF(), v_point_destiny.to_QPointF()
+            )
 
         origin = v_points[0].viewport_transformation(viewport).to_QPointF()
         destiny = v_points[-1].viewport_transformation(viewport).to_QPointF()
@@ -75,4 +76,6 @@ class Polygon(GraphicObject):
         self.center = self.set_center(self.points)
 
     def set_normalized_coords(self, window):
-        self.normalized_points = window.generate_window_coords(self.get_points())
+        self.normalized_points = window.generate_window_coords(
+            self.get_points()
+        )

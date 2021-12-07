@@ -17,7 +17,7 @@ class Transformation:
         else:
             self.action = action
             self.reference_point = x
-            self.angle = y / 57.3            # divisão para consertar a rotação
+            self.angle = y / 57.3  # divisão para consertar a rotação
         self.matrix = self.generate_matrix()
 
     def get_action(self):
@@ -28,15 +28,20 @@ class Transformation:
 
     def generate_matrix(self):
         if self.action == "Transladar":
-            #print("Transladar!")
-            return np.array([[1, 0, 0], [0, 1, 0], [self.factor_x, self.factor_y, 1]])
+            return np.array(
+                [[1, 0, 0], [0, 1, 0], [self.factor_x, self.factor_y, 1]]
+            )
         elif self.action == "Escalonar":
-            #print("Escalonar!")
-            return np.array([[self.factor_x, 0, 0], [0, self.factor_y, 0], [0, 0, 1]])
+            return np.array(
+                [[self.factor_x, 0, 0], [0, self.factor_y, 0], [0, 0, 1]]
+            )
         else:
-            #print("Rotacionar!")
             cos_angle = mt.cos(self.angle)
             sin_angle = mt.sin(self.angle)
             return np.array(
-                [[cos_angle, -sin_angle, 0], [sin_angle, cos_angle, 0], [0, 0, 1]]
+                [
+                    [cos_angle, -sin_angle, 0],
+                    [sin_angle, cos_angle, 0],
+                    [0, 0, 1],
+                ]
             )

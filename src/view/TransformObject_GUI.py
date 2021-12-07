@@ -28,13 +28,17 @@ class TransformObject_GUI(QDialog):
 
         self.txt_point.setPlaceholderText("(x,y)")
 
-        # buttons
-        self.btn_add_transformation.clicked.connect(self.btn_transform_object_clicked)
+        # botões
+        self.btn_add_transformation.clicked.connect(
+            self.btn_transform_object_clicked
+        )
         self.btn_add_rotacao.clicked.connect(self.btn_add_rotacao_clicked)
         self.btn_apply_transformations.clicked.connect(
             self.btn_apply_transformations_clicked
         )
-        self.btn_clear_list_transformation.clicked.connect(self.clear_list_trasnformation)
+        self.btn_clear_list_transformation.clicked.connect(
+            self.clear_list_trasnformation
+        )
 
     # Método de gatilho para quando objeto "Transform object(Escalonar/Transladar)" é apertado
     def btn_transform_object_clicked(self):
@@ -44,32 +48,24 @@ class TransformObject_GUI(QDialog):
 
         self.parent.terminal_out.append("btn_transform_object clicked!!!")
 
-        #print("btn_transform_object clicked")
-
     # Método de gatilho para quando objeto "Transform object(Escalonar/Transladar)" é apertado
     def btn_add_rotacao_clicked(self):
         object = self.create_transformation()
         for transformation in object:
             self.add_object_display_file(transformation)
-
         self.parent.terminal_out.append("btn_add_rotacao_clicked clicked!!!")
-
-        #print("btn_transform_object clicked")
 
     # Método de gatilho para quando objeto "Transform object(Escalonar/Transladar)" é apertado
     def btn_apply_transformations_clicked(self):
         object_name = self.selected_object.text()
         object = self.get_selected_object(object_name)
-        # #print(f"object {object_name} = {object}")
-        # #print(f"type(object) = {type(object)}")
 
         object.apply_transformation(self.display_file_transformations)
         self.parent.viewport.draw_objects(self.parent.get_display_file())
 
-        #print(self.display_file_transformations[0])
-
-        # object.apply_transformation()
-        self.parent.terminal_out.append("btn_apply_transformations_clicked clicked!!!")
+        self.parent.terminal_out.append(
+            "btn_apply_transformations_clicked clicked!!!"
+        )
 
     # Método que limpa a lista de transformações a serem aplicadas
     def clear_list_trasnformation(self):
@@ -88,55 +84,61 @@ class TransformObject_GUI(QDialog):
         transformation = None
 
         if self.rbtn_escalonar.isChecked():
-            #print(f"rbtn_escalonar marcado!")
             coord_x = float(self.txt_coord_x.toPlainText())
             coord_y = float(self.txt_coord_y.toPlainText())
             coord_z = 1
-            
+
             object_name = self.selected_object.text()
             object_center = self.get_selected_object(object_name).get_center()
-            
-            translation_center = Transformation("Transladar", -object_center.get_x(), -object_center.get_y())
+
+            translation_center = Transformation(
+                "Transladar", -object_center.get_x(), -object_center.get_y()
+            )
             transformation = Transformation("Escalonar", coord_x, coord_y)
-            translation_original = Transformation("Transladar", object_center.get_x(), object_center.get_y())
-            
+            translation_original = Transformation(
+                "Transladar", object_center.get_x(), object_center.get_y()
+            )
+
             return [translation_center, transformation, translation_original]
 
         elif self.btn_transladar.isChecked():
-            #print(f"btn_transladar marcado!")
             coord_x = float(self.txt_coord_x.toPlainText())
             coord_y = float(self.txt_coord_y.toPlainText())
             coord_z = 1
             transformation = Transformation("Transladar", coord_x, coord_y)
-            
+
             return [transformation]
 
         elif self.rbtn_rotacao_centro_mundo.isChecked():
-            #print(f"rbtn_rotacao_centro_mundo marcado!")
             point = Point("centro", 0, 0, 1)
             angle = float(self.txt_angulo_rotacao.toPlainText())
 
-            transformation = Transformation("Rotacionar_centro_mundo", point, angle)
+            transformation = Transformation(
+                "Rotacionar_centro_mundo", point, angle
+            )
 
             return [transformation]
-            
+
         elif self.rbtn_rotacao_centro_objeto.isChecked():
-            #print(f"rbtn_rotacao_centro_objeto marcado!")
+            # (f"rbtn_rotacao_centro_objeto marcado!")
 
             object_name = self.selected_object.text()
             object_center = self.get_selected_object(object_name).get_center()
             angle = float(self.txt_angulo_rotacao.toPlainText())
 
-            translation_center = Transformation("Transladar", -object_center.get_x(), -object_center.get_y())
+            translation_center = Transformation(
+                "Transladar", -object_center.get_x(), -object_center.get_y()
+            )
             transformation = Transformation(
                 "Rotacionar_centro_objeto", object_center, angle
             )
-            translation_original = Transformation("Transladar", object_center.get_x(), object_center.get_y())
+            translation_original = Transformation(
+                "Transladar", object_center.get_x(), object_center.get_y()
+            )
 
             return [translation_center, transformation, translation_original]
 
         elif self.rbtn_rotacao_ponto.isChecked():
-            #print(f"rbtn_rotacao_ponto marcado!")
             raw_point = self.txt_point.toPlainText().split(",")
             point = Point(
                 "centro",
@@ -146,15 +148,21 @@ class TransformObject_GUI(QDialog):
             )
             angle = float(self.txt_angulo_rotacao.toPlainText())
 
-            translation_center = Transformation("Transladar", -point.get_x(), -point.get_y())
-            transformation = Transformation("Rotacionar_centro_objeto", point, angle)
-            translation_original = Transformation("Transladar", point.get_x(), point.get_y())
+            translation_center = Transformation(
+                "Transladar", -point.get_x(), -point.get_y()
+            )
+            transformation = Transformation(
+                "Rotacionar_centro_objeto", point, angle
+            )
+            translation_original = Transformation(
+                "Transladar", point.get_x(), point.get_y()
+            )
 
             return [translation_center, transformation, translation_original]
         else:
             pass
-            #print(f"nenhum marcado!")
 
+    # Método responsável por selecionar um objeto correto dado seu nome
     def get_selected_object(self, object_name):
         for each in self.parent.get_display_file():
             if each.get_name() == object_name:

@@ -6,8 +6,11 @@ from src.model.polygon import Polygon
 from src.model.point import Point
 from src.utils.object import GraphicObject
 
+# Classe responsável pela Viewport
+
 
 class Viewport(QLabel):
+    # Método construtor
     def __init__(self, parent):
         super(Viewport, self).__init__(parent)
         self.parent = parent
@@ -39,10 +42,10 @@ class Viewport(QLabel):
         self.Wb_l = Point("Wb_l", 25, 475, 1)
         self.Wt_l = Point("Wt_l", 25, 25, 1)
         self.Wt_r = Point("Wt_r", 475, 25, 1)
-    
+
     def get_center(self):
         return Point("Window_Center", self.width / 2, self.height / 2, 1)
-    
+
     # Desenha as bordas da Window
     def draw_borders(self):
         painter = QPainter(self)
@@ -83,7 +86,9 @@ class Viewport(QLabel):
         pen.setColor(QColor(115, 93, 13))
         painter.setPen(pen)
 
-        painter.drawLine(self.get_center().to_QPointF(), self.get_center().to_QPointF())
+        painter.drawLine(
+            self.get_center().to_QPointF(), self.get_center().to_QPointF()
+        )
 
     # Desenha um novo objeto recém criado
     def paintEvent(self, event):
@@ -117,7 +122,6 @@ class Viewport(QLabel):
 
         # x_v = x_div * (x_v_max - x_v_min)
         x_vp = x_div * (viewport_max.get_x() - viewport_min.get_x())
-        # #print(f'x_vp={x_vp}')
 
         # y_div = (y_w - y_w_min) / (y_w_max - y_w_min)
         y_div = (point.get_y() - window_min.get_y()) / (
@@ -126,7 +130,6 @@ class Viewport(QLabel):
 
         # y_v = (1 - y_div) * (y_v_max - y_v_min)
         y_vp = (1 - y_div) * (viewport_max.get_y() - viewport_min.get_y())
-        # #print(f'y_vp={y_vp}')
 
         return Point(
             "point transformed",
@@ -135,17 +138,10 @@ class Viewport(QLabel):
             1,
         )
 
+    # Normaliza as coordenadas de viewport para ficar dentro
+    # do intervalo (0,1)
     def generate_viewport_coords(self, points):
         x = (500 - 0) / (1 + 1) * (points.get_x() - (-1))
         y = (500 - 0) / (1 + 1) * (points.get_y() - (-1))
         v_point = Point(points.get_name(), x, y, 1)
         return v_point
-        # viewport_coords = []
-        # for point in points:
-        #     # formula para desnormalização x = xwmin + ((xwmax - xwmin) / (xvmax-xvmin))*xv - xvmin
-        #     x = (500 - 0) / (1 + 1) * (point.get_x() - (-1))
-        #     y = (500 - 0) / (1 + 1) * (point.get_y() - (-1))
-        #     v_point = Point(point.get_name(), x, y, 1)
-        #     viewport_coords.append(v_point)
-        
-        # return viewport_coords

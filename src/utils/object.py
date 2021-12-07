@@ -1,7 +1,6 @@
 from abc import abstractmethod
 from typing import List
 
-from PyQt5.QtGui import QPainter
 from src.model.point import Point
 
 
@@ -16,7 +15,7 @@ class GraphicObject:
 
     def set_name(self, name):
         self.name = name
-    
+
     def get_points(self):
         return self.point
 
