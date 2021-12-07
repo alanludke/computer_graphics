@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>809</width>
-    <height>718</height>
+    <height>717</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -263,43 +263,50 @@
       <string>º</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_x">
+    <widget class="QPushButton" name="btn_antihorario">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>40</x>
        <y>60</y>
        <width>50</width>
        <height>25</height>
       </rect>
      </property>
      <property name="text">
-      <string>X</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../images/seta-anti-horario.png</normaloff>../../images/seta-anti-horario.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>12</width>
+       <height>12</height>
+      </size>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_y">
+    <widget class="QPushButton" name="btn_horario">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>120</x>
        <y>60</y>
        <width>50</width>
        <height>25</height>
       </rect>
      </property>
      <property name="text">
-      <string>Y</string>
+      <string/>
      </property>
-    </widget>
-    <widget class="QPushButton" name="btn_z">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>60</y>
-       <width>50</width>
-       <height>25</height>
-      </rect>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../images/seta-horario.png</normaloff>../../images/seta-horario.png</iconset>
      </property>
-     <property name="text">
-      <string>Z</string>
+     <property name="iconSize">
+      <size>
+       <width>12</width>
+       <height>12</height>
+      </size>
      </property>
     </widget>
    </widget>
@@ -332,6 +339,9 @@
      </property>
     </widget>
     <widget class="QPushButton" name="btn_zoom_in">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -345,6 +355,9 @@
      </property>
     </widget>
     <widget class="QPushButton" name="btn_zoom_out">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>150</x>
@@ -440,7 +453,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="btn_add_object">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>120</x>
       <y>40</y>
       <width>21</width>
       <height>20</height>
@@ -460,6 +473,45 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
     <layout class="QVBoxLayout" name="layout_list_objects"/>
+   </widget>
+   <widget class="QPushButton" name="btn_transform_object">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>40</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Transformar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_import">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>550</y>
+      <width>101</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Importar .obj</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_export">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>550</y>
+      <width>101</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Exportar .obj</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

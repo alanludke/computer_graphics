@@ -1,33 +1,48 @@
 from PyQt5.QtCore import QPointF
 from PyQt5.QtGui import QColor, QPainter, QPen
 import numpy as np
+import math as mt
 
 
 class Point:
     def __init__(self, name, x, y, z):
-        self.coordinates = [[x, y, z]]
+        self.coordinates = [x, y, z]
         self.name = name
+        self.type = "point"
+        self.color = QColor(63, 145, 0)
 
-    def getName(self):
+    def get_name(self):
         return self.name
 
     def get_x(self):
-        return self.coordinates[0][0]
+        return self.coordinates[0]
 
     def get_y(self):
-        return self.coordinates[0][1]
+        return self.coordinates[1]
 
     def get_z(self):
-        return self.coordinates[0][2]
+        return self.coordinates[2]
 
+    def get_points(self):
+        return [self]
+    
+    def get_center(self):
+        return self
+
+    def get_type(self):
+        return self.type
+        
+    def get_color(self):
+        return self.color
+        
     def set_x(self, x):
-        self.coordinates[0][0] = x
+        self.coordinates[0] = x
 
     def set_y(self, y):
-        self.coordinates[0][1] = y
+        self.coordinates[1] = y
 
     def set_z(self, z):
-        self.coordinates[0][2] = z
+        self.coordinates[2] = z
 
     def asnumpy(self):
         return self.coord
@@ -50,9 +65,26 @@ class Point:
         pen = QPen()
 
         pen.setWidth(2)
-        pen.setColor(QColor(0, 0, 255))
+        pen.setColor(self.color)
         painter.setPen(pen)
 
         v_point = self.viewport_transformation(viewport)
 
         painter.drawPoint(v_point.to_QPointF())
+
+    # Aplica as trasnformações no ponto
+    def apply_transformation(self, list_transformation):
+        matrix = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+        for i in list_transformation:
+            matrix = matrix.dot(i.generate_matrix())
+            #print(matrix)
+        current_point = np.array([self.get_x(), self.get_y(), self.get_z()])
+        new_point = current_point.dot(matrix)
+
+        self.set_x(new_point[0])
+        self.set_y(new_point[1])
+        self.set_z(new_point[2])
+        #print(f'x: {self.get_x()} y: {self.get_y()}')
+    
+    def set_normalized_coords(self, window):
+        self.normalized_points = window.generate_window_coords(self.get_points())
