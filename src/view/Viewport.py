@@ -83,7 +83,9 @@ class Viewport(QLabel):
         pen.setColor(QColor(115, 93, 13))
         painter.setPen(pen)
 
-        painter.drawLine(self.get_center().to_QPointF(), self.get_center().to_QPointF())
+        painter.drawLine(
+            self.get_center().to_QPointF(), self.get_center().to_QPointF()
+        )
 
     # Desenha um novo objeto recém criado
     def paintEvent(self, event):

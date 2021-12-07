@@ -38,7 +38,9 @@ class Main_GUI(QMainWindow):
 
         # buttons
         self.btn_add_object.clicked.connect(self.btn_add_object_clicked)
-        self.btn_transform_object.clicked.connect(self.btn_transform_object_clicked)
+        self.btn_transform_object.clicked.connect(
+            self.btn_transform_object_clicked
+        )
         self.btd_frame_up.clicked.connect(self.btd_frame_up_clicked)
         self.btd_frame_down.clicked.connect(self.btd_frame_down_clicked)
         self.btd_frame_right.clicked.connect(self.btd_frame_right_clicked)
@@ -53,7 +55,9 @@ class Main_GUI(QMainWindow):
         self.btn_import.clicked.connect(self.open_file_dialog)
 
         self.add_new_obj_action = QAction("Adicionar novos objetos", self)
-        self.add_new_obj_action.triggered.connect(lambda: self.import_handler())
+        self.add_new_obj_action.triggered.connect(
+            lambda: self.import_handler()
+        )
 
     def open_file_dialog(self):
         filename = QFileDialog().getOpenFileName()
@@ -85,7 +89,7 @@ class Main_GUI(QMainWindow):
             for object in self.display_file:
                 object.apply_transformation([transformation])
         else:
-            step = int(input)
+            step = float(input)
             transformation = Transformation("Transladar", 0, step)
             for object in self.display_file:
                 object.apply_transformation([transformation])
@@ -140,7 +144,9 @@ class Main_GUI(QMainWindow):
             for object in self.display_file:
                 object_center = object.get_center()
                 translation_center = Transformation(
-                    "Transladar", -object_center.get_x(), -object_center.get_y()
+                    "Transladar",
+                    -object_center.get_x(),
+                    -object_center.get_y(),
                 )
                 transformation = Transformation("Escalonar", 1 / 10, 1 / 10)
                 translation_original = Transformation(
@@ -150,13 +156,17 @@ class Main_GUI(QMainWindow):
                     [translation_center, transformation, translation_original]
                 )
         else:
-            step = int(input)
+            step = float(input)
             for object in self.display_file:
                 object_center = object.get_center()
                 translation_center = Transformation(
-                    "Transladar", -object_center.get_x(), -object_center.get_y()
+                    "Transladar",
+                    -object_center.get_x(),
+                    -object_center.get_y(),
                 )
-                transformation = Transformation("Escalonar", 1 / step, 1 / step)
+                transformation = Transformation(
+                    "Escalonar", 1 / step, 1 / step
+                )
                 translation_original = Transformation(
                     "Transladar", object_center.get_x(), object_center.get_y()
                 )
@@ -165,8 +175,6 @@ class Main_GUI(QMainWindow):
                 )
         self.viewport.update()
 
-    # (250,250),(300,350)
-
     # Método de gatilho para quando objeto "Left" é apertado - não funfa
     def btd_frame_in_clicked(self):
         input = self.txt_step.text()
@@ -174,7 +182,9 @@ class Main_GUI(QMainWindow):
             for object in self.display_file:
                 object_center = object.get_center()
                 translation_center = Transformation(
-                    "Transladar", -object_center.get_x(), -object_center.get_y()
+                    "Transladar",
+                    -object_center.get_x(),
+                    -object_center.get_y(),
                 )
                 transformation = Transformation("Escalonar", 10, 10)
                 translation_original = Transformation(
@@ -184,11 +194,13 @@ class Main_GUI(QMainWindow):
                     [translation_center, transformation, translation_original]
                 )
         else:
-            step = int(input)
+            step = float(input)
             for object in self.display_file:
                 object_center = object.get_center()
                 translation_center = Transformation(
-                    "Transladar", -object_center.get_x(), -object_center.get_y()
+                    "Transladar",
+                    -object_center.get_x(),
+                    -object_center.get_y(),
                 )
                 transformation = Transformation("Escalonar", step, step)
                 translation_original = Transformation(
@@ -273,7 +285,9 @@ class Main_GUI(QMainWindow):
             if objs.mtls:
                 usemtl = objs.usemtl[i]
                 newmtl = objs.new_mtl.index(usemtl)
-                rgb = [round(int(float(i) * 255)) for i in objs.kd_params[newmtl]]
+                rgb = [
+                    round(int(float(i) * 255)) for i in objs.kd_params[newmtl]
+                ]
             else:
                 rgb = [0, 0, 0]
             self.add_new_object(key, value, len(value))

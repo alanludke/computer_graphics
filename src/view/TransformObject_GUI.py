@@ -29,7 +29,9 @@ class TransformObject_GUI(QDialog):
         self.txt_point.setPlaceholderText("(x,y)")
 
         # buttons
-        self.btn_add_transformation.clicked.connect(self.btn_transform_object_clicked)
+        self.btn_add_transformation.clicked.connect(
+            self.btn_transform_object_clicked
+        )
         self.btn_add_rotacao.clicked.connect(self.btn_add_rotacao_clicked)
         self.btn_apply_transformations.clicked.connect(
             self.btn_apply_transformations_clicked
@@ -61,7 +63,9 @@ class TransformObject_GUI(QDialog):
         object.apply_transformation(self.display_file_transformations)
         self.parent.viewport.draw_objects(self.parent.get_display_file())
 
-        self.parent.terminal_out.append("btn_apply_transformations_clicked clicked!!!")
+        self.parent.terminal_out.append(
+            "btn_apply_transformations_clicked clicked!!!"
+        )
 
     # Método que limpa a lista de transformações a serem aplicadas
     def clear_list_trasnformation(self):
@@ -109,7 +113,9 @@ class TransformObject_GUI(QDialog):
             point = Point("centro", 0, 0, 1)
             angle = float(self.txt_angulo_rotacao.toPlainText())
 
-            transformation = Transformation("Rotacionar_centro_mundo", point, angle)
+            transformation = Transformation(
+                "Rotacionar_centro_mundo", point, angle
+            )
 
             return [transformation]
 
@@ -145,7 +151,9 @@ class TransformObject_GUI(QDialog):
             translation_center = Transformation(
                 "Transladar", -point.get_x(), -point.get_y()
             )
-            transformation = Transformation("Rotacionar_centro_objeto", point, angle)
+            transformation = Transformation(
+                "Rotacionar_centro_objeto", point, angle
+            )
             translation_original = Transformation(
                 "Transladar", point.get_x(), point.get_y()
             )

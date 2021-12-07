@@ -6,7 +6,9 @@ from PyQt5.QtGui import QColor, QPainter, QPen
 class Window:
     def __init__(self, w_center, width, height):
         self.origin = Point("origin", 0, 0, 1)
-        self.w_center_position = Point("w_center_position", w_center[0], w_center[1], 1)
+        self.w_center_position = Point(
+            "w_center_position", w_center[0], w_center[1], 1
+        )
         self.minimum = Point("w_minimum", -1, -1, 1)
         self.maximum = Point("w_maximum", 1, 1, 1)
         self.width = width

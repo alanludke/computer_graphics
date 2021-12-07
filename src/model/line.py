@@ -52,7 +52,9 @@ class Line(GraphicObject):
         v_point_origin = self.origin.viewport_transformation(viewport)
         v_point_destiny = self.destiny.viewport_transformation(viewport)
 
-        painter.drawLine(v_point_origin.to_QPointF(), v_point_destiny.to_QPointF())
+        painter.drawLine(
+            v_point_origin.to_QPointF(), v_point_destiny.to_QPointF()
+        )
 
         pen.setColor(QColor(0, 0, 255))
         painter.setPen(pen)
@@ -65,4 +67,6 @@ class Line(GraphicObject):
         self.center = self.set_center([self.origin, self.destiny])
 
     def set_normalized_coords(self, window):
-        self.normalized_points = window.generate_window_coords(self.get_points())
+        self.normalized_points = window.generate_window_coords(
+            self.get_points()
+        )

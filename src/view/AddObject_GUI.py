@@ -36,7 +36,9 @@ class AddObject_GUI(QDialog):
 
     # Método que retorna as coordenadas limpas de uma lista de
     def get_object_coord(self, num_coord):
-        cleaned = list(map(lambda x: x.replace("(", "").replace(")", ""), num_coord))
+        cleaned = list(
+            map(lambda x: x.replace("(", "").replace(")", ""), num_coord)
+        )
         list_of_points = []
         for each in cleaned:
             nums = each.split(",")

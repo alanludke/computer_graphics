@@ -108,7 +108,9 @@ class WavefrontOBJ:
 
                 # escrevendo infos da window
                 w_center = window.get_center()
-                w_dimension = Point("Dimension", window.width, window.height, 1)
+                w_dimension = Point(
+                    "Dimension", window.width, window.height, 1
+                )
                 file.write(f"v {w_center.get_x()} {w_center.get_y()}\n")
                 file.write(f"v {w_dimension.get_x()} {w_dimension.get_y()}\n")
                 points.append(w_center)
@@ -128,7 +130,9 @@ class WavefrontOBJ:
                     # Cor
                     if obj.get_color() not in colors_list:
                         colors_list.append(obj.get_color())
-                    file.write(f"usemtl color{colors_list.index(obj.get_color())}\n")
+                    file.write(
+                        f"usemtl color{colors_list.index(obj.get_color())}\n"
+                    )
 
                     # Tipo
                     if obj.get_type() == "point":
