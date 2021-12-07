@@ -36,7 +36,7 @@ class Main_GUI(QMainWindow):
         self.list_objects = ListObject(self)
         self.layout_list_objects.addWidget(self.list_objects)
 
-        # buttons
+        # botões
         self.btn_add_object.clicked.connect(self.btn_add_object_clicked)
         self.btn_transform_object.clicked.connect(
             self.btn_transform_object_clicked
@@ -59,6 +59,8 @@ class Main_GUI(QMainWindow):
             lambda: self.import_handler()
         )
 
+    # Método responsável pelo carregamento dos objetos a partir do
+    # arquivo .obj aberto anteriormente
     def open_file_dialog(self):
         filename = QFileDialog().getOpenFileName()
 
@@ -81,7 +83,7 @@ class Main_GUI(QMainWindow):
         except FileNotFoundError:
             print("Nenhum arquivo com esse nome foi encontrado!")
 
-    # Método de gatilho para quando objeto "Up" é apertado
+    # Método de gatilho para quando botão "Up" é apertado
     def btd_frame_up_clicked(self):
         input = self.txt_step.text()
         if input == "":
@@ -95,7 +97,7 @@ class Main_GUI(QMainWindow):
                 object.apply_transformation([transformation])
         self.viewport.update()
 
-    # Método de gatilho para quando objeto "Down" é apertado
+    # Método de gatilho para quando botão "Down" é apertado
     def btd_frame_down_clicked(self):
         input = self.txt_step.text()
         if input == "":
@@ -109,7 +111,7 @@ class Main_GUI(QMainWindow):
                 object.apply_transformation([transformation])
         self.viewport.update()
 
-    # Método de gatilho para quando objeto "Right" é apertado
+    # Método de gatilho para quando botão "Right" é apertado
     def btd_frame_right_clicked(self):
         input = self.txt_step.text()
         if input == "":
@@ -123,7 +125,7 @@ class Main_GUI(QMainWindow):
                 object.apply_transformation([transformation])
         self.viewport.update()
 
-    # Método de gatilho para quando objeto "Left" é apertado
+    # Método de gatilho para quando botão "Left" é apertado
     def btd_frame_left_clicked(self):
         input = self.txt_step.text()
         if input == "":
@@ -137,7 +139,7 @@ class Main_GUI(QMainWindow):
                 object.apply_transformation([transformation])
         self.viewport.update()
 
-    # Método de gatilho para quando objeto "Left" é apertado - não funfa
+    # Método de gatilho para quando botão "Frame_out" é apertado - desabilitado
     def btd_frame_out_clicked(self):
         input = self.txt_step.text()
         if input == "":
@@ -175,7 +177,7 @@ class Main_GUI(QMainWindow):
                 )
         self.viewport.update()
 
-    # Método de gatilho para quando objeto "Left" é apertado - não funfa
+    # Método de gatilho para quando botão "Frame_in" é apertado - desabilitado
     def btd_frame_in_clicked(self):
         input = self.txt_step.text()
         if input == "":
@@ -251,13 +253,13 @@ class Main_GUI(QMainWindow):
             )
         self.viewport.update()
 
-    # Método de gatilho para quando objeto "Add object" é apertado
+    # Método de gatilho para quando botão "Add object" é apertado
     def btn_add_object_clicked(self):
         self.terminal_out.append("btn_add_object_clicked clicked!!!")
         self.object_gui = AddObject_GUI(self)
         self.object_gui.show()
 
-    # Método de gatilho para quando objeto "Transform object" é apertado
+    # Método de gatilho para quando botão "Transform object" é apertado
     def btn_transform_object_clicked(self):
         self.terminal_out.append("btn_transform_object_clicked clicked!!!")
 
@@ -292,17 +294,6 @@ class Main_GUI(QMainWindow):
                 rgb = [0, 0, 0]
             self.add_new_object(key, value, len(value))
             i += 1
-
-        # if objs.faces:
-        #     rgb = [0,0,0]
-
-        #     self.add_new_object("Wavefront_obj_3D", objs.vertices, Point, QColor(rgb[0],rgb[1],rgb[2]), edges = objs.edges, faces = objs.faces, from_wavefront=True)
-
-        # if objs.window:
-        #     coords = []
-        #     for c in objs.window:
-        #         coords.append([c.x(),c.y(),c.z()])
-        #     self.update_window_values(coords)
 
     # Adiciona novos objetos, importados de arquivo obj
     def add_new_object(self, name, coord, count_coord):

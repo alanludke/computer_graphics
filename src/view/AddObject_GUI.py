@@ -16,7 +16,7 @@ class AddObject_GUI(QDialog):
     # Inicializa componentes da interface, layouts e botões
     def init_ui(self):
         uic.loadUi("src/view/add_object_gui.ui", self)
-        # buttons
+        # botões
         self.txt_coord.setPlaceholderText("(x0,y0),(xn,yn)")
         self.btn_add.clicked.connect(self.btn_add_clicked)
 
@@ -34,7 +34,7 @@ class AddObject_GUI(QDialog):
 
         self.parent.viewport.draw_objects(self.parent.get_display_file())
 
-    # Método que retorna as coordenadas limpas de uma lista de
+    # Método que retorna as coordenadas limpas de uma lista
     def get_object_coord(self, num_coord):
         cleaned = list(
             map(lambda x: x.replace("(", "").replace(")", ""), num_coord)

@@ -28,7 +28,7 @@ class TransformObject_GUI(QDialog):
 
         self.txt_point.setPlaceholderText("(x,y)")
 
-        # buttons
+        # botões
         self.btn_add_transformation.clicked.connect(
             self.btn_transform_object_clicked
         )
@@ -162,6 +162,7 @@ class TransformObject_GUI(QDialog):
         else:
             pass
 
+    # Método responsável por selecionar um objeto correto dado seu nome
     def get_selected_object(self, object_name):
         for each in self.parent.get_display_file():
             if each.get_name() == object_name:

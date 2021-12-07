@@ -1,8 +1,9 @@
 import sys
 from PyQt5.QtWidgets import QListWidget, QListWidgetItem
 
-# Classe responsável pela QlistWidget que lista todos os objetos desenhados
+# Classe responsável pela QListWidget que lista todos os objetos desenhados
 class ListObject(QListWidget):
+    # Método construtor
     def __init__(self, parent):
         super(ListObject, self).__init__(parent)
         self.parent = parent

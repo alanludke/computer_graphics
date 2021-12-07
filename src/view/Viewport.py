@@ -6,8 +6,11 @@ from src.model.polygon import Polygon
 from src.model.point import Point
 from src.utils.object import GraphicObject
 
+# Classe responsável pela Viewport
+
 
 class Viewport(QLabel):
+    # Método construtor
     def __init__(self, parent):
         super(Viewport, self).__init__(parent)
         self.parent = parent
@@ -135,17 +138,10 @@ class Viewport(QLabel):
             1,
         )
 
+    # Normaliza as coordenadas de viewport para ficar dentro
+    # do intervalo (0,1)
     def generate_viewport_coords(self, points):
         x = (500 - 0) / (1 + 1) * (points.get_x() - (-1))
         y = (500 - 0) / (1 + 1) * (points.get_y() - (-1))
         v_point = Point(points.get_name(), x, y, 1)
         return v_point
-        # viewport_coords = []
-        # for point in points:
-        #     # formula para desnormalização x = xwmin + ((xwmax - xwmin) / (xvmax-xvmin))*xv - xvmin
-        #     x = (500 - 0) / (1 + 1) * (point.get_x() - (-1))
-        #     y = (500 - 0) / (1 + 1) * (point.get_y() - (-1))
-        #     v_point = Point(point.get_name(), x, y, 1)
-        #     viewport_coords.append(v_point)
-
-        # return viewport_coords
