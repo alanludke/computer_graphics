@@ -111,7 +111,7 @@ class Main_GUI(QMainWindow):
             for object in self.display_file:
                 object.apply_transformation([transformation])
         else:
-            step = self.calculate_step(input)
+            step = float(input)
             transformation = Transformation("Transladar", -step, 0)
             for object in self.display_file:
                 object.apply_transformation([transformation])
@@ -125,7 +125,7 @@ class Main_GUI(QMainWindow):
             for object in self.display_file:
                 object.apply_transformation([transformation])
         else:
-            step = self.calculate_step(input)
+            step = float(input)
             transformation = Transformation("Transladar", step, 0)
             for object in self.display_file:
                 object.apply_transformation([transformation])
