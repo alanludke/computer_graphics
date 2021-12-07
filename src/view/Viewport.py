@@ -39,10 +39,10 @@ class Viewport(QLabel):
         self.Wb_l = Point("Wb_l", 25, 475, 1)
         self.Wt_l = Point("Wt_l", 25, 25, 1)
         self.Wt_r = Point("Wt_r", 475, 25, 1)
-    
+
     def get_center(self):
         return Point("Window_Center", self.width / 2, self.height / 2, 1)
-    
+
     # Desenha as bordas da Window
     def draw_borders(self):
         painter = QPainter(self)
@@ -117,7 +117,6 @@ class Viewport(QLabel):
 
         # x_v = x_div * (x_v_max - x_v_min)
         x_vp = x_div * (viewport_max.get_x() - viewport_min.get_x())
-        # #print(f'x_vp={x_vp}')
 
         # y_div = (y_w - y_w_min) / (y_w_max - y_w_min)
         y_div = (point.get_y() - window_min.get_y()) / (
@@ -126,7 +125,6 @@ class Viewport(QLabel):
 
         # y_v = (1 - y_div) * (y_v_max - y_v_min)
         y_vp = (1 - y_div) * (viewport_max.get_y() - viewport_min.get_y())
-        # #print(f'y_vp={y_vp}')
 
         return Point(
             "point transformed",
@@ -147,5 +145,5 @@ class Viewport(QLabel):
         #     y = (500 - 0) / (1 + 1) * (point.get_y() - (-1))
         #     v_point = Point(point.get_name(), x, y, 1)
         #     viewport_coords.append(v_point)
-        
+
         # return viewport_coords

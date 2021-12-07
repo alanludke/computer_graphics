@@ -23,7 +23,6 @@ class Polygon(GraphicObject):
         centerX = countX / len(points)
         centerY = countY / len(points)
         center = Point("center", centerX, centerY, 1)
-        # print(f'center={center}')
         return center
 
     def get_type(self):

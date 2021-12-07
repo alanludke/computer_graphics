@@ -3,7 +3,7 @@ v 100.0 200.0
 v 200.0 200.0
 v 200.0 100.0
 v 250.0 250.0
-v 500 500
+v 500 500 
 mtllib my_poligon.mtl
 o window
 w 5 6

@@ -32,7 +32,6 @@ class AddObject_GUI(QDialog):
         self.parent.add_object_display_file(object)
         self.parent.terminal_out.append("btn_add clicked!!!")
 
-        #print("btn_add clicked")
         self.parent.viewport.draw_objects(self.parent.get_display_file())
 
     # Método que retorna as coordenadas limpas de uma lista de
@@ -58,6 +57,6 @@ class AddObject_GUI(QDialog):
 
         object.set_normalized_coords(self.parent.display_window)
         for i in object.get_normalized_points():
-            print(f'x: {i.get_x()}, y: {i.get_y()}')
-    
+            print(f"x: {i.get_x()}, y: {i.get_y()}")
+
         return object

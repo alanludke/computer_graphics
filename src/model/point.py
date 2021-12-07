@@ -25,16 +25,16 @@ class Point:
 
     def get_points(self):
         return [self]
-    
+
     def get_center(self):
         return self
 
     def get_type(self):
         return self.type
-        
+
     def get_color(self):
         return self.color
-        
+
     def set_x(self, x):
         self.coordinates[0] = x
 
@@ -77,14 +77,12 @@ class Point:
         matrix = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
         for i in list_transformation:
             matrix = matrix.dot(i.generate_matrix())
-            #print(matrix)
         current_point = np.array([self.get_x(), self.get_y(), self.get_z()])
         new_point = current_point.dot(matrix)
 
         self.set_x(new_point[0])
         self.set_y(new_point[1])
         self.set_z(new_point[2])
-        #print(f'x: {self.get_x()} y: {self.get_y()}')
-    
+
     def set_normalized_coords(self, window):
         self.normalized_points = window.generate_window_coords(self.get_points())
