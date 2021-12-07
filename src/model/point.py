@@ -36,6 +36,9 @@ class Point:
         
     def get_color(self):
         return self.color
+    
+    def get_normalized_points(self):
+        return self.normalized_points
         
     def set_x(self, x):
         self.coordinates[0] = x
@@ -82,6 +85,7 @@ class Point:
     def apply_transformation_point(self, matrix):
         current_point = np.array([self.get_x(), self.get_y(), self.get_z()])
         new_point = current_point.dot(matrix)
+        # print(f'new point {new_point[0]}, {new_point[1]}')
 
         self.set_x(new_point[0])
         self.set_y(new_point[1])

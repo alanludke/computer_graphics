@@ -246,7 +246,8 @@ class Main_GUI(QMainWindow):
             self.add_new_object(key, value, color)
             i += 1
         self.display_window = Window( [objs.window[0].get_x(), objs.window[0].get_y()] , objs.window[1].get_x(), objs.window[1].get_y())
-        self.centralize_window()
+        # self.centralize_window()
+        self.viewport.draw_objects(self.display_file)
         self.terminal_out.append("btn_add clicked!!!")
 
     # Adiciona novos objetos, importados de arquivo obj
@@ -267,13 +268,19 @@ class Main_GUI(QMainWindow):
         if object != None:
             object.set_normalized_coords(self.display_window)    
             self.add_object_display_file(object)
-        self.viewport.draw_objects(self.display_file)
+            # for pt in object.get_points():
+            #     print(f'pt ({pt.get_x()}, {pt.get_y()})')
+            # for pt in object.get_normalized_points():
+            #     print(f'pn ({pt.get_x()}, {pt.get_y()})')
+
+        # self.viewport.draw_objects(self.display_file)    
 
     def centralize_window(self):
         w_center = self.display_window.get_center()
         transformation = Transformation("Transladar", -w_center.get_x(), -w_center.get_y())
         for object in self.display_file:
             object.apply_transformation([transformation])
+            object.set_normalized_coords(self.display_window)
         
         self.viewport.update()
     

@@ -73,5 +73,7 @@ class Polygon(GraphicObject):
             matrix = matrix.dot(i.generate_matrix())
 
         for point in self.points:
+            # print(f'original {point.get_x()},{point.get_y()}')
             point.apply_transformation_point(matrix)
+            # print(f'transformado {point.get_x()},{point.get_y()}')
         self.center = self.set_center(self.points)
