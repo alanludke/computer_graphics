@@ -77,3 +77,10 @@ class Polygon(GraphicObject):
             point.apply_transformation_point(matrix)
             # print(f'transformado {point.get_x()},{point.get_y()}')
         self.center = self.set_center(self.points)
+    
+    def is_clipping(self):
+        pass
+
+    def clipping(self):
+        pass
+

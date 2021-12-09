@@ -34,12 +34,13 @@ class Viewport(QLabel):
         self.Vt_l = Point("Vt_l", self.origin.get_x(), self.origin.get_y(), 1)
         self.Vt_r = Point("Vt_r", 0, self.width, 1)
 
-        # Window limits
-        # self.Wb_r = Point("Wb_r", 475, 475, 1)
-        # self.Wb_l = Point("Wb_l", 25, 475, 1)
-        # self.Wt_l = Point("Wt_l", 25, 25, 1)
-        # self.Wt_r = Point("Wt_r", 475, 25, 1)
+        # Viewport Clipping limits
+        self.VCmaximum = Point("Wb_r", 475, 475, 1)
+        # self.VCb_l = Point("Wb_l", 25, 475, 1)
+        self.VCminimum = Point("Wt_l", 25, 25, 1)
+        # self.VCt_r = Point("Wt_r", 475, 25, 1)
 
+        # Window limits
         self.Wb_r = Point("Wb_r", 1, 1, 1)
         self.Wb_l = Point("Wb_l", 0, 1, 1)
         self.Wt_l = Point("Wt_l", 0, 0, 1)
@@ -153,7 +154,5 @@ class Viewport(QLabel):
     def generate_viewport_coords(self, point):
         x = ((500 - 0) / (1 + 1)) * (point.get_x() - (-1))
         y = ((500 - 0) / (1 + 1)) * (point.get_y() - (-1))
-        # x = (point.get_x() * (500)) / 1
-        # y = (point.get_y() * (500)) / 1
         v_point = Point(point.get_name(), x, y, 1)
         return v_point

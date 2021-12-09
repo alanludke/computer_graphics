@@ -4,6 +4,7 @@ import numpy as np
 import math as mt
 
 # (300,350)
+# (200,480)
 
 class Point:
     def __init__(self, name, x, y, z):
@@ -69,19 +70,22 @@ class Point:
 
     # Aplica a transformada de viewport nos pontos do objeto e depois desenha
     def draw(self, viewport):
-        painter = QPainter(viewport)
-        pen = QPen()
+        viewport_limits_points = [viewport.VCmaximum, viewport.VCminimum]
+        normalized_viewport_limits = viewport.parent.display_window.generate_window_coords(viewport_limits_points)
+        if not self.is_clipping(normalized_viewport_limits[0], normalized_viewport_limits[1]):
+            painter = QPainter(viewport)
+            pen = QPen()
 
-        pen.setWidth(5)
-        pen.setColor(self.color)
-        painter.setPen(pen)
+            pen.setWidth(5)
+            pen.setColor(self.color)
+            painter.setPen(pen)
 
-        # v_point = self.viewport_transformation(viewport)
-        v_point = self.normalized_points[0].viewport_transformation(viewport)
+            # v_point = self.viewport_transformation(viewport)
+            v_point = self.normalized_points[0].viewport_transformation(viewport)
 
-        painter.drawPoint(v_point.to_QPointF())
+            painter.drawPoint(v_point.to_QPointF())
 
-    # Aplica as trasnformações no ponto
+    # Aplica as transformações no ponto
     def apply_transformation_point(self, matrix):
         current_point = np.array([self.get_x(), self.get_y(), self.get_z()])
         new_point = current_point.dot(matrix)
@@ -91,6 +95,7 @@ class Point:
         self.set_y(new_point[1])
         self.set_z(new_point[2])
     
+    # Calcula as matrizes de transformações
     def apply_transformation(self, list_transformation):
         matrix = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
         for i in list_transformation:
@@ -100,3 +105,10 @@ class Point:
 
     def set_normalized_coords(self, window):
         self.normalized_points = window.generate_window_coords(self.get_points())
+
+    def is_clipping(self, maximum, minimum):
+        point = self.get_normalized_points()[0]
+        if point.get_x() >= minimum.get_x() and point.get_x() <= maximum.get_x() and point.get_y() >= minimum.get_y() and point.get_y() <= maximum.get_y():
+            return False
+        else:
+            return True
