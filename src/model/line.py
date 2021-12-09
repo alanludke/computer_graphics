@@ -60,17 +60,11 @@ class Line(GraphicObject):
         
         viewport_limits_points = [viewport.VCmaximum, viewport.VCminimum]
         normalized_viewport_limits = viewport.parent.display_window.generate_window_coords(viewport_limits_points)
-        # is_out_line = self.is_out(normalized_viewport_limits[0], normalized_viewport_limits[1])
-        # if not is_out_line:
         clipping_points = self.clipping_Liang_Barsky(normalized_viewport_limits[0], normalized_viewport_limits[1])
         if len(clipping_points) > 0:
             v_point_origin = clipping_points[0].viewport_transformation(viewport)
             v_point_destiny = clipping_points[1].viewport_transformation(viewport)
             painter.drawLine(v_point_origin.to_QPointF(), v_point_destiny.to_QPointF())
-        # clipping_points = self.clipping_Liang_Barsky(normalized_viewport_limits[0], normalized_viewport_limits[1])
-        # v_point_origin = clipping_points[0].viewport_transformation(viewport)
-        # v_point_destiny = clipping_points[1].viewport_transformation(viewport)
-        # painter.drawLine(v_point_origin.to_QPointF(), v_point_destiny.to_QPointF())
 
     def apply_transformation(self, list_transformation):
         matrix = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
@@ -79,16 +73,6 @@ class Line(GraphicObject):
         self.origin.apply_transformation_point(matrix)
         self.destiny.apply_transformation_point(matrix)
         self.center = self.set_center([self.origin, self.destiny])
-
-    def is_out(self, maximum, minimum): # não usado!!
-        points = self.get_normalized_points()
-        bool_clipping = True
-        for point in points:
-            if point.get_x() >= minimum.get_x() and point.get_x() <= maximum.get_x() and point.get_y() >= minimum.get_y() and point.get_y() <= maximum.get_y():
-                bool_clipping = bool_clipping and False
-            else:
-                bool_clipping = bool_clipping and True
-        return bool_clipping
 
     def clipping_Liang_Barsky(self, w_maximum, w_minimum):
         delta_x = self.get_normalized_points()[1].get_x() - self.get_normalized_points()[0].get_x()
