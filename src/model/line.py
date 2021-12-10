@@ -61,6 +61,7 @@ class Line(GraphicObject):
         viewport_limits_points = [viewport.VCmaximum, viewport.VCminimum]
         normalized_viewport_limits = viewport.parent.display_window.generate_window_coords(viewport_limits_points)
         clipping_points = self.clipping_Liang_Barsky(normalized_viewport_limits[0], normalized_viewport_limits[1])
+        
         if len(clipping_points) > 0:
             v_point_origin = clipping_points[0].viewport_transformation(viewport)
             v_point_destiny = clipping_points[1].viewport_transformation(viewport)
@@ -104,19 +105,15 @@ class Line(GraphicObject):
             elif pk[p] > 0:
                 r = qk[p] / pk[p]
                 positive_pk.append(r) 
-            elif pk[p] == 0: # reta fora dos limites, arrumar !!!
+            elif pk[p] == 0: 
                 if qk[p] < 0:
                     print("reta fora dos limites")
                     return clipping_points
-                else:
-                    positive_pk.append(qk[p])
 
         temp1 = max(negative_pk)
         zeta1 = max(0, temp1)
-        print(f'{zeta1} -> zeta 1')
         temp2 = min(positive_pk)
         zeta2 = min(1, temp2)
-        print(f'{zeta2} -> zeta 2')
 
         if zeta1 > zeta2:
             return clipping_points
@@ -125,7 +122,6 @@ class Line(GraphicObject):
                 x = origin.get_x() + zeta1 * delta_x
                 y = origin.get_y() + zeta1 * delta_y
                 new_point = Point("clipping_point", x, y, 1)
-                print(f'zeta 1 {new_point.get_x()}, {new_point.get_y()}')
                 clipping_points = [new_point, destiny]
             elif zeta1 == 0:
                 clipping_points.append(origin)
@@ -134,7 +130,6 @@ class Line(GraphicObject):
                 x = origin.get_x() + zeta2 * delta_x
                 y = origin.get_y() + zeta2 * delta_y
                 new_point = Point("clipping_point", x, y, 1)
-                print(f'zeta 2 {new_point.get_x()}, {new_point.get_y()}')
                 clipping_points = [origin, new_point]
             elif zeta2 == 1:
                 clipping_points.append(destiny)
