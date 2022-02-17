@@ -2,6 +2,7 @@ import os
 import sys
 from typing import Dict, List
 from PyQt5 import uic
+from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import *
 
 from src.model.window import Window
@@ -86,57 +87,58 @@ class Main_GUI(QMainWindow):
     # Método de gatilho para quando botão "Up" é apertado
     def btd_frame_up_clicked(self):
         input = self.txt_step.text()
-        if input == "":
+        transformation = None
+        if(input == ""):
             transformation = Transformation("Transladar", 0, 10)
-            for object in self.display_file:
-                object.apply_transformation([transformation])
         else:
             step = float(input)
             transformation = Transformation("Transladar", 0, step)
-            for object in self.display_file:
-                object.apply_transformation([transformation])
+        
+        for object in self.display_file:
+            object.apply_transformation([transformation])
+            object.set_normalized_coords(self.display_window)
         self.viewport.update()
 
     # Método de gatilho para quando botão "Down" é apertado
     def btd_frame_down_clicked(self):
         input = self.txt_step.text()
-        if input == "":
+        transformation = None
+        if(input == ""):
             transformation = Transformation("Transladar", 0, -10)
-            for object in self.display_file:
-                object.apply_transformation([transformation])
         else:
             step = int(input)
             transformation = Transformation("Transladar", 0, -step)
-            for object in self.display_file:
-                object.apply_transformation([transformation])
+        for object in self.display_file:
+            object.apply_transformation([transformation])
+            object.set_normalized_coords(self.display_window)
         self.viewport.update()
 
     # Método de gatilho para quando botão "Right" é apertado
     def btd_frame_right_clicked(self):
         input = self.txt_step.text()
-        if input == "":
+        transformation = None
+        if(input == ""):
             transformation = Transformation("Transladar", -10, 0)
-            for object in self.display_file:
-                object.apply_transformation([transformation])
         else:
-            step = float(input)
+            step = int(input)
             transformation = Transformation("Transladar", -step, 0)
-            for object in self.display_file:
-                object.apply_transformation([transformation])
+        for object in self.display_file:
+            object.apply_transformation([transformation])
+            object.set_normalized_coords(self.display_window)
         self.viewport.update()
 
     # Método de gatilho para quando botão "Left" é apertado
     def btd_frame_left_clicked(self):
         input = self.txt_step.text()
-        if input == "":
+        transformation = None
+        if(input == ""):
             transformation = Transformation("Transladar", 10, 0)
-            for object in self.display_file:
-                object.apply_transformation([transformation])
         else:
-            step = float(input)
+            step = int(input)
             transformation = Transformation("Transladar", step, 0)
-            for object in self.display_file:
-                object.apply_transformation([transformation])
+        for object in self.display_file:
+            object.apply_transformation([transformation])
+            object.set_normalized_coords(self.display_window)
         self.viewport.update()
 
     # Método de gatilho para quando botão "Frame_out" é apertado - desabilitado
@@ -151,30 +153,18 @@ class Main_GUI(QMainWindow):
                     -object_center.get_y(),
                 )
                 transformation = Transformation("Escalonar", 1 / 10, 1 / 10)
-                translation_original = Transformation(
-                    "Transladar", object_center.get_x(), object_center.get_y()
-                )
-                object.apply_transformation(
-                    [translation_center, transformation, translation_original]
-                )
+                translation_original = Transformation("Transladar", object_center.get_x(), object_center.get_y())  
+                object.apply_transformation([translation_center, transformation, translation_original])
+                object.set_normalized_coords(self.display_window)
         else:
             step = float(input)
             for object in self.display_file:
                 object_center = object.get_center()
-                translation_center = Transformation(
-                    "Transladar",
-                    -object_center.get_x(),
-                    -object_center.get_y(),
-                )
-                transformation = Transformation(
-                    "Escalonar", 1 / step, 1 / step
-                )
-                translation_original = Transformation(
-                    "Transladar", object_center.get_x(), object_center.get_y()
-                )
-                object.apply_transformation(
-                    [translation_center, transformation, translation_original]
-                )
+                translation_center = Transformation("Transladar", -object_center.get_x(), -object_center.get_y())
+                transformation = Transformation("Escalonar", 1 / step, 1 / step)
+                translation_original = Transformation("Transladar", object_center.get_x(), object_center.get_y())  
+                object.apply_transformation([translation_center, transformation, translation_original])
+                object.set_normalized_coords(self.display_window)
         self.viewport.update()
 
     # Método de gatilho para quando botão "Frame_in" é apertado - desabilitado
@@ -189,12 +179,9 @@ class Main_GUI(QMainWindow):
                     -object_center.get_y(),
                 )
                 transformation = Transformation("Escalonar", 10, 10)
-                translation_original = Transformation(
-                    "Transladar", object_center.get_x(), object_center.get_y()
-                )
-                object.apply_transformation(
-                    [translation_center, transformation, translation_original]
-                )
+                translation_original = Transformation("Transladar", object_center.get_x(), object_center.get_y())  
+                object.apply_transformation([translation_center, transformation, translation_original])
+                object.set_normalized_coords(self.display_window)
         else:
             step = float(input)
             for object in self.display_file:
@@ -205,12 +192,9 @@ class Main_GUI(QMainWindow):
                     -object_center.get_y(),
                 )
                 transformation = Transformation("Escalonar", step, step)
-                translation_original = Transformation(
-                    "Transladar", object_center.get_x(), object_center.get_y()
-                )
-                object.apply_transformation(
-                    [translation_center, transformation, translation_original]
-                )
+                translation_original = Transformation("Transladar", object_center.get_x(), object_center.get_y())  
+                object.apply_transformation([translation_center, transformation, translation_original])
+                object.set_normalized_coords(self.display_window)
         self.viewport.update()
 
     # Método gatilho para a rotação da window em sentido horário
@@ -228,9 +212,8 @@ class Main_GUI(QMainWindow):
             "Transladar", viewport_center.get_x(), viewport_center.get_y()
         )
         for object in self.display_file:
-            object.apply_transformation(
-                [translation_center, transformation, translation_original]
-            )
+            object.apply_transformation([translation_center, transformation, translation_original])
+            object.set_normalized_coords(self.display_window)
         self.viewport.update()
 
     # Método gatilho para a rotação da window em sentido anti-horário
@@ -248,9 +231,8 @@ class Main_GUI(QMainWindow):
             "Transladar", viewport_center.get_x(), viewport_center.get_y()
         )
         for object in self.display_file:
-            object.apply_transformation(
-                [translation_center, transformation, translation_original]
-            )
+            object.apply_transformation([translation_center, transformation, translation_original])
+            object.set_normalized_coords(self.display_window)
         self.viewport.update()
 
     # Método de gatilho para quando botão "Add object" é apertado
@@ -287,33 +269,51 @@ class Main_GUI(QMainWindow):
             if objs.mtls:
                 usemtl = objs.usemtl[i]
                 newmtl = objs.new_mtl.index(usemtl)
-                rgb = [
-                    round(int(float(i) * 255)) for i in objs.kd_params[newmtl]
-                ]
+                rgb = [round(int(float(i) * 255)) for i in objs.kd_params[newmtl]]
+                color = QColor(rgb[0], rgb[1], rgb[2])
             else:
-                rgb = [0, 0, 0]
-            self.add_new_object(key, value, len(value))
+                color = QColor(0, 0, 0)
+            self.add_new_object(key, value, color)
             i += 1
+        self.display_window = Window( [objs.window[0].get_x(), objs.window[0].get_y()] , objs.window[1].get_x(), objs.window[1].get_y())
+        # self.centralize_window()
+        self.viewport.draw_objects(self.display_file)
+        self.terminal_out.append("btn_add clicked!!!")
 
     # Adiciona novos objetos, importados de arquivo obj
-    def add_new_object(self, name, coord, count_coord):
+    def add_new_object(self, name, coord, color):
         object = None
-        if count_coord == 1:
-            object = Point(name, coord[0].get_x(), coord[0].get_y(), 1)
-        elif count_coord == 2:
+        if coord[0] == 'p':
+            object = Point(name, coord[1].get_x(), coord[1].get_y(), 1)
+            object.set_color(color)
+        elif coord[0] == 'l':
+            coord.pop(0)
             object = Line(name, coord)
-        elif count_coord > 2:
+            object.set_color(color)
+        elif coord[0] == 'f':
+            coord.pop(0)
             object = Polygon(name, coord)
+            object.set_color(color)
+        
         if object != None:
-
-            object.set_normalized_coords(self.display_window)
-
+            object.set_normalized_coords(self.display_window)    
             self.add_object_display_file(object)
-            self.terminal_out.append("btn_add clicked!!!")
+            # for pt in object.get_points():
+            #     print(f'pt ({pt.get_x()}, {pt.get_y()})')
+            # for pt in object.get_normalized_points():
+            #     print(f'pn ({pt.get_x()}, {pt.get_y()})')
 
-            self.viewport.draw_objects(self.get_display_file())
+        # self.viewport.draw_objects(self.display_file)    
 
-
+    def centralize_window(self):
+        w_center = self.display_window.get_center()
+        transformation = Transformation("Transladar", -w_center.get_x(), -w_center.get_y())
+        for object in self.display_file:
+            object.apply_transformation([transformation])
+            object.set_normalized_coords(self.display_window)
+        
+        self.viewport.update()
+    
 # Inicializa a Main_GUI
 def window():
     app = QApplication(sys.argv)

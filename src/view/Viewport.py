@@ -37,12 +37,18 @@ class Viewport(QLabel):
         self.Vt_l = Point("Vt_l", self.origin.get_x(), self.origin.get_y(), 1)
         self.Vt_r = Point("Vt_r", 0, self.width, 1)
 
-        # Window limits
-        self.Wb_r = Point("Wb_r", 475, 475, 1)
-        self.Wb_l = Point("Wb_l", 25, 475, 1)
-        self.Wt_l = Point("Wt_l", 25, 25, 1)
-        self.Wt_r = Point("Wt_r", 475, 25, 1)
+        # Viewport Clipping limits
+        self.VCmaximum = Point("Wb_r", 475, 475, 1)
+        # self.VCb_l = Point("Wb_l", 25, 475, 1)
+        self.VCminimum = Point("Wt_l", 25, 25, 1)
+        # self.VCt_r = Point("Wt_r", 475, 25, 1)
 
+        # Window limits
+        self.Wb_r = Point("Wb_r", 1, 1, 1)
+        self.Wb_l = Point("Wb_l", 0, 1, 1)
+        self.Wt_l = Point("Wt_l", 0, 0, 1)
+        self.Wt_r = Point("Wt_r", 1, 0, 1)
+    
     def get_center(self):
         return Point("Window_Center", self.width / 2, self.height / 2, 1)
 
@@ -55,10 +61,15 @@ class Viewport(QLabel):
         pen.setColor(QColor(255, 0, 1))
         painter.setPen(pen)
 
-        painter.drawLine(self.Wt_r.to_QPointF(), self.Wt_l.to_QPointF())
-        painter.drawLine(self.Wt_r.to_QPointF(), self.Wb_r.to_QPointF())
-        painter.drawLine(self.Wb_l.to_QPointF(), self.Wb_r.to_QPointF())
-        painter.drawLine(self.Wb_l.to_QPointF(), self.Wt_l.to_QPointF())
+        b_r = Point("b_r", 475, 475, 1)
+        b_l = Point("b_l", 25, 475, 1)
+        t_l = Point("t_l", 25, 25, 1)
+        t_r = Point("t_r", 475, 25, 1)
+
+        painter.drawLine(t_r.to_QPointF(), t_l.to_QPointF())
+        painter.drawLine(t_r.to_QPointF(), b_r.to_QPointF())
+        painter.drawLine(b_l.to_QPointF(), b_r.to_QPointF())
+        painter.drawLine(b_l.to_QPointF(), t_l.to_QPointF())
 
     # Desenha as linhas verticais no centro da Window
     def draw_cross(self):
@@ -104,14 +115,20 @@ class Viewport(QLabel):
             elif isinstance(obj, Polygon):
                 obj.draw(self)
 
+    # Atualiza a Viewport
     def draw_objects(self, objects: List[GraphicObject]):
         self.objects = objects
         self.update()
 
     # Realiza a transformada de Viewport sobre um ponto
     def viewport_transform(self, point: Point) -> Point:
-        window_min = self.Wb_l
-        window_max = self.Wt_r
+        # window_min = self.Wb_l
+        # window_max = self.Wt_r
+        # viewport_max = self.Vb_r
+        # viewport_min = self.Vt_l
+
+        window_min = self.Wt_l
+        window_max = self.Wb_r
         viewport_max = self.Vb_r
         viewport_min = self.Vt_l
 
@@ -137,11 +154,10 @@ class Viewport(QLabel):
             y_vp + self.origin.get_y(),
             1,
         )
-
-    # Normaliza as coordenadas de viewport para ficar dentro
-    # do intervalo (0,1)
-    def generate_viewport_coords(self, points):
-        x = (500 - 0) / (1 + 1) * (points.get_x() - (-1))
-        y = (500 - 0) / (1 + 1) * (points.get_y() - (-1))
-        v_point = Point(points.get_name(), x, y, 1)
+        
+    #não usado
+    def generate_viewport_coords(self, point):
+        x = ((500 - 0) / (1 + 1)) * (point.get_x() - (-1))
+        y = ((500 - 0) / (1 + 1)) * (point.get_y() - (-1))
+        v_point = Point(point.get_name(), x, y, 1)
         return v_point

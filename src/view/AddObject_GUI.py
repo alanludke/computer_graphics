@@ -7,6 +7,7 @@ from src.model.line import Line
 
 # Classe responsável pelo Frame onde são criados os objetos
 class AddObject_GUI(QDialog):
+
     # Método construtor
     def __init__(self, parent):
         super(AddObject_GUI, self).__init__(parent)
@@ -58,7 +59,5 @@ class AddObject_GUI(QDialog):
             object = Polygon(name, coord)
 
         object.set_normalized_coords(self.parent.display_window)
-        for i in object.get_normalized_points():
-            print(f"x: {i.get_x()}, y: {i.get_y()}")
-
+    
         return object
