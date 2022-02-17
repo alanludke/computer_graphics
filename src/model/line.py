@@ -1,5 +1,9 @@
 from src.model.point import Point
 from src.utils.object import GraphicObject
+from PyQt5.QtGui import QColor, QPainter, QPen
+import numpy as np
+
+
 
 #(100,100),(100,300)
 #(250,250),(400,250)
