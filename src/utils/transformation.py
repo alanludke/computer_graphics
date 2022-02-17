@@ -28,13 +28,9 @@ class Transformation:
 
     def generate_matrix(self):
         if self.action == "Transladar":
-            return np.array(
-                [[1, 0, 0], [0, 1, 0], [self.factor_x, self.factor_y, 1]]
-            )
+            return np.array([[1, 0, 0], [0, 1, 0], [self.factor_x, self.factor_y, 1]])
         elif self.action == "Escalonar":
-            return np.array(
-                [[self.factor_x, 0, 0], [0, self.factor_y, 0], [0, 0, 1]]
-            )
+            return np.array([[self.factor_x, 0, 0], [0, self.factor_y, 0], [0, 0, 1]])
         else:
             cos_angle = mt.cos(self.angle)
             sin_angle = mt.sin(self.angle)

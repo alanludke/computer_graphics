@@ -3,6 +3,8 @@ from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QFileDialog
 from typing import List
 from src.model.point import Point
+from src.model.line import Line
+from src.model.polygon import Polygon
 import os.path
 
 
@@ -24,7 +26,8 @@ class WavefrontOBJ:
 
     def parse_mtl(self, filename_mtl):
         if not os.path.exists(filename_mtl):
-            self.mtls = False
+            self.mtls = False 
+            print(f'filename_mtl {filename_mtl}, não foi encontrado')
             return
 
         with open(filename_mtl, "r") as objm:
@@ -47,7 +50,7 @@ class WavefrontOBJ:
                     continue
                 if toks[0] == "mtllib":
                     self.mtls = True
-                    filename_mtl += f"/{toks[1]}"
+                    filename_mtl += f'/{toks[1]}'
                     self.parse_mtl(filename_mtl)
 
                 # Vértice
@@ -60,16 +63,13 @@ class WavefrontOBJ:
                             t.append(float(v))
                     self.vertices.append(Point("vertice", t[0], t[1], 1))
 
-                # Object
-                elif toks[0] == "o":
-                    self.objects_name.append(toks[1])
-
-                # Point
-                elif toks[0] == "p":
-
-                    self.objects[self.objects_name[-1]] = [
-                        self.vertices[int(toks[1]) - 1]
-                    ]
+                #Object
+                elif toks[0] == 'o':
+                    self.objects_name.append( toks[1] )
+                
+                #Point
+                elif toks[0] == 'p':
+                    self.objects[self.objects_name[-1]] = ['p', self.vertices[int(toks[1]) - 1]]
                     self.filled.append(False)
 
                 # Window
@@ -82,13 +82,23 @@ class WavefrontOBJ:
                 elif toks[0] == "l":
                     indices = [float(v) - 1 for v in toks[1:]]
                     indices.append(indices[0])
-                    temp = []
+                    temp = ['l']
+                    for i in indices:
+                        temp.append( self.vertices[int(i)])                             
+                    self.objects[self.objects_name[-1]] = temp
+                    self.filled.append(False)
+                
+                # Polygon
+                elif toks[0] == 'f':
+                    indices = [ float(v)-1 for v in toks[1:]]
+                    indices.append(indices[0])
+                    temp = ['f']
                     for i in indices:
                         temp.append(self.vertices[int(i)])
                     self.objects[self.objects_name[-1]] = temp
                     self.filled.append(False)
 
-                elif toks[0] == "usemtl":
+                elif toks[0] == 'usemtl':
                     self.usemtl.append(toks[1])
 
     def export_obj(self, objects_list, window):
@@ -99,7 +109,7 @@ class WavefrontOBJ:
             if filename[0] == "":
                 return
             url = QUrl.fromLocalFile(filename[0])
-            with open(filename[0] + ".obj", "w") as file:
+            with open(filename[0] + '.obj', 'w' ) as file:
                 for obj in objects_list:
                     for pt in obj.get_points():
                         # escrevendo os vertices
@@ -135,15 +145,15 @@ class WavefrontOBJ:
                     )
 
                     # Tipo
-                    if obj.get_type() == "point":
+                    if obj.get_type_object() == "point":
                         for pt in obj.get_points():
-                            file.write(f"p {points.index(pt) + 1}\n")
-                    elif obj.get_type() == "line":
+                            file.write(f'p {points.index(pt) + 1}\n')
+                    elif obj.get_type_object() == "line":
                         text_line = ""
                         for pt in obj.get_points():
-                            text_line += f"{points.index(pt) + 1} "
-                        file.write(f"l {text_line}\n")
-                    elif obj.get_type() == "polygon":
+                            text_line += (f'{points.index(pt) + 1} ')
+                        file.write(f'l {text_line}\n')
+                    elif obj.get_type_object() == "polygon":
                         text_line = ""
                         for pt in obj.get_points():
                             text_line += f"{points.index(pt) + 1} "
@@ -152,9 +162,9 @@ class WavefrontOBJ:
             # escreve arquivo mtl
             with open(filename[0] + ".mtl", "w") as file:
                 for c in colors_list:
-                    file.write(f"newmtl color{colors_list.index(c)}\n")
-                    color = c.redF()
-                    file.write(f"Kd {c.redF()} {c.greenF()} {c.blueF()}" "\n")
+                    file.write(f'newmtl color{colors_list.index(c)}\n')
+                    file.write(f'Kd {c.redF()} {c.greenF()} {c.blueF()}''\n')
 
-        except:
+        except Exception as e:
             print("Não foi possível exportar o arquivo!")
+            print(e)
